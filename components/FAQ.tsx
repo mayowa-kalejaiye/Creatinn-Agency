@@ -65,7 +65,7 @@ export default function FAQ() {
           {FAQ_ITEMS.map((item, i) => (
             <div 
               key={item.q} 
-              ref={(el) => (itemRefs.current[i] = el)}
+              ref={(el) => { itemRefs.current[i] = el }}
               data-index={i}
               className={`rounded-2xl border border-slate-100 overflow-hidden transition-all duration-700 ${
                 visibleItems[i] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
