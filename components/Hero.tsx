@@ -5,8 +5,6 @@ import SparklesText from './SparklesText'
 import ScrollSpy from './ScrollSpy'
 import dynamic from 'next/dynamic'
 
-const Camera3D = dynamic(() => import('./Camera3D'), { ssr: false })
-const RetroTV = dynamic(() => import('./RetroTV'), { ssr: false })
 const ImageCarousel = dynamic(() => import('./ImageCarousel'), { ssr: false })
 
 export default function Hero() {
@@ -32,6 +30,11 @@ export default function Hero() {
 
   return (
     <section id="home" className="hero-gradient min-h-screen flex items-center justify-center relative">
+      {/* Background Image Carousel */}
+      <div className="absolute inset-0 z-0">
+        <ImageCarousel />
+      </div>
+      
       <div className="absolute inset-0 z-20 flex items-center justify-center px-6 lg:px-48 pt-20 lg:pt-28">
         <div className="text-center w-full max-w-7xl mx-auto flex flex-col items-center">
           {/* left floating 3D camera (hidden on small screens) */}
