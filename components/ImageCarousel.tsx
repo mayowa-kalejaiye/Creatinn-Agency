@@ -120,7 +120,7 @@ function ImageCarousel() {
               <div className="relative h-full w-full overflow-hidden rounded-none md:rounded-2xl bg-[rgb(27,29,30)] shadow-2xl transition-transform duration-500 ease-in-out group-hover:scale-105 group-hover:z-10 transform-gpu">
                 {isVideo ? (
                   <video
-                    ref={(el) => (videoRefs.current[index] = el as HTMLVideoElement)}
+                    ref={(el) => { videoRefs.current[index] = el as HTMLVideoElement }}
                     className={classNames(
                       "absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ease-in-out",
                       activeItem === index ? "object-contain grayscale-0" : "object-cover grayscale"

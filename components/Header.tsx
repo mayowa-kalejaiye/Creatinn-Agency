@@ -140,7 +140,7 @@ export default function Header() {
               {navItems.map((item, i) => (
                 <a
                   key={item.label}
-                  ref={(el) => (navRefs.current[i] = el)}
+                  ref={(el) => { navRefs.current[i] = el }}
                   href={item.href}
                   className={`text-base lg:text-lg px-10 py-2 rounded-full relative z-10 font-sans ${i === activeIndex ? 'text-[rgb(27,29,30)] font-semibold' : 'text-slate-700'}`}
                   onMouseEnter={(e) => {

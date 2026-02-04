@@ -22,6 +22,7 @@ type Story = {
   href?: string;
   cta?: string;
   className: string;
+  textColor?: string;
   background: React.ReactNode;
 };
 
