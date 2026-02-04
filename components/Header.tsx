@@ -52,7 +52,7 @@ export default function Header() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0, opacity: 0 })
   const navRefs = useRef<Array<HTMLAnchorElement | null>>([])
-  const headerRef = useRef<HTMLElement | null>(null)
+  const headerRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     // Set initial indicator to first link if available
