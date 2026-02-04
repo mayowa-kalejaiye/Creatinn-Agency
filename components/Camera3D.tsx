@@ -38,8 +38,10 @@ function CameraModel() {
   }
 
   return (
+    // @ts-expect-error - React Three Fiber JSX elements
     <group ref={group} rotation={[0, 0, 0]} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} onPointerLeave={onPointerUp}>
       {/* Body */}
+      {/* @ts-expect-error - React Three Fiber JSX elements */}
       <mesh ref={body} position={[0, 0, 0]} castShadow>
         <boxGeometry args={[1.6, 1.0, 0.6]} />
         <meshStandardMaterial color="#0f172a" metalness={0.3} roughness={0.35} />
