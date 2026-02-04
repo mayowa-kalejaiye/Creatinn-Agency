@@ -1,11 +1,11 @@
 "use client"
 import React, { useRef, useEffect, useState, Suspense } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Mesh } from 'three'
+import { Mesh, Group } from 'three'
 import { useGLTF, ContactShadows } from '@react-three/drei'
 
 function CameraModel() {
-  const group = useRef<THREE.Group | null>(null)
+  const group = useRef<Group | null>(null)
   const body = useRef<Mesh | null>(null)
   const dragging = useRef(false)
   const lastX = useRef(0)
