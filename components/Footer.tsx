@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 export default function Footer() {
   return (
@@ -9,7 +10,7 @@ export default function Footer() {
           {/* Logo & Tagline */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <img src="/videography.png" alt="Creatinn logo" className="w-12 h-12 object-contain" />
+              <Image src="/videography.png" alt="Creatinn logo" width={48} height={48} className="w-12 h-12 object-contain" />
               <div className="font-bold text-xl text-slate-900">Creatinn Agency</div>
             </div>
             <p className="text-slate-600 leading-relaxed">

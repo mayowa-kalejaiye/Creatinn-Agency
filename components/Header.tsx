@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
+import Image from 'next/image'
 
 // Advanced momentum scroll with velocity decay
 const smoothScrollTo = (targetY: number) => {
@@ -120,7 +121,7 @@ export default function Header() {
 
           {/* Left: logo (in-flow so CTA stays on the opposite side) */}
           <div className="flex items-center gap-3 z-[140]">
-            <img src="/videography.png" alt="Creatinn Agency logo" className="w-14 h-14 md:w-20 md:h-20 object-contain" />
+            <Image src="/videography.png" alt="Creatinn Agency logo" width={80} height={80} className="w-14 h-14 md:w-20 md:h-20 object-contain" />
             <div className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-tight font-sans text-[rgb(27,29,30)]">Creatinn Agency</div>
           </div>
 
@@ -200,7 +201,7 @@ export default function Header() {
             >
               <span className="transition-transform duration-300 group-hover:translate-x-20">Let's Collaborate</span>
               <span className="inline-flex items-center justify-center w-10 h-10 bg-white rounded-full transition-transform duration-300 group-hover:-translate-x-44">
-                <img src="/icon.svg" alt="arrow" className="w-5 h-5 object-contain" />
+                <Image src="/icon.svg" alt="arrow" width={20} height={20} className="w-5 h-5 object-contain" />
               </span>
             </a>
           </div>
@@ -256,7 +257,7 @@ export default function Header() {
               <a href="#contact" className="inline-flex items-center justify-center gap-3 w-full px-6 py-2 rounded-full bg-[rgb(27,29,30)] text-white shadow-lg hover:bg-slate-800 transition-colors font-sans font-semibold" onClick={() => setIsMenuOpen(false)}>
                 <span>Let's Collaborate</span>
                 <span className="inline-flex items-center justify-center w-7 h-7 bg-white rounded-full">
-                  <img src="/icon.svg" alt="arrow" className="w-full h-full object-contain transform rotate-11" />
+                  <Image src="/icon.svg" alt="arrow" width={28} height={28} className="w-full h-full object-contain transform rotate-11" />
                 </span>
               </a>
             </div>

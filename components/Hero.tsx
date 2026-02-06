@@ -1,11 +1,15 @@
 "use client"
 import { motion } from 'framer-motion'
 import React, { useEffect, useRef } from 'react'
+import Image from 'next/image'
 import SparklesText from './SparklesText'
 import ScrollSpy from './ScrollSpy'
 import dynamic from 'next/dynamic'
 
-const ImageCarousel = dynamic(() => import('./ImageCarousel'), { ssr: false })
+const ImageCarousel = dynamic(() => import('./ImageCarousel'), { 
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-gradient-to-br from-slate-50 to-slate-100" />
+})
 
 export default function Hero() {
   const logoTrackRef = useRef<HTMLDivElement | null>(null);
@@ -83,15 +87,15 @@ export default function Hero() {
             >
               <span className="font-semibold text-xl ml-1">Get Started</span>
               <span className="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
-                <img src="/icon.svg" alt="arrow" className="w-3/4 h-3/4 object-contain transform rotate-11" />
+                <Image src="/icon.svg" alt="arrow" width={36} height={36} className="w-3/4 h-3/4 object-contain transform rotate-11" priority />
               </span>
             </motion.a>
 
             <div className="flex items-center gap-4">
               <div className="-space-x-3 flex items-center">
-                <img src="/IMG_0515.jpg" alt="avatar 1" className="w-10 h-10 rounded-full border-2 border-white shadow" />
-                <img src="/IMG_3710.jpg" alt="avatar 2" className="w-10 h-10 rounded-full border-2 border-white shadow" />
-                <img src="/IMG_0691.jpg" alt="avatar 3" className="w-10 h-10 rounded-full border-2 border-white shadow" />
+                <Image src="/IMG_0515.jpg" alt="avatar 1" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-white shadow" priority />
+                <Image src="/IMG_3710.jpg" alt="avatar 2" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-white shadow" priority />
+                <Image src="/IMG_0691.jpg" alt="avatar 3" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-white shadow" priority />
               </div>
 
               <div className="text-sm text-slate-600">

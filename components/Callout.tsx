@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 export default function Callout() {
   return (
@@ -29,7 +30,7 @@ export default function Callout() {
               >
                 <span className="font-medium">Let's craft together</span>
                 <span className="inline-flex items-center justify-center w-9 h-9 bg-white text-[rgb(27,29,30)] rounded-full">
-                  <img src="/icon.svg" alt="arrow" className="w-4 h-4" />
+                  <Image src="/icon.svg" alt="arrow" width={16} height={16} className="w-4 h-4" />
                 </span>
               </a>
             </div>
