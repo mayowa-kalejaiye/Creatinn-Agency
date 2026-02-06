@@ -1,11 +1,33 @@
 "use client"
 import React, { useEffect, useRef, useState } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 export default function About() {
   const sectionRef = useRef<HTMLElement | null>(null)
+  const headlineRef = useRef<HTMLDivElement | null>(null)
+  const isInView = useInView(headlineRef, { once: true, amount: 0.3 })
   const [started, setStarted] = useState(false)
   const targets = [40, 15, 9]
   const [values, setValues] = useState<number[]>(targets.map(() => 0))
+  const [displayedText, setDisplayedText] = useState('')
+  
+  const fullText = "Crafting exceptional, well experienced & technology\ndriven strategiesto drive impactful results with"
+
+  useEffect(() => {
+    if (!isInView) return
+    
+    let currentIndex = 0
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayedText(fullText.slice(0, currentIndex))
+        currentIndex++
+      } else {
+        clearInterval(typingInterval)
+      }
+    }, 30) // Elegant, smooth typing speed
+
+    return () => clearInterval(typingInterval)
+  }, [isInView])
 
   useEffect(() => {
     const el = sectionRef.current
@@ -47,15 +69,37 @@ export default function About() {
 
   return (
     <section id="about" ref={sectionRef} className="about-section bg-white py-24">
-      <div className="container mx-auto px-6 lg:px-48 relative z-10">
-        <h3 className="about-headline">
-          <span className="regular primary">Crafting exceptional, </span>
-          <span className="italic">well experienced & </span>
-          <span className="semibold">technology driven strategies </span>
-          <span className="regular primary">to drive impactful results with</span>
-        </h3>
+      <div className="container mx-auto px-0 relative z-10">
+        <div ref={headlineRef}>
+          <motion.h3 
+            className="about-headline"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isInView ? 1 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {displayedText.split('\n').map((line, i, arr) => (
+              <React.Fragment key={i}>
+                {line.split(/( well experienced | & technology driven strategies)/).map((part, j) => {
+                  if (part === ' well experienced ') {
+                    return <span key={j} className="italic">{part}</span>
+                  }
+                  return <span key={j} className="regular primary">{part}</span>
+                })}
+                {i < arr.length - 1 && <br />}
+              </React.Fragment>
+            ))}
+          </motion.h3>
+        </div>
 
-        <div className="about-bullets" role="list" aria-label="approach">
+        <motion.div 
+          className="about-bullets" 
+          role="list" 
+          aria-label="approach"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <div className="pill pill--purple" role="listitem">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
               <circle cx="6" cy="6" r="3" stroke="currentColor" strokeWidth="1.6"/>
@@ -86,9 +130,15 @@ export default function About() {
             </svg>
             Strategy
           </div>
-        </div>
+        </motion.div>
 
-        <div className="stats-grid relative z-20">
+        <motion.div 
+          className="stats-grid relative z-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           <div className="stat">
             <div className="stat-number"><span className="plus">+</span>{values[0]}</div>
             <div className="stat-label">Total Projects Completed</div>
@@ -103,7 +153,7 @@ export default function About() {
             <div className="stat-number"><span className="plus">+</span>{values[2]}</div>
             <div className="stat-label">Design Awards</div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

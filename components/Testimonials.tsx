@@ -117,7 +117,7 @@ const stories: Story[] = [
 export default function Testimonials() {
   return (
     <section className="relative z-30 bg-white py-20" id="testimonials">
-      <div className="container mx-auto px-6 lg:px-48">
+      <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-slate-900 mb-4">
             What our <span className="italic text-slate-400">clients say</span>

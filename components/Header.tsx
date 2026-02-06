@@ -52,6 +52,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0, opacity: 0 })
+  const [isPastHero, setIsPastHero] = useState(false)
   const navRefs = useRef<Array<HTMLAnchorElement | null>>([])
   const headerRef = useRef<HTMLDivElement | null>(null)
 
@@ -65,12 +66,27 @@ export default function Header() {
       if (window.scrollY > 8) headerRef.current.classList.add('scrolled')
       else headerRef.current.classList.remove('scrolled')
 
+      // Check if past hero section
+      const heroSection = document.querySelector('#home')
+      if (heroSection) {
+        const heroBottom = heroSection.getBoundingClientRect().bottom
+        setIsPastHero(heroBottom < 0)
+      }
+
       // Update active section based on scroll position
       const sections = navItems.map(item => {
         const id = item.href.replace('/#', '#')
         return document.querySelector(id)
       }).filter(Boolean) as HTMLElement[]
       const scrollPosition = window.scrollY + window.innerHeight / 3 // activate when section is 1/3 down the viewport
+
+      // If at top of page, set to first nav item
+      if (window.scrollY < 100) {
+        if (activeIndex !== 0) {
+          setActiveIndex(0)
+        }
+        return
+      }
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i]
@@ -117,18 +133,18 @@ export default function Header() {
       <header className="header-glass py-2">
         {/* Logo will sit inside the container so left/right spacing is balanced */}
 
-        <div ref={headerRef} className="container mx-auto px-6 lg:px-12 flex items-center justify-between relative">
+        <div ref={headerRef} className="container mx-auto -mx-8 px-0 flex items-center justify-between relative">
 
           {/* Left: logo (in-flow so CTA stays on the opposite side) */}
-          <div className="flex items-center gap-3 z-[140]">
-            <Image src="/videography.png" alt="Creatinn Agency logo" width={80} height={80} className="w-14 h-14 md:w-20 md:h-20 object-contain" />
-            <div className="text-xl md:text-2xl lg:text-3xl font-extrabold tracking-tight font-sans text-[rgb(27,29,30)]">Creatinn Agency</div>
+          <div className="flex items-center gap-2 z-[140] -ml-8">
+            <Image src="/videography.png" alt="Creatinn Agency logo" width={48} height={48} className="w-8 h-8 md:w-12 md:h-12 object-contain" style={{filter: 'brightness(0) saturate(100%)' }} />
+            <div className="text-base md:text-lg lg:text-xl font-extrabold tracking-tight font-sans text-[rgb(27,29,30)]">Creatinn Agency</div>
           </div>
 
           {/* Center: nav (glassmorphism curved pill containing links) - show only on large screens to avoid overlap */}
           <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 items-center w-auto pointer-events-none">
             <nav
-              className="nav-glass relative flex items-center gap-5 py-4 px-10 max-w-4xl w-auto pointer-events-auto"
+              className={`nav-glass relative flex items-center gap-5 py-4 px-10 max-w-4xl w-auto pointer-events-auto transition-colors duration-500 ${isPastHero ? 'past-hero' : ''}`}
               onMouseLeave={() => {
                 // reset to active
                 const el = navRefs.current[activeIndex]
@@ -181,7 +197,7 @@ export default function Header() {
           </div>
 
           {/* Right: CTA */}
-          <div className="flex items-center gap-4 md:relative">
+          <div className="flex items-center gap-4 md:relative -mr-8">
             <button
               className="lg:hidden fixed right-4 top-3 z-[120] inline-flex items-center p-2 rounded-lg text-slate-700 hover:bg-slate-100 lg:static lg:relative lg:right-auto lg:top-auto"
               aria-label="Open menu"

@@ -4,14 +4,14 @@ import Image from 'next/image'
 export default function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-white">
-      <div className="container mx-auto px-6 lg:px-48">
+      <div className="container mx-auto px-6 lg:px-12">
         {/* Main Footer Content */}
         <div className="py-24 grid grid-cols-1 md:grid-cols-4 gap-16">
           {/* Logo & Tagline */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-3 mb-6">
-              <Image src="/videography.png" alt="Creatinn logo" width={48} height={48} className="w-12 h-12 object-contain" />
-              <div className="font-bold text-xl text-slate-900">Creatinn Agency</div>
+              <Image src="/videography.png" alt="Creatinn logo" width={48} height={48} className="w-12 h-12 object-contain" style={{filter: 'brightness(0) saturate(100%)' }} />
+              <div className="font-bold text-xl text-[rgb(27,29,30)]">Creatinn Agency</div>
             </div>
             <p className="text-slate-600 leading-relaxed">
               Empowering businesses with innovative solutions. Let's create something amazing together.

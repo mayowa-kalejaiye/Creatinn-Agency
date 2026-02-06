@@ -34,7 +34,7 @@ const teamMembers = [
 export default function Team() {
   return (
     <section className="relative z-30 bg-white py-20" id="team">
-      <div className="container mx-auto px-6 lg:px-48">
+      <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
             Meet Our Creative Team

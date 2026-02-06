@@ -4,7 +4,7 @@ import ThreeDCard from './ThreeDCard'
 export default function Pricing() {
   return (
     <section id="pricing" className="py-24 bg-transparent">
-      <div className="container mx-auto px-6 lg:px-48 text-center">
+      <div className="container mx-auto px-6 lg:px-12 text-center">
         <h2 className="text-4xl md:text-5xl font-semibold text-slate-900 mb-10">Pick the plan that fits <span className="italic text-slate-400">your start-up</span></h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-7xl mx-auto">

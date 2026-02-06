@@ -28,7 +28,7 @@ export default function Page() {
       <div className="bg-white relative z-30">
         <LogoMarquee />
         <div className="relative z-30 w-full bg-transparent">
-          <div className="container mx-auto px-6 lg:px-48 py-8">
+          <div className="container mx-auto px-6 lg:px-12 py-8">
             <div className="flex items-center gap-4 justify-center">
               <div className="flex-1 h-px bg-slate-200" />
               <div className="px-4 text-sm text-slate-500 text-center">Loved by 500+ big and small brands around the world</div>

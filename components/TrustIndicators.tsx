@@ -27,7 +27,7 @@ const pillars = [
 export default function TrustIndicators() {
   return (
     <section className="relative z-30 bg-white py-16">
-      <div className="container mx-auto px-6 lg:px-48">
+      <div className="container mx-auto px-6 lg:px-12">
         {/* Core Pillars */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {pillars.map((pillar) => (

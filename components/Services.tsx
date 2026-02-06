@@ -3,7 +3,7 @@ import React from 'react'
 export default function Services() {
   return (
     <section id="services" className="py-24">
-      <div className="container mx-auto px-6 lg:px-48 text-center relative z-30">
+      <div className="container mx-auto px-6 lg:px-12 text-center relative z-30">
         <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-slate-900">
           <span style={{ fontFamily: 'Inter, system-ui, sans-serif', fontStyle: 'normal' }}>
             Where innovation
@@ -22,7 +22,7 @@ export default function Services() {
                 <circle cx="12" cy="12" r="2" fill="currentColor"/>
               </svg>
             </div>
-            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold">Brand<br /> Strategy</div>
+            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">Brand<br /> Strategy</div>
           </div>
 
           <div className="rounded-xl p-8 bg-red-50 text-left flex flex-col gap-6 min-h-[200px]">
@@ -33,7 +33,7 @@ export default function Services() {
                 <path d="M13 4L11 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
               </svg>
             </div>
-            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold">Web<br /> Development</div>
+            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">Web<br /> Development</div>
           </div>
 
           <div className="rounded-xl p-8 bg-blue-50 text-left flex flex-col gap-6 min-h-[200px]">
@@ -44,7 +44,7 @@ export default function Services() {
                 <circle cx="18" cy="8" r="3" fill="currentColor"/>
               </svg>
             </div>
-            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold">Digital<br /> Marketing</div>
+            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">Digital<br /> Marketing</div>
           </div>
 
           <div className="rounded-xl p-8 bg-amber-50 text-left flex flex-col gap-6 min-h-[200px]">
@@ -55,7 +55,7 @@ export default function Services() {
                 <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold">UI/UX<br /> Designing</div>
+            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">UI/UX<br /> Designing</div>
           </div>
 
           <div className="rounded-xl p-8 bg-green-50 text-left flex flex-col gap-6 min-h-[200px]">
@@ -67,29 +67,29 @@ export default function Services() {
                 <path d="M18 4l3 3-3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold">Analytics &<br /> Reporting</div>
+            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">Analytics &<br /> Reporting</div>
           </div>
         </div>
 
-        <div className="mt-12 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 bg-[rgb(27,29,30)] text-white border border-[rgb(27,29,30)] shadow-md">
+        <div className="mt-12 rounded-3xl p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-6 bg-[rgb(27,29,30)] text-white border border-[rgb(27,29,30)] shadow-md">
           <div className="text-left max-w-2xl">
             <h3 className="text-lg md:text-2xl font-semibold">See Our Work in Action.<br/>Start Your Creative Journey with Us!</h3>
           </div>
 
           <div className="flex gap-3">
             <a href="/contact" className="inline-flex group items-center gap-3 px-8 py-4 rounded-full bg-white text-[rgb(27,29,30)] border border-[rgb(27,29,30)] transition-all duration-300 overflow-hidden">
-              <span className="transition-transform duration-300 group-hover:translate-x-20">Let's Collaborate</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-20 text-lg font-semibold">Let's Collaborate</span>
               <span className="inline-flex items-center justify-center w-10 h-10 bg-[rgb(27,29,30)] rounded-full transition-transform duration-300 group-hover:-translate-x-32">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-white transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
             </a>
             <a href="#portfolio" className="inline-flex group items-center gap-3 px-8 py-4 rounded-full border border-white text-white transition-all duration-300 overflow-hidden">
-              <span className="transition-transform duration-300 group-hover:translate-x-20">View Portfolio</span>
+              <span className="transition-transform duration-300 group-hover:translate-x-20 text-lg font-semibold">View Portfolio</span>
               <span className="inline-flex items-center justify-center w-10 h-10 bg-white rounded-full transition-transform duration-300 group-hover:-translate-x-32">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 text-[rgb(27,29,30)]" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-[rgb(27,29,30)] transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
