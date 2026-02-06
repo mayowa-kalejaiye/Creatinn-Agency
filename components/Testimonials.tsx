@@ -80,7 +80,7 @@ const stories: Story[] = [
         <div className="absolute bottom-32 left-6 w-96 h-96">
           <img 
             src="/DSC_0393.jpg" 
-            alt="John Anderson"aborate 
+            alt="John Anderson"
             className="w-full h-full object-cover rounded-lg"
           />
         </div>
