@@ -21,7 +21,7 @@ export default function WorkCTA() {
               </svg>
             </a>
             <a 
-              href="#portfolio" 
+              href="/contact" 
               className="inline-flex items-center gap-4 px-12 py-6 rounded-full border-2 border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white transition-colors font-medium text-2xl"
             >
               View Portfolio

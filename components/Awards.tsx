@@ -172,7 +172,7 @@ export default function Awards() {
       </div>
       
       <div
-        className="w-full max-w-5xl mx-auto p-4"
+        className="w-full max-w-7xl mx-auto p-4"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
       >
@@ -182,7 +182,7 @@ export default function Awards() {
             Our Awards
           </Badge>
 
-          <div className="relative w-full h-[280px] md:h-[400px] flex items-center justify-center overflow-hidden pt-12">
+          <div className="relative w-full h-[400px] md:h-[550px] flex items-center justify-center overflow-hidden pt-12">
             <motion.div
               className="w-full h-full flex items-center justify-center"
               drag="x"
@@ -258,7 +258,7 @@ function Card({ card, index, activeIndex, totalCards }: CardProps) {
 
   return (
     <motion.div
-      className="absolute w-1/2 md:w-1/3 h-[95%]"
+      className="absolute w-3/5 md:w-1/2 h-[95%]"
       style={{
         transformStyle: "preserve-3d",
       }}

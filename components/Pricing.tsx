@@ -1,13 +1,22 @@
+"use client"
 import React from 'react'
+import { motion } from 'framer-motion'
 import ThreeDCard from './ThreeDCard'
 
 export default function Pricing() {
   return (
     <section id="pricing" className="py-24 bg-transparent">
       <div className="container mx-auto px-6 lg:px-12 text-center">
-        <h2 className="text-4xl md:text-5xl font-semibold text-[rgb(27,29,30)] mb-10">Pick the plan that fits<br/> your 
-        <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium"> start-up</span>
-        </h2>
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl font-semibold text-[rgb(27,29,30)] mb-10"
+        >
+          Pick the plan that fits<br/> your 
+          <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium"> start-up</span>
+        </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-[1400px] mx-auto">
           {/* Starter (left) */}

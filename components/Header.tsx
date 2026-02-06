@@ -248,7 +248,10 @@ export default function Header() {
             >
               <span className="transition-transform duration-300 group-hover:translate-x-20">Let's Collaborate</span>
               <span className="inline-flex items-center justify-center w-8 h-8 xl:w-10 xl:h-10 bg-white rounded-full transition-transform duration-300 group-hover:-translate-x-44 flex-shrink-0">
-                <Image src="/icon.svg" alt="arrow" width={32} height={32} className="w-full h-full object-contain p-1.5 -rotate-45" />
+                <svg viewBox="0 0 24 24" className="w-4 h-4 xl:w-5 xl:h-5 text-[rgb(27,29,30)] transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </span>
             </a>
           </div>
@@ -302,7 +305,7 @@ export default function Header() {
               </nav>
             </div>
             <div className="p-6 border-t border-slate-200">
-              <a href="#contact" className="inline-flex items-center justify-center gap-3 w-full px-6 py-2 rounded-full bg-[rgb(27,29,30)] text-white shadow-lg hover:bg-slate-800 transition-colors font-sans font-semibold" onClick={() => setIsMenuOpen(false)}>
+              <a href="/contact" className="inline-flex items-center justify-center gap-3 w-full px-6 py-2 rounded-full bg-[rgb(27,29,30)] text-white shadow-lg hover:bg-slate-800 transition-colors font-sans font-semibold" onClick={() => setIsMenuOpen(false)}>
                 <span>Let's Collaborate</span>
                 <span className="inline-flex items-center justify-center w-7 h-7 bg-white rounded-full">
                   <Image src="/icon.svg" alt="arrow" width={28} height={28} className="w-full h-full object-contain transform rotate-11" />

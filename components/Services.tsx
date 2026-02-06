@@ -1,20 +1,49 @@
+"use client"
 import React from 'react'
+import { motion } from 'framer-motion'
 
 export default function Services() {
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.6,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }
+    })
+  }
+
   return (
     <section id="services" className="py-24">
       <div className="container mx-auto px-6 lg:px-12 text-center relative z-30">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[rgb(27,29,30)]">
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[rgb(27,29,30)]"
+        >
           <span style={{ fontFamily: 'Inter, system-ui, sans-serif', fontStyle: 'normal' }}>
             Where innovation
             <br />
             meets
           </span>{' '}
           <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium">aesthetics</span>
-        </h2>
+        </motion.h2>
 
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          <div className="rounded-xl p-8 bg-purple-50 text-left flex flex-col gap-6 min-h-[200px]">
+          <motion.div 
+            custom={0}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariants}
+            whileHover={{ y: -8, transition: { duration: 0.3 } }}
+            className="rounded-xl p-8 bg-purple-50 text-left flex flex-col gap-6 min-h-[200px] cursor-pointer"
+          >
             <div className="text-purple-500 w-20 h-20 md:w-16 md:h-16 lg:w-32 lg:h-32 rounded-lg flex items-center justify-center">
               <svg className="w-14 h-14 md:w-10 md:h-10 lg:w-20 lg:h-20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/>
@@ -23,9 +52,17 @@ export default function Services() {
               </svg>
             </div>
             <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">Brand<br /> Strategy</div>
-          </div>
+          </motion.div>
 
-          <div className="rounded-xl p-8 bg-red-50 text-left flex flex-col gap-6 min-h-[200px]">
+          <motion.div 
+            custom={1}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariants}
+            whileHover={{ y: -8, transition: { duration: 0.3 } }}
+            className="rounded-xl p-8 bg-red-50 text-left flex flex-col gap-6 min-h-[200px] cursor-pointer"
+          >
             <div className="text-red-400 w-20 h-20 md:w-16 md:h-16 lg:w-32 lg:h-32 rounded-lg flex items-center justify-center">
               <svg className="w-14 h-14 md:w-10 md:h-10 lg:w-20 lg:h-20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 6L2 12L8 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -34,9 +71,17 @@ export default function Services() {
               </svg>
             </div>
             <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">Web<br /> Development</div>
-          </div>
+          </motion.div>
 
-          <div className="rounded-xl p-8 bg-blue-50 text-left flex flex-col gap-6 min-h-[200px]">
+          <motion.div 
+            custom={2}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariants}
+            whileHover={{ y: -8, transition: { duration: 0.3 } }}
+            className="rounded-xl p-8 bg-blue-50 text-left flex flex-col gap-6 min-h-[200px] cursor-pointer"
+          >
             <div className="text-blue-400 w-20 h-20 md:w-16 md:h-16 lg:w-32 lg:h-32 rounded-lg flex items-center justify-center">
               <svg className="w-14 h-14 md:w-10 md:h-10 lg:w-20 lg:h-20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M18 8A6 6 0 1 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -45,9 +90,17 @@ export default function Services() {
               </svg>
             </div>
             <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">Digital<br /> Marketing</div>
-          </div>
+          </motion.div>
 
-          <div className="rounded-xl p-8 bg-amber-50 text-left flex flex-col gap-6 min-h-[200px]">
+          <motion.div 
+            custom={3}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariants}
+            whileHover={{ y: -8, transition: { duration: 0.3 } }}
+            className="rounded-xl p-8 bg-green-50 text-left flex flex-col gap-6 min-h-[200px] cursor-pointer"
+          >
             <div className="text-amber-400 w-20 h-20 md:w-16 md:h-16 lg:w-32 lg:h-32 rounded-lg flex items-center justify-center">
               <svg className="w-14 h-14 md:w-10 md:h-10 lg:w-20 lg:h-20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -56,9 +109,17 @@ export default function Services() {
               </svg>
             </div>
             <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">UI/UX<br /> Designing</div>
-          </div>
+          </motion.div>
 
-          <div className="rounded-xl p-8 bg-green-50 text-left flex flex-col gap-6 min-h-[200px]">
+          <motion.div 
+            custom={4}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={cardVariants}
+            whileHover={{ y: -8, transition: { duration: 0.3 } }}
+            className="rounded-xl p-8 bg-yellow-50 text-left flex flex-col gap-6 min-h-[200px] cursor-pointer"
+          >
             <div className="text-green-400 w-20 h-20 md:w-16 md:h-16 lg:w-32 lg:h-32 rounded-lg flex items-center justify-center">
               <svg className="w-14 h-14 md:w-10 md:h-10 lg:w-20 lg:h-20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3 3v18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -68,10 +129,16 @@ export default function Services() {
               </svg>
             </div>
             <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">Analytics &<br /> Reporting</div>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="mt-12 rounded-3xl p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-6 bg-[rgb(27,29,30)] text-white border border-[rgb(27,29,30)] shadow-md">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+          className="mt-12 rounded-3xl p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-6 bg-[rgb(27,29,30)] text-white border border-[rgb(27,29,30)] shadow-md"
+        >
           <div className="text-left max-w-2xl">
             <h3 className="text-lg md:text-2xl font-semibold">See Our Work in Action.<br/>Start Your Creative Journey with Us!</h3>
           </div>
@@ -86,7 +153,7 @@ export default function Services() {
                 </svg>
               </span>
             </a>
-            <a href="#portfolio" className="inline-flex group items-center gap-3 px-8 py-4 rounded-full border border-white text-white transition-all duration-300 overflow-hidden">
+            <a href="/contact" className="inline-flex group items-center gap-3 px-8 py-4 rounded-full border border-white text-white transition-all duration-300 overflow-hidden hover:bg-white hover:text-[rgb(27,29,30)]">
               <span className="transition-transform duration-300 group-hover:translate-x-20 text-lg font-semibold">View Portfolio</span>
               <span className="inline-flex items-center justify-center w-10 h-10 bg-white rounded-full transition-transform duration-300 group-hover:-translate-x-32">
                 <svg viewBox="0 0 24 24" className="w-5 h-5 text-[rgb(27,29,30)] transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,7 +163,7 @@ export default function Services() {
               </span>
             </a>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

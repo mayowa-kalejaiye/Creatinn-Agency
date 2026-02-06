@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
 
 const FAQ_ITEMS = [
   {
@@ -59,9 +60,15 @@ export default function FAQ() {
   return (
     <section id="faq" className="py-24 bg-white">
       <div className="container mx-auto px-6 lg:px-12 text-center">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[rgb(27,29,30)] mb-8">Got questions?<br/> <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium">answers</span>
-
-        </h2>
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[rgb(27,29,30)] mb-8"
+        >
+          Got questions?<br/> <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium">answers</span>
+        </motion.h2>
 
         <div className="max-w-4xl mx-auto space-y-6 text-left">
           {FAQ_ITEMS.map((item, i) => (
@@ -74,7 +81,7 @@ export default function FAQ() {
               }`}
             >
               <button
-                className="w-full text-left px-10 py-8 flex items-center justify-between gap-6 bg-white transition-colors hover:bg-slate-50"
+                className="w-full text-left px-10 py-8 flex items-center justify-between gap-6 bg-white transition-all hover:bg-slate-50 hover:pl-12 duration-300"
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 aria-expanded={openIndex === i}
               >
