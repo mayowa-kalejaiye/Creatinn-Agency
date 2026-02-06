@@ -44,8 +44,8 @@ const navItems = [
   { label: 'Services', href: '/#services' },
   { label: 'Work', href: '/#work' },
   { label: 'Team', href: '/#team' },
-  { label: 'Pricing', href: '/#pricing' },
   { label: 'Awards', href: '/#awards' },
+  { label: 'Pricing', href: '/#pricing' },
 ]
 
 export default function Header() {
@@ -53,6 +53,7 @@ export default function Header() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0, opacity: 0 })
   const [isPastHero, setIsPastHero] = useState(false)
+  const [scrollOpacity, setScrollOpacity] = useState(0)
   const navRefs = useRef<Array<HTMLAnchorElement | null>>([])
   const headerRef = useRef<HTMLDivElement | null>(null)
 
@@ -66,11 +67,16 @@ export default function Header() {
       if (window.scrollY > 8) headerRef.current.classList.add('scrolled')
       else headerRef.current.classList.remove('scrolled')
 
+      // Calculate scroll opacity for gradual appearance (0-100px scroll range)
+      const scrollProgress = Math.min(window.scrollY / 100, 1)
+      setScrollOpacity(scrollProgress)
+
       // Check if past hero section
       const heroSection = document.querySelector('#home')
       if (heroSection) {
         const heroBottom = heroSection.getBoundingClientRect().bottom
-        setIsPastHero(heroBottom < 0)
+        const headerHeight = headerRef.current?.offsetHeight || 0
+        setIsPastHero(heroBottom < headerHeight)
       }
 
       // Update active section based on scroll position
@@ -78,7 +84,6 @@ export default function Header() {
         const id = item.href.replace('/#', '#')
         return document.querySelector(id)
       }).filter(Boolean) as HTMLElement[]
-      const scrollPosition = window.scrollY + window.innerHeight / 3 // activate when section is 1/3 down the viewport
 
       // If at top of page, set to first nav item
       if (window.scrollY < 100) {
@@ -88,14 +93,27 @@ export default function Header() {
         return
       }
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const section = sections[i]
-        if (section && section.offsetTop <= scrollPosition) {
-          if (activeIndex !== i) {
-            setActiveIndex(i)
-          }
-          break
+      // Find which section is most visible in viewport
+      let maxVisibleArea = 0
+      let mostVisibleIndex = 0
+
+      sections.forEach((section, i) => {
+        const rect = section.getBoundingClientRect()
+        const viewportHeight = window.innerHeight
+        
+        // Calculate visible area of this section
+        const visibleTop = Math.max(0, rect.top)
+        const visibleBottom = Math.min(viewportHeight, rect.bottom)
+        const visibleArea = Math.max(0, visibleBottom - visibleTop)
+        
+        if (visibleArea > maxVisibleArea) {
+          maxVisibleArea = visibleArea
+          mostVisibleIndex = i
         }
+      })
+
+      if (activeIndex !== mostVisibleIndex) {
+        setActiveIndex(mostVisibleIndex)
       }
     }
 
@@ -130,21 +148,33 @@ export default function Header() {
 
   return (
     <>
-      <header className="header-glass py-2">
-        {/* Logo will sit inside the container so left/right spacing is balanced */}
-
-        <div ref={headerRef} className="container mx-auto -mx-8 px-0 flex items-center justify-between relative">
-
-          {/* Left: logo (in-flow so CTA stays on the opposite side) */}
-          <div className="flex items-center gap-2 z-[140] -ml-8">
-            <Image src="/videography.png" alt="Creatinn Agency logo" width={48} height={48} className="w-8 h-8 md:w-12 md:h-12 object-contain" style={{filter: 'brightness(0) saturate(100%)' }} />
-            <div className="text-base md:text-lg lg:text-xl font-extrabold tracking-tight font-sans text-[rgb(27,29,30)]">Creatinn Agency</div>
+      <header className="header-glass">
+        <div className="mx-auto w-full">
+        {/* Nav glass now wraps the entire header content */}
+        <div 
+          ref={headerRef} 
+          className={`nav-glass-container ${isPastHero ? 'past-hero' : ''}`}
+          style={{
+            background: isPastHero 
+              ? 'rgba(247, 247, 247, 0.95)' 
+              : `rgba(255, 255, 255, ${scrollOpacity * 0.1})`,
+            borderColor: `rgba(255, 255, 255, ${scrollOpacity * 0.2})`,
+            boxShadow: scrollOpacity > 0 ? `0 8px 32px 0 rgba(31, 38, 135, ${scrollOpacity * 0.15})` : 'none',
+            backdropFilter: scrollOpacity > 0 ? `blur(${scrollOpacity * 12}px) saturate(${100 + scrollOpacity * 80}%)` : 'none',
+            WebkitBackdropFilter: scrollOpacity > 0 ? `blur(${scrollOpacity * 12}px) saturate(${100 + scrollOpacity * 80}%)` : 'none',
+          }}
+        >
+          
+          {/* Left: logo */}
+          <div className="flex items-center gap-3 z-[140] flex-shrink-0">
+            <Image src="/videography.png" alt="Creatinn Agency logo" width={48} height={48} className="w-12 h-12 md:w-14 md:h-14 object-contain" style={{filter: 'brightness(0) saturate(100%)' }} />
+            <div className="text-lg md:text-xl lg:text-2xl font-extrabold tracking-tight font-sans text-[rgb(27,29,30)] whitespace-nowrap" style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>Creatinn Agency</div>
           </div>
 
-          {/* Center: nav (glassmorphism curved pill containing links) - show only on large screens to avoid overlap */}
-          <div className="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 items-center w-auto pointer-events-none">
+          {/* Center: nav links with second glassmorphism layer - show only on large screens */}
+          <div className="hidden lg:block flex-shrink-0">
             <nav
-              className={`nav-glass relative flex items-center gap-5 py-4 px-10 max-w-4xl w-auto pointer-events-auto transition-colors duration-500 ${isPastHero ? 'past-hero' : ''}`}
+              className={`nav-links-glass flex items-center gap-2 xl:gap-3 relative ${isPastHero ? 'past-hero' : ''}`}
               onMouseLeave={() => {
                 // reset to active
                 const el = navRefs.current[activeIndex]
@@ -155,51 +185,52 @@ export default function Header() {
             >
               <div className="nav-indicator" style={{ width: indicatorStyle.width, transform: `translateX(${indicatorStyle.left}px)`, opacity: indicatorStyle.opacity }} />
               {navItems.map((item, i) => (
-                <a
-                  key={item.label}
-                  ref={(el) => { navRefs.current[i] = el }}
-                  href={item.href}
-                  className={`text-base lg:text-lg px-10 py-2 rounded-full relative z-10 font-sans ${i === activeIndex ? 'text-[rgb(27,29,30)] font-semibold' : 'text-slate-700'}`}
-                  onMouseEnter={(e) => {
-                    const target = e.currentTarget as HTMLElement
-                    setIndicatorStyle({ width: target.offsetWidth, left: target.offsetLeft, opacity: 1 })
-                  }}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    setActiveIndex(i)
-                    const target = e.currentTarget as HTMLElement
-                    setIndicatorStyle({ width: target.offsetWidth, left: target.offsetLeft, opacity: 1 })
-                    
-                    // Check if we're on a different page
-                    if (window.location.pathname !== '/') {
-                      // Navigate to home page with hash
-                      window.location.href = item.href
-                    } else {
-                      // Same page smooth scroll with momentum
-                      const sectionId = item.href.replace('/#', '#')
-                      if (sectionId && sectionId.startsWith('#')) {
-                        const el = document.querySelector(sectionId)
-                        if (el) {
-                          const offset = 80 // header height offset
-                          const elementPosition = el.getBoundingClientRect().top
-                          const offsetPosition = elementPosition + window.pageYOffset - offset
-                          
-                          smoothScrollTo(offsetPosition)
-                        }
+              <a
+                key={item.label}
+                ref={(el) => { navRefs.current[i] = el }}
+                href={item.href}
+                className={`text-xl xl:text-2xl px-4 xl:px-5 py-0 rounded-full relative z-10 whitespace-nowrap ${i === activeIndex ? 'text-[rgb(27,29,30)] font-semibold' : 'text-slate-700'}`}
+                style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}
+                onMouseEnter={(e) => {
+                  const target = e.currentTarget as HTMLElement
+                  setIndicatorStyle({ width: target.offsetWidth, left: target.offsetLeft, opacity: 1 })
+                }}
+                onClick={(e) => {
+                  e.preventDefault()
+                  setActiveIndex(i)
+                  const target = e.currentTarget as HTMLElement
+                  setIndicatorStyle({ width: target.offsetWidth, left: target.offsetLeft, opacity: 1 })
+                  
+                  // Check if we're on a different page
+                  if (window.location.pathname !== '/') {
+                    // Navigate to home page with hash
+                    window.location.href = item.href
+                  } else {
+                    // Same page smooth scroll with momentum
+                    const sectionId = item.href.replace('/#', '#')
+                    if (sectionId && sectionId.startsWith('#')) {
+                      const el = document.querySelector(sectionId)
+                      if (el) {
+                        const offset = 80 // header height offset
+                        const elementPosition = el.getBoundingClientRect().top
+                        const offsetPosition = elementPosition + window.pageYOffset - offset
+                        
+                        smoothScrollTo(offsetPosition)
                       }
                     }
-                  }}
-                >
-                  {item.label}
-                </a>
-              ))}
+                  }
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
             </nav>
           </div>
 
-          {/* Right: CTA */}
-          <div className="flex items-center gap-4 md:relative -mr-8">
+          {/* Right: CTA + Mobile Menu Button */}
+          <div className="flex items-center gap-4 flex-shrink-0">
             <button
-              className="lg:hidden fixed right-4 top-3 z-[120] inline-flex items-center p-2 rounded-lg text-slate-700 hover:bg-slate-100 lg:static lg:relative lg:right-auto lg:top-auto"
+              className="lg:hidden inline-flex items-center p-2 rounded-lg text-slate-700 hover:bg-slate-100"
               aria-label="Open menu"
               aria-expanded={isMenuOpen}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -211,16 +242,17 @@ export default function Header() {
               </svg>
             </button>
             <a
-              className="hidden lg:inline-flex group items-center gap-3 px-8 py-3.5 rounded-full bg-[rgb(27,29,30)] text-white shadow-md md:w-auto justify-between z-20 overflow-hidden font-sans font-semibold text-lg"
+              className="hidden lg:inline-flex group items-center gap-2 xl:gap-3 px-4 xl:px-6 py-2.5 xl:py-3 rounded-full bg-[rgb(27,29,30)] text-white shadow-md justify-between overflow-hidden font-sans font-semibold text-sm xl:text-base whitespace-nowrap"
               href="/contact"
               aria-label="Let's Collaborate"
             >
               <span className="transition-transform duration-300 group-hover:translate-x-20">Let's Collaborate</span>
-              <span className="inline-flex items-center justify-center w-10 h-10 bg-white rounded-full transition-transform duration-300 group-hover:-translate-x-44">
-                <Image src="/icon.svg" alt="arrow" width={20} height={20} className="w-5 h-5 object-contain" />
+              <span className="inline-flex items-center justify-center w-8 h-8 xl:w-10 xl:h-10 bg-white rounded-full transition-transform duration-300 group-hover:-translate-x-44 flex-shrink-0">
+                <Image src="/icon.svg" alt="arrow" width={32} height={32} className="w-full h-full object-contain p-1.5 -rotate-45" />
               </span>
             </a>
           </div>
+        </div>
         </div>
       </header>
 

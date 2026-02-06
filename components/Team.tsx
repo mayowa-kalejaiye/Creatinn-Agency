@@ -2,30 +2,9 @@ import React from 'react';
 
 const teamMembers = [
   {
-    name: 'Logan Dang',
-    role: 'Wordpress Developer',
-    image: '/team/profile1.jpg',
-    twitter: 'https://x.com/creatinn',
-    linkedin: 'https://www.linkedin.com/company/creatinn/',
-  },
-  {
-    name: 'Ana Belić',
-    role: 'Social Media Specialist',
-    image: '/team/profile2.jpg',
-    twitter: 'https://x.com/creatinn',
-    linkedin: 'https://www.linkedin.com/company/creatinn/',
-  },
-  {
-    name: 'Brian Hanley',
-    role: 'Product Designer',
-    image: '/team/profile3.jpg',
-    twitter: 'https://x.com/creatinn',
-    linkedin: 'https://www.linkedin.com/company/creatinn/',
-  },
-  {
-    name: 'Darko Stanković',
-    role: 'UI Designer',
-    image: '/team/profile4.jpg',
+    name: 'Peter-Nelson Isaiah',
+    role: 'Head of Creative',
+    image: '/team/peter-nelson.jpg',
     twitter: 'https://x.com/creatinn',
     linkedin: 'https://www.linkedin.com/company/creatinn/',
   },
@@ -36,15 +15,16 @@ export default function Team() {
     <section className="relative z-30 bg-white py-20" id="team">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            Meet Our Creative Team
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-[rgb(27,29,30)] mb-4">
+            Meet the creative mind<br/> behind our <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium">success</span>
           </h2>
           <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Passionate designers and developers dedicated to bringing your vision to life
+            A passionate designer and developer dedicated to bringing your vision to life
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="flex justify-center">
+        <div className="max-w-sm">
           {teamMembers.map((member) => (
             <div 
               key={member.name}
@@ -79,6 +59,7 @@ export default function Team() {
               </div>
             </div>
           ))}
+        </div>
         </div>
       </div>
     </section>

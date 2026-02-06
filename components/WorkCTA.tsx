@@ -6,7 +6,7 @@ export default function WorkCTA() {
       <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center">
           <h2 className="mb-8" style={{ fontSize: '42px', fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>
-            <span className="font-medium text-[rgb(27,29,30)]">How we transformed a small </span>
+            <span className="font-medium text-[rgb(27,29,30)]">How we transformed a small<br/> </span>
             <span className="font-medium text-[rgb(27,29,30)]">business's </span>
             <span className="font-medium text-[rgb(27,29,30)] italic" style={{ fontFamily: 'Playfair Display, serif' }}>online presence</span>
           </h2>

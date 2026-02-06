@@ -79,8 +79,8 @@ const stories: Story[] = [
         <div className="absolute inset-0" style={{ background: 'rgb(27, 29, 30)' }} />
         <div className="absolute bottom-32 left-6 w-96 h-96">
           <img 
-            src="/3U4A1815.jpg" 
-            alt="John Anderson"
+            src="/DSC_0393.jpg" 
+            alt="John Anderson"aborate 
             className="w-full h-full object-cover rounded-lg"
           />
         </div>
@@ -119,8 +119,9 @@ export default function Testimonials() {
     <section className="relative z-30 bg-white py-20" id="testimonials">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-slate-900 mb-4">
-            What our <span className="italic text-slate-400">clients say</span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[rgb(27,29,30)] mb-4">
+            What our satisfied customers<br/>are saying
+            <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium"> about us</span>
           </h2>
         </div>
         

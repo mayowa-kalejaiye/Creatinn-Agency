@@ -4,7 +4,7 @@ export default function Services() {
   return (
     <section id="services" className="py-24">
       <div className="container mx-auto px-6 lg:px-12 text-center relative z-30">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-slate-900">
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[rgb(27,29,30)]">
           <span style={{ fontFamily: 'Inter, system-ui, sans-serif', fontStyle: 'normal' }}>
             Where innovation
             <br />

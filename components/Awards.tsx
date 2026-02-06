@@ -88,39 +88,27 @@ const Badge: React.FC<BadgeProps> = ({ children, className }) => (
 const cardData: CardData[] = [
   {
     id: 1,
-    imageUrl: "https://i.pinimg.com/736x/d6/8a/12/d68a121e960094f99ad8acd37505fb7d.jpg",
-    title: "Webflow Awards",
+    imageUrl: "/awards/NEXT RATED MALE FILMMAKER.jpg",
+    title: "Next Rated Male Filmmaker",
     year: "2025"
   },
   {
     id: 2,
-    imageUrl: "https://i.pinimg.com/736x/21/16/f7/2116f71f9d51d875e44d809f074ff079.jpg",
-    title: "Dribbble Awards",
+    imageUrl: "/awards/BEST NIGERIAN FILM.jpg",
+    title: "Best Nigerian Film",
     year: "2025"
   },
   {
     id: 3,
-    imageUrl: "https://i.pinimg.com/1200x/fe/c2/0d/fec20d2958059b8463bffb138d4eaac6.jpg",
-    title: "awwwards",
+    imageUrl: "/awards/Email marketting certified.jpg",
+    title: "Email Marketing Certified",
     year: "2024"
   },
   {
     id: 4,
-    imageUrl: "https://i.pinimg.com/736x/84/dc/62/84dc62de850a34a9d420c97f3a2d58f4.jpg",
-    title: "CSS Design Awards",
+    imageUrl: "/awards/digital marketing certification.jpg",
+    title: "Digital Marketing Certification",
     year: "2024"
-  },
-  {
-    id: 5,
-    imageUrl: "https://i.pinimg.com/1200x/be/c3/7e/bec37e2c43e703f922f887db2578ce2e.jpg",
-    title: "FWA of the Day",
-    year: "2023"
-  },
-  {
-    id: 6,
-    imageUrl: "https://i.pinimg.com/736x/47/dd/47/47dd47b0d66c2fa641e03e370bcb5433.jpg",
-    title: "Site of the Year",
-    year: "2023"
   },
 ];
 
@@ -174,8 +162,9 @@ export default function Awards() {
   return (
     <section className="relative z-30 bg-white py-20 w-full flex-col items-center justify-center font-sans overflow-hidden" id="awards">
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-          Recognition & Awards
+        <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-[rgb(27,29,30)] mb-4">
+          Accolades and achievements <br/>celebrating our
+          <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium"> design excellence</span>
         </h2>
         <p className="text-lg text-slate-600 max-w-2xl mx-auto">
           Honored by the design community for excellence and innovation

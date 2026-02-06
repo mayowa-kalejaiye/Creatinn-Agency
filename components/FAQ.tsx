@@ -59,7 +59,9 @@ export default function FAQ() {
   return (
     <section id="faq" className="py-24 bg-white">
       <div className="container mx-auto px-6 lg:px-12 text-center">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-slate-900 mb-8">Got questions? <span className="italic text-slate-400">We&apos;ve got answers</span></h2>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[rgb(27,29,30)] mb-8">Got questions?<br/> <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium">answers</span>
+
+        </h2>
 
         <div className="max-w-4xl mx-auto space-y-6 text-left">
           {FAQ_ITEMS.map((item, i) => (
