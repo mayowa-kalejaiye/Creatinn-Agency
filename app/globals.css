@@ -245,14 +245,8 @@ body {
 
 .header-glass {
   position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 1rem; /* create visible gap from the very top of the page */
-  width: calc(100% - 2rem); /* leave horizontal breathing room on small viewports */
-  max-width: 1200px; /* constrain to a centered pill instead of full-width */
   z-index: 80;
   transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-  border-radius: 9999px; /* rounded pill */
 
   /* Transparent header to show hero gradient */
   background: transparent;
@@ -267,6 +261,26 @@ body {
   
   /* Allow content to scroll behind */
   pointer-events: none;
+
+  /* Mobile: full width, flush to top, square corners */
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  border-radius: 0;
+}
+
+/* Desktop: centered pill with rounded corners and gap from top */
+@media (min-width: 768px) {
+  .header-glass {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    top: 1rem;
+    width: calc(100% - 2rem);
+    max-width: 1200px;
+    border-radius: 9999px;
+  }
 }
 
 /* Enable pointer events on child elements */

@@ -53,7 +53,7 @@ export default function Hero() {
             style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}
           >
             <SparklesText as="span" sparkleCount={28} sparkleSize={12}>
-              <span className="whitespace-normal sm:whitespace-nowrap">Building bold brands</span>
+              <span className="whitespace-nowrap">Building bold brands</span>
             </SparklesText>
           </motion.h1>
 
@@ -61,7 +61,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.7 }}
-            className="mt-0 md:mt-4 whitespace-normal sm:whitespace-nowrap"
+            className="mt-0 md:mt-4 whitespace-nowrap"
           >
             <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-semibold text-[rgb(27,29,30)]" style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>with </span>
             <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl italic font-normal text-[rgb(27,29,30)]" style={{ fontFamily: 'Playfair Display, serif' }}>

@@ -166,13 +166,13 @@ export default function Header() {
         >
           
           {/* Left: logo */}
-          <div className="flex items-center gap-3 z-[140] flex-shrink-0">
+          <div className="flex items-center gap-3 flex-shrink-0">
             <Image src="/videography.png" alt="Creatinn Agency logo" width={48} height={48} className="w-12 h-12 md:w-14 md:h-14 object-contain" style={{filter: 'brightness(0) saturate(100%)' }} />
             <div className="text-lg md:text-xl lg:text-2xl font-extrabold tracking-tight font-sans text-[rgb(27,29,30)] whitespace-nowrap" style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>Creatinn Agency</div>
           </div>
 
           {/* Center: nav links with second glassmorphism layer - show only on large screens */}
-          <div className="hidden lg:block flex-shrink-0">
+          <div className="hidden lg:block flex-shrink-0 relative z-10">
             <nav
               className={`nav-links-glass flex items-center gap-2 xl:gap-3 relative ${isPastHero ? 'past-hero' : ''}`}
               onMouseLeave={() => {
@@ -265,13 +265,18 @@ export default function Header() {
         <div className="absolute inset-0 bg-[rgb(27,29,30)] bg-opacity-50 transition-opacity duration-300 ease-in-out" onClick={() => setIsMenuOpen(false)}></div>
         <div className={`absolute left-0 top-0 h-full w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="flex flex-col h-full">
+            {/* Logo Header */}
+            <div className="p-4 border-b border-slate-200">
+              <br/>
+            </div>
+            
             <div className="flex-1 p-6">
               <nav className="flex flex-col space-y-4">
                 {navItems.map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
-                    className="text-lg font-medium text-slate-900 hover:text-slate-600"
+                    className="text-2xl font-medium text-slate-900 hover:text-slate-600"
                     onClick={(e) => {
                       e.preventDefault()
                       setIsMenuOpen(false)
