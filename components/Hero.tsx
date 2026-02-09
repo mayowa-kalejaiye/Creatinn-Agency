@@ -44,7 +44,7 @@ export default function Hero() {
         href="https://instagram.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute left-16 top-1/4 z-30 hidden lg:block"
+        className="absolute left-1/4 top-32 z-30 hidden lg:block"
         style={{ perspective: 800 }}
         initial={{ opacity: 0, x: -40, rotateY: 12, rotate: -6 }}
         animate={{ 
@@ -76,7 +76,7 @@ export default function Hero() {
         href="https://linkedin.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute left-16 bottom-1/3 z-30 hidden lg:block"
+        className="absolute left-32 bottom-40 z-30 hidden lg:block"
         style={{ perspective: 800 }}
         initial={{ opacity: 0, x: -40, rotateY: 10, rotate: -4 }}
         animate={{ 
@@ -109,7 +109,7 @@ export default function Hero() {
         href="https://twitter.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute right-12 top-1/3 z-30 hidden lg:block"
+        className="absolute right-1/4 top-40 z-30 hidden lg:block"
         style={{ perspective: 800 }}
         initial={{ opacity: 0, x: 40, rotateY: -12, rotate: 6 }}
         animate={{ 
@@ -141,7 +141,7 @@ export default function Hero() {
         href="https://facebook.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute right-20 bottom-1/3 z-30 hidden lg:block"
+        className="absolute right-32 bottom-32 z-30 hidden lg:block"
         style={{ perspective: 800 }}
         initial={{ opacity: 0, x: 40, rotateY: -10, rotate: 4 }}
         animate={{ 
