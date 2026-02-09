@@ -266,7 +266,7 @@ export default function Header() {
         <div className={`absolute left-0 top-0 h-full w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="flex flex-col h-full">
             {/* Logo Header */}
-            <div className="p-4 border-b border-slate-200">
+            <div className="p-4ial m border-b border-slate-200">
               <br/>
             </div>
             
