@@ -3,10 +3,10 @@ import React from 'react'
 import Image from 'next/image'
 
 type Props = React.ComponentProps<typeof Image> & {
-  placeholder?: string
+  placeholderSrc?: string
 }
 
-export default function ProgressiveImage({ placeholder, src, alt = '', className = '', ...rest }: Props) {
+export default function ProgressiveImage({ placeholderSrc, src, alt = '', className = '', ...rest }: Props) {
   // Use next/image for built-in optimization and optional blur placeholder
   const imgProps: any = {
     src: src as string,
@@ -15,9 +15,9 @@ export default function ProgressiveImage({ placeholder, src, alt = '', className
     ...rest,
   }
 
-  if (placeholder) {
+  if (placeholderSrc) {
     imgProps.placeholder = 'blur'
-    imgProps.blurDataURL = placeholder
+    imgProps.blurDataURL = placeholderSrc
   }
 
   return (

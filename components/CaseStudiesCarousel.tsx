@@ -53,7 +53,7 @@ export default function CaseStudiesCarousel({ items = example }: { items?: CaseS
           className="w-full h-80 md:h-96 bg-slate-100 flex items-stretch"
         >
           <div className="hidden md:block md:w-1/2 h-full overflow-hidden">
-            <ProgressiveImage src={items[index].image} placeholder={items[index].thumb} alt={items[index].title} className="w-full h-full object-cover" />
+            <ProgressiveImage src={items[index].image} placeholderSrc={items[index].thumb} alt={items[index].title} className="w-full h-full object-cover" />
           </div>
           <div className="p-6 md:p-12 md:w-1/2 flex flex-col justify-center bg-white">
             <h3 className="text-2xl md:text-3xl font-semibold">{items[index].title}</h3>
@@ -74,7 +74,7 @@ export default function CaseStudiesCarousel({ items = example }: { items?: CaseS
             className={`flex-shrink-0 w-28 h-16 rounded-md overflow-hidden border ${i === index ? 'ring-2 ring-offset-2 ring-[rgb(27,29,30)]' : 'border-slate-200'}`}
             aria-current={i === index}
           >
-            <ProgressiveImage src={it.thumb || it.image} placeholder={it.thumb || it.image} alt={it.title} className="w-full h-full object-cover" />
+            <ProgressiveImage src={it.thumb || it.image} placeholderSrc={it.thumb || it.image} alt={it.title} className="w-full h-full object-cover" />
           </button>
         ))}
       </div>

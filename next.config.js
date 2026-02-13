@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
+let withBundleAnalyzer
+try {
+  withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+  })
+} catch (err) {
+  withBundleAnalyzer = (config) => config
+}
 
 const nextConfig = withBundleAnalyzer({
   reactStrictMode: true,

@@ -7,18 +7,18 @@ import Services from '../components/Services'
 import { Analytics } from "@vercel/analytics/next"
 
 // Lazy load below-fold components
-const Portfolio = dynamic(() => import('../components/Portfolio'), { ssr: false, loading: () => null })
-const Pricing = dynamic(() => import('../components/Pricing'), { ssr: false, loading: () => null })
-const FAQ = dynamic(() => import('../components/FAQ'), { ssr: false, loading: () => null })
-const Callout = dynamic(() => import('../components/Callout'), { ssr: false, loading: () => null })
-const Footer = dynamic(() => import('../components/Footer'), { ssr: false, loading: () => null })
-const ThreeDCarouselClient = dynamic(() => import('../components/ThreeDCarouselClient'), { ssr: false, loading: () => null })
-const LogoMarquee = dynamic(() => import('../components/LogoMarquee'), { ssr: false, loading: () => null })
-const Team = dynamic(() => import('../components/Team'), { ssr: false, loading: () => null })
-const Testimonials = dynamic(() => import('../components/Testimonials'), { ssr: false, loading: () => null })
-const Awards = dynamic(() => import('../components/Awards'), { ssr: false, loading: () => null })
-const ServicesMarquee = dynamic(() => import('../components/ServicesMarquee'), { ssr: false, loading: () => null })
-const WorkCTA = dynamic(() => import('../components/WorkCTA'), { ssr: false, loading: () => null })
+const Portfolio = dynamic(() => import('../components/Portfolio'), { ssr: true })
+const Pricing = dynamic(() => import('../components/Pricing'), { ssr: true })
+const FAQ = dynamic(() => import('../components/FAQ'), { ssr: true })
+const Callout = dynamic(() => import('../components/Callout'), { ssr: true })
+const Footer = dynamic(() => import('../components/Footer'), { ssr: true })
+const ThreeDCarouselClient = dynamic(() => import('../components/ThreeDCarouselClient'), { ssr: true })
+const LogoMarquee = dynamic(() => import('../components/LogoMarquee'), { ssr: true })
+const Team = dynamic(() => import('../components/Team'), { ssr: true })
+const Testimonials = dynamic(() => import('../components/Testimonials'), { ssr: true })
+const Awards = dynamic(() => import('../components/Awards'), { ssr: true })
+const ServicesMarquee = dynamic(() => import('../components/ServicesMarquee'), { ssr: true })
+const WorkCTA = dynamic(() => import('../components/WorkCTA'), { ssr: true })
 
 export default function Page() {
   return (

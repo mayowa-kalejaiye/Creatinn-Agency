@@ -143,7 +143,7 @@ function ImageCarousel() {
                     activeItem === index ? "object-contain grayscale-0" : "object-cover grayscale"
                   )}
                   src={img}
-                  placeholder={img.replace('.jpg','-800.avif')}
+                  placeholderSrc={img.replace('.jpg','-800.avif')}
                   loading={activeItem === index ? "eager" : "lazy"}
                   alt={`image-${index}`}
                 />
