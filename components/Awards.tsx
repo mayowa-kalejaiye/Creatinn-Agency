@@ -113,7 +113,7 @@ const cardData: CardData[] = [
 ];
 
 type AnimatedHeadingProps = {
-  as?: keyof JSX.IntrinsicElements;
+  as?: keyof React.JSX.IntrinsicElements;
   className?: string;
   maxTranslate?: number;
   maxScale?: number;
@@ -134,7 +134,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({
       animate={{ opacity: 1, y: 0, scale: 1 + maxScale }}
       transition={{ duration: 0.7, type: "spring" }}
     >
-      <Tag className={className}>{children}</Tag>
+      {React.createElement(Tag, { className }, children)}
     </motion.div>
   );
 };
