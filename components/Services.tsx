@@ -52,7 +52,7 @@ export default function Services() {
                 <circle cx="12" cy="12" r="2" fill="currentColor"/>
               </svg>
             </div>
-            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">Brand<br /> Strategy</div>
+            <div className="mt-auto text-2xl md:text-3xl lg:text-4xl font-semibold text-[rgb(27,29,30)]">Brand<br /> Strategy</div>
           </motion.div>
 
           <motion.div 
@@ -71,7 +71,7 @@ export default function Services() {
                 <path d="M13 4L11 20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
               </svg>
             </div>
-            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">Web<br /> Development</div>
+            <div className="mt-auto text-2xl md:text-3xl lg:text-4xl font-semibold text-[rgb(27,29,30)]">Web<br /> Development</div>
           </motion.div>
 
           <motion.div 
@@ -90,7 +90,7 @@ export default function Services() {
                 <circle cx="18" cy="8" r="3" fill="currentColor"/>
               </svg>
             </div>
-            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">Digital<br /> Marketing</div>
+            <div className="mt-auto text-2xl md:text-3xl lg:text-4xl font-semibold text-[rgb(27,29,30)]">Digital<br /> Marketing</div>
           </motion.div>
 
           <motion.div 
@@ -109,7 +109,7 @@ export default function Services() {
                 <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">UI/UX<br /> Designing</div>
+            <div className="mt-auto text-2xl md:text-3xl lg:text-4xl font-semibold text-[rgb(27,29,30)]">UI/UX<br /> Designing</div>
           </motion.div>
 
           <motion.div 
@@ -129,7 +129,7 @@ export default function Services() {
                 <path d="M18 4l3 3-3 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
-            <div className="mt-auto text-2xl md:text-lg lg:text-2xl font-semibold text-[rgb(27,29,30)]">Analytics &<br /> Reporting</div>
+            <div className="mt-auto text-2xl md:text-3xl lg:text-4xl font-semibold text-[rgb(27,29,30)]">Analytics &<br /> Reporting</div>
           </motion.div>
         </div>
 
