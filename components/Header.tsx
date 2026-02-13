@@ -351,7 +351,7 @@ export default function Header() {
                 <a href="https://instagram.com/creatinn" className="hover:text-slate-900">Instagram</a>
                 <a href="https://youtube.com/@creatinn" className="hover:text-slate-900">YouTube</a>
               </div>
-              <div>©2025</div>
+              <div>©{new Date().getFullYear()}</div>
             </div>
           </div>
         </div>
