@@ -9,25 +9,8 @@ export default function About() {
   const [started, setStarted] = useState(false)
   const targets = [40, 15, 9]
   const [values, setValues] = useState<number[]>(targets.map(() => 0))
-  const [displayedText, setDisplayedText] = useState('')
   
-  const fullText = "Crafting exceptional, well experienced & technology\ndriven strategiesto drive impactful results with"
-
-  useEffect(() => {
-    if (!isInView) return
-    
-    let currentIndex = 0
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= fullText.length) {
-        setDisplayedText(fullText.slice(0, currentIndex))
-        currentIndex++
-      } else {
-        clearInterval(typingInterval)
-      }
-    }, 30) // Elegant, smooth typing speed
-
-    return () => clearInterval(typingInterval)
-  }, [isInView])
+  const fullText = "Crafting exceptional, well experienced & technology\ndriven strategies to drive impactful results with"
 
   useEffect(() => {
     const el = sectionRef.current
@@ -72,23 +55,38 @@ export default function About() {
       <div className="container mx-auto px-0 relative z-10">
         <div ref={headlineRef}>
           <motion.h3 
-            className="about-headline"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isInView ? 1 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            {displayedText.split('\n').map((line, i, arr) => (
-              <React.Fragment key={i}>
-                {line.split(/( well experienced | & technology driven strategies)/).map((part, j) => {
-                  if (part === ' well experienced ') {
-                    return <span key={j} className="italic">{part}</span>
-                  }
-                  return <span key={j} className="regular primary">{part}</span>
-                })}
-                {i < arr.length - 1 && <br />}
-              </React.Fragment>
-            ))}
-          </motion.h3>
+              className="about-headline"
+              initial="hidden"
+              animate={isInView ? 'visible' : 'hidden'}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.06 } }
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              {fullText.split('\n').map((line, i) => (
+                <div key={i}>
+                  {line.split(/( well experienced | & technology driven strategies| & technology | driven strategies)/).map((part, j) => {
+                    // split each part into words and animate per-word for performance
+                    const words = part.split(/(\s+)/)
+                    return (
+                      <React.Fragment key={j}>
+                        {words.map((w, wi) => (
+                          <motion.span
+                            key={`${j}-${wi}`}
+                            variants={{ hidden: { y: 12, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.45, ease: [0.2,0.8,0.2,1] } } }}
+                            className={part.trim() === 'well experienced' ? 'italic' : 'regular primary'}
+                            style={{ display: 'inline-block', whiteSpace: 'pre' }}
+                          >
+                            {w}
+                          </motion.span>
+                        ))}
+                      </React.Fragment>
+                    )
+                  })}
+                </div>
+              ))}
+            </motion.h3>
         </div>
 
         <motion.div 

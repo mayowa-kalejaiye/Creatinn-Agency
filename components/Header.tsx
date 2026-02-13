@@ -140,6 +140,30 @@ export default function Header() {
     }
   }, [activeIndex])
 
+  // Try to scroll to a section ID from an href like '/#services' or '#services'.
+  const scrollToHash = (href: string) => {
+    if (typeof document === 'undefined') return false
+    const hashIndex = href.indexOf('#')
+    if (hashIndex === -1) return false
+    const id = href.slice(hashIndex + 1)
+    if (!id) return false
+    const el = document.getElementById(id)
+    if (!el) return false
+    const offset = 80
+    const elementPosition = el.getBoundingClientRect().top
+    const offsetPosition = elementPosition + window.pageYOffset - offset
+
+    // Use native smooth scrolling for reliability.
+    // Fall back to instant scroll if not supported.
+    try {
+      window.scrollTo({ top: Math.round(offsetPosition), behavior: 'smooth' })
+    } catch (err) {
+      window.scrollTo(0, Math.round(offsetPosition))
+    }
+
+    return true
+  }
+
   useEffect(() => {
     // lock body scroll when mobile menu is open
     if (typeof document === 'undefined') return
@@ -149,11 +173,11 @@ export default function Header() {
   return (
     <>
       <header className="header-glass">
-        <div className="mx-auto w-full">
+        <div className="container mx-auto px-6 lg:px-12">
         {/* Nav glass now wraps the entire header content */}
         <div 
           ref={headerRef} 
-          className={`nav-glass-container mt-4 sm:mt-6 px-4 sm:px-6 lg:px-0 ${isPastHero ? 'past-hero' : ''}`}
+          className={`nav-glass-container mt-4 sm:mt-6 px-4 sm:px-6 lg:px-0 flex items-center justify-between ${isPastHero ? 'past-hero' : ''}`}
           style={{
             background: isPastHero 
               ? 'rgba(247, 247, 247, 0.95)' 
@@ -200,24 +224,11 @@ export default function Header() {
                   setActiveIndex(i)
                   const target = e.currentTarget as HTMLElement
                   setIndicatorStyle({ width: target.offsetWidth, left: target.offsetLeft, opacity: 1 })
-                  
-                  // Check if we're on a different page
-                  if (window.location.pathname !== '/') {
-                    // Navigate to home page with hash
+
+                  // Prefer scrolling to an in-page section. If not present, navigate to the href.
+                  const handled = scrollToHash(item.href)
+                  if (!handled) {
                     window.location.href = item.href
-                  } else {
-                    // Same page smooth scroll with momentum
-                    const sectionId = item.href.replace('/#', '#')
-                    if (sectionId && sectionId.startsWith('#')) {
-                      const el = document.querySelector(sectionId)
-                      if (el) {
-                        const offset = 80 // header height offset
-                        const elementPosition = el.getBoundingClientRect().top
-                        const offsetPosition = elementPosition + window.pageYOffset - offset
-                        
-                        smoothScrollTo(offsetPosition)
-                      }
-                    }
                   }
                 }}
               >
@@ -265,7 +276,10 @@ export default function Header() {
       <div className={`fixed inset-0 z-50 md:hidden transition-opacity duration-300 ease-in-out ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <div className="absolute inset-0 bg-[rgb(27,29,30)] bg-opacity-40 transition-opacity duration-300 ease-in-out" onClick={() => setIsMenuOpen(false)} />
 
-        <div className={`absolute left-4 top-4 bottom-4 w-[calc(100%-2rem)] max-w-sm bg-white rounded-2xl shadow-2xl transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div
+          className={`absolute left-6 top-4 right-6 bottom-4 w-auto max-w-xs bg-white rounded-2xl shadow-2xl transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+          style={{ left: '1.5rem', right: '1.5rem', maxWidth: '360px', width: 'min(360px, calc(100% - 3rem))', boxSizing: 'border-box' }}
+        >
           <div className="flex flex-col h-full">
             {/* Mobile Panel Header */}
             <div className="flex items-center justify-between p-4 border-b border-slate-100">
@@ -288,23 +302,15 @@ export default function Header() {
                     href={item.href}
                     className="text-2xl font-semibold text-slate-900 hover:text-slate-600 py-2"
                     onClick={(e) => {
-                      e.preventDefault()
-                      setIsMenuOpen(false)
-                      if (window.location.pathname !== '/') {
-                        window.location.href = item.href
-                      } else {
-                        const sectionId = item.href.replace('/#', '#')
-                        if (sectionId && sectionId.startsWith('#')) {
-                          const el = document.querySelector(sectionId)
-                          if (el) {
-                            const offset = 80
-                            const elementPosition = el.getBoundingClientRect().top
-                            const offsetPosition = elementPosition + window.pageYOffset - offset
-                            window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
+                          e.preventDefault()
+                          setIsMenuOpen(false)
+                          // Try in-page scroll first; if not present, navigate.
+                          const handled = scrollToHash(item.href)
+                          if (!handled) {
+                            // Use full navigation when the section isn't on the current page
+                            window.location.href = item.href
                           }
-                        }
-                      }
-                    }}
+                        }}
                   >
                     {item.label}
                   </a>

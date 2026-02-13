@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 type Props = {
   text: string
@@ -8,29 +8,32 @@ type Props = {
   delay?: number
 }
 
+// Animate words instead of characters for better performance
 const container = (delay = 0) => ({
-  hidden: {},
+  hidden: { opacity: 0 },
   visible: {
+    opacity: 1,
     transition: {
-      staggerChildren: 0.02,
+      staggerChildren: 0.06,
       delayChildren: delay,
     },
   },
 })
 
-const char = {
-  hidden: { y: 28, opacity: 0, rotateX: 12, skewY: 4 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    rotateX: 0,
-    skewY: 0,
-    transition: { duration: 0.55, ease: [0.2, 0.8, 0.2, 1] },
-  },
+const child = {
+  hidden: { y: 18, opacity: 0 },
+  visible: { y: 0, opacity: 1, transition: { duration: 0.55, ease: [0.2, 0.8, 0.2, 1] } },
 }
 
 export default function HeroTextReveal({ text, className = '', delay = 0 }: Props) {
-  const chars = Array.from(text)
+  const shouldReduce = useReducedMotion()
+
+  // Split into words but keep punctuation/spacing
+  const words = text.split(/(\s+)/)
+
+  if (shouldReduce) {
+    return <span className={className}>{text}</span>
+  }
 
   return (
     <motion.span
@@ -40,15 +43,16 @@ export default function HeroTextReveal({ text, className = '', delay = 0 }: Prop
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       className={className}
+      style={{ willChange: 'transform, opacity' }}
     >
-      {chars.map((c, i) => (
+      {words.map((w, i) => (
         <motion.span
-          key={`${c}-${i}`}
-          variants={char}
-          className="inline-block"
+          key={`${w}-${i}`}
+          variants={child}
+          className="inline-block mr-1"
           aria-hidden={false}
         >
-          {c === ' ' ? '\u00A0' : c}
+          {w}
         </motion.span>
       ))}
     </motion.span>

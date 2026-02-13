@@ -106,14 +106,16 @@ export default function Hero() {
             <Camera3D />
           </div> */}
           <motion.h1
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.2,0.8,0.2,1] }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-tight text-[rgb(27,29,30)] tracking-tight font-semibold text-center"
-            style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}
+            style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif', perspective: 1000 }}
           >
             <SparklesText as="span" sparkleCount={28} sparkleSize={12}>
-              <HeroTextReveal text="Building bold brands" className="whitespace-nowrap inline-block" delay={0.05} />
+              <span style={{ display: 'inline-block', transformStyle: 'preserve-3d' }}>
+                <HeroTextReveal text="Building bold brands" className="whitespace-nowrap inline-block" delay={0.05} />
+              </span>
             </SparklesText>
           </motion.h1>
 
@@ -124,7 +126,7 @@ export default function Hero() {
             className="mt-0 md:mt-4 whitespace-nowrap"
           >
             <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-semibold text-[rgb(27,29,30)]" style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>
-              <HeroTextReveal text="with" delay={0.25} />
+              <HeroTextReveal text="with " delay={0.25} />
             </span>
             <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl italic font-normal text-[rgb(27,29,30)]" style={{ fontFamily: 'Playfair Display, serif' }}>
               <HeroTextReveal text="thoughtful design" delay={0.3} />
@@ -142,16 +144,21 @@ export default function Hero() {
 
           <div className="mt-8 flex flex-col items-center justify-center gap-6 md:flex-row">
             <motion.a
-              initial={{ y: 6, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              whileHover={{ scale: 1.03 }}
+              initial={{ y: 18, opacity: 0, scale: 0.98 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.98 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+              transition={{ type: 'spring', stiffness: 220, damping: 22 }}
               className="relative inline-flex items-center bg-[#4928fd] hover:bg-[#3720d6] text-white pl-6 pr-24 py-5 rounded-full shadow-2xl w-11/12 max-w-md justify-start md:w-auto"
               href="/contact"
             >
               <span className="font-semibold text-xl ml-1">Get Started</span>
-              <motion.span whileHover={{ x: 6 }} className="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
+              <motion.span
+                animate={{}}
+                whileHover={{ x: 8 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 28 }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md"
+              >
                 <svg viewBox="0 0 24 24" className="w-6 h-6 text-[#4928fd] transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
