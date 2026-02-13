@@ -153,7 +153,7 @@ export default function Header() {
         {/* Nav glass now wraps the entire header content */}
         <div 
           ref={headerRef} 
-          className={`nav-glass-container ${isPastHero ? 'past-hero' : ''}`}
+          className={`nav-glass-container mt-4 sm:mt-6 px-4 sm:px-6 lg:px-0 ${isPastHero ? 'past-hero' : ''}`}
           style={{
             background: isPastHero 
               ? 'rgba(247, 247, 247, 0.95)' 
@@ -167,8 +167,8 @@ export default function Header() {
           
           {/* Left: logo */}
           <div className="flex items-center gap-3 flex-shrink-0">
-            <Image src="/videography.png" alt="Creatinn Agency logo" width={48} height={48} className="w-12 h-12 md:w-14 md:h-14 object-contain" style={{filter: 'brightness(0) saturate(100%)' }} />
-            <div className="text-lg md:text-xl lg:text-2xl font-extrabold tracking-tight font-sans text-[rgb(27,29,30)] whitespace-nowrap" style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>Creatinn Agency</div>
+            <Image src="/videography.png" alt="Creatinn Agency logo" width={48} height={48} className="hidden sm:block w-12 h-12 md:w-14 md:h-14 object-contain" style={{filter: 'brightness(0) saturate(100%)' }} />
+            <div className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight font-sans text-[rgb(27,29,30)] whitespace-nowrap" style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>Creatinn Agency</div>
           </div>
 
           {/* Center: nav links with second glassmorphism layer - show only on large screens */}
@@ -230,15 +230,16 @@ export default function Header() {
           {/* Right: CTA + Mobile Menu Button */}
           <div className="flex items-center gap-4 flex-shrink-0">
             <button
-              className="lg:hidden inline-flex items-center p-2 rounded-lg text-slate-700 hover:bg-slate-100"
+              className="lg:hidden inline-flex items-center p-2 rounded-full text-slate-700 hover:bg-slate-100 ring-0 hover:ring-1 hover:ring-slate-200"
               aria-label="Open menu"
               aria-expanded={isMenuOpen}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h12" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 12h16" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 18h10" />
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <rect x="3" y="5" width="14" height="2" rx="1" fill="currentColor" />
+                <rect x="3" y="11" width="14" height="2" rx="1" fill="currentColor" />
+                <rect x="3" y="17" width="10" height="2" rx="1" fill="currentColor" />
+                <circle cx="19" cy="12" r="2" fill="currentColor" />
               </svg>
             </button>
             <a
@@ -262,31 +263,36 @@ export default function Header() {
 
       {/* Mobile Menu Overlay */}
       <div className={`fixed inset-0 z-50 md:hidden transition-opacity duration-300 ease-in-out ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-[rgb(27,29,30)] bg-opacity-50 transition-opacity duration-300 ease-in-out" onClick={() => setIsMenuOpen(false)}></div>
-        <div className={`absolute left-0 top-0 h-full w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="absolute inset-0 bg-[rgb(27,29,30)] bg-opacity-40 transition-opacity duration-300 ease-in-out" onClick={() => setIsMenuOpen(false)} />
+
+        <div className={`absolute left-4 top-4 bottom-4 w-[calc(100%-2rem)] max-w-sm bg-white rounded-2xl shadow-2xl transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="flex flex-col h-full">
-            {/* Logo Header */}
-            <div className="p-4ial m border-b border-slate-200">
-              <br/>
+            {/* Mobile Panel Header */}
+            <div className="flex items-center justify-between p-4 border-b border-slate-100">
+              <div className="flex items-center gap-3">
+                <Image src="/videography.png" alt="Creatinn" width={40} height={40} className="w-10 h-10 object-contain" />
+                <div className="text-lg font-bold">Creatinn Agency</div>
+              </div>
+              <button aria-label="Close menu" onClick={() => setIsMenuOpen(false)} className="p-2 rounded-lg hover:bg-slate-100">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
             </div>
-            
-            <div className="flex-1 p-6">
+
+            <div className="flex-1 overflow-y-auto p-6">
               <nav className="flex flex-col space-y-4">
                 {navItems.map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
-                    className="text-2xl font-medium text-slate-900 hover:text-slate-600"
+                    className="text-2xl font-semibold text-slate-900 hover:text-slate-600 py-2"
                     onClick={(e) => {
                       e.preventDefault()
                       setIsMenuOpen(false)
-                      
-                      // Check if we're on a different page
                       if (window.location.pathname !== '/') {
-                        // Navigate to home page with hash
                         window.location.href = item.href
                       } else {
-                        // Same page smooth scroll
                         const sectionId = item.href.replace('/#', '#')
                         if (sectionId && sectionId.startsWith('#')) {
                           const el = document.querySelector(sectionId)
@@ -294,11 +300,7 @@ export default function Header() {
                             const offset = 80
                             const elementPosition = el.getBoundingClientRect().top
                             const offsetPosition = elementPosition + window.pageYOffset - offset
-                            
-                            window.scrollTo({
-                              top: offsetPosition,
-                              behavior: 'smooth'
-                            })
+                            window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
                           }
                         }
                       }
@@ -308,14 +310,21 @@ export default function Header() {
                   </a>
                 ))}
               </nav>
+
+              <div className="mt-8 border-t border-slate-100 pt-6">
+                <p className="text-sm text-slate-500 mb-4">Let's collaborate — we build brands, content, and media that convert.</p>
+                <a href="/contact" onClick={() => setIsMenuOpen(false)} className="w-full inline-flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-[rgb(27,29,30)] text-white shadow-sm hover:bg-slate-800 transition-colors font-semibold">
+                  Let's Collaborate
+                </a>
+              </div>
             </div>
-            <div className="p-6 border-t border-slate-200">
-              <a href="/contact" className="inline-flex items-center justify-center gap-3 w-full px-6 py-2 rounded-full bg-[rgb(27,29,30)] text-white shadow-lg hover:bg-slate-800 transition-colors font-sans font-semibold" onClick={() => setIsMenuOpen(false)}>
-                <span>Let's Collaborate</span>
-                <span className="inline-flex items-center justify-center w-7 h-7 bg-white rounded-full">
-                  <Image src="/icon.svg" alt="arrow" width={28} height={28} className="w-full h-full object-contain transform rotate-11" />
-                </span>
-              </a>
+
+            <div className="p-4 border-t border-slate-100 flex items-center justify-between text-sm text-slate-600">
+              <div className="flex items-center gap-3">
+                <a href="https://instagram.com/creatinn" className="hover:text-slate-900">Instagram</a>
+                <a href="https://youtube.com/@creatinn" className="hover:text-slate-900">YouTube</a>
+              </div>
+              <div>©2025</div>
             </div>
           </div>
         </div>

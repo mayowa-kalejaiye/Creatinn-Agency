@@ -1,5 +1,5 @@
 'use client';
-import React, { useMemo, useRef, useEffect, useCallback } from 'react';
+import React, { useMemo, useRef, useEffect, useCallback, useState } from 'react';
 
 /* 1️⃣  Assets ————————————————————————— */
 const FALLBACK =
@@ -104,6 +104,25 @@ const ThreeDCarousel = React.memo(
     cardW = CARD_W,
     cardH = CARD_H,
   }: ThreeDCarouselProps) => {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+      if (typeof window === 'undefined') return;
+      const mq = window.matchMedia('(max-width: 768px)');
+      const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+      setIsMobile(mq.matches);
+      if (mq.addEventListener) mq.addEventListener('change', onChange);
+      else mq.addListener(onChange as any);
+      return () => {
+        if (mq.removeEventListener) mq.removeEventListener('change', onChange);
+        else mq.removeListener(onChange as any);
+      };
+    }, []);
+
+    const displayImages = useMemo(() => {
+      const imgs = images.filter((img) => !/\.(mp4|webm|ogg)$/i.test(img));
+      return isMobile ? imgs.slice(0, 8) : images;
+    }, [images, isMobile]);
     const parentRef = useRef<HTMLDivElement>(null);
     const wheelRef = useRef<HTMLDivElement>(null);
 
@@ -250,15 +269,15 @@ const ThreeDCarousel = React.memo(
     /* Pre-compute card transforms (only re-computes if images/radius change) */
     const cards = useMemo(
       () =>
-        images.map((src, idx) => {
-          const angle = (idx * 360) / images.length;
+        displayImages.map((src, idx) => {
+          const angle = (idx * 360) / displayImages.length;
           return {
             key: idx,
             src,
             transform: `rotateY(${angle}deg) translateZ(${radius}px)`,
           };
         }),
-      [images, radius]
+      [displayImages, radius]
     );
 
     return (

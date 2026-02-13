@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 
 const classNames = (
   ...classes: (string | boolean | undefined | null)[]
@@ -12,24 +12,21 @@ const images: string[] = [
   '/vid5.mp4',
   '/3U4A1894.jpg',
   '/vid.mp4',
-//   '/3U4A1905.jpg',
   '/3U4A8829.jpg',
   '/3U4A9420.jpg',
   '/IMG_0515.jpg',
-//   '/IMG_0657.jpg',
   '/pic.mp4',
   '/IMG_0691.jpg',
   '/IMG_0905.jpg',
   '/IMG_3710.jpg',
   '/vid3.mp4',
-//   '/IMG_8398.jpg',
   '/IMG_2341.jpg',
   '/vid6.mp4',
   '/IMG_5014.jpg',
   '/vid4.mp4',
   '/FLY 16.jpg',
   '/IMG_0910.jpg',
-  '/IMG_3514.jpg',  
+  '/IMG_3514.jpg',
   '/IMG_3202.jpg',
 ];
 
@@ -39,15 +36,35 @@ function ImageCarousel() {
   const wrapperRef = useRef<HTMLUListElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const videoRefs = useRef<HTMLVideoElement[]>([]);
-  
+
+  // detect mobile to reduce items and skip videos
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(max-width: 768px)');
+    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    setIsMobile(mq.matches);
+    if (mq.addEventListener) mq.addEventListener('change', onChange);
+    else mq.addListener(onChange as any);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener('change', onChange);
+      else mq.removeListener(onChange as any);
+    };
+  }, []);
+
+  const displayImages = useMemo(() => {
+    const imgs = images.filter((img) => !(isMobile && /\.(mp4|webm|ogg)$/i.test(img)));
+    return isMobile ? imgs.slice(0, 6) : imgs;
+  }, [isMobile]);
 
   // autoplay
   useEffect(() => {
     const iv = setInterval(() => {
-      setActiveItem((s) => (s + 1) % images.length);
+      setActiveItem((s) => (s + 1) % displayImages.length);
     }, 4000);
     return () => clearInterval(iv);
-  }, []);
+  }, [displayImages.length]);
 
   useEffect(() => {
     if (!wrapperRef.current) return;
@@ -78,11 +95,11 @@ function ImageCarousel() {
       v.muted = true;
       v.defaultMuted = true;
       v.playsInline = true as any;
-      v.preload = 'auto';
-      
+      v.preload = i === activeItem ? 'auto' : 'none';
+
       if (i === activeItem) {
         // Reset to beginning and play
-        v.currentTime = 0;
+        try { v.currentTime = 0; } catch (e) {}
         const playPromise = v.play();
         if (playPromise !== undefined) {
           playPromise.catch((error) => {
@@ -91,19 +108,24 @@ function ImageCarousel() {
         }
       } else {
         // Pause all other videos
-        v.pause();
+        try { v.pause(); } catch (e) {}
       }
     });
   }, [activeItem]);
 
+  useEffect(() => {
+    // reset active item when available images change
+    setActiveItem(0);
+  }, [displayImages.length]);
+
   return (
-    <div className="absolute left-0 right-0 top-14 lg:top-5x bottom-0 w-full h-full font-sans overflow-hidden pointer-events-none">
+    <div className="absolute left-0 right-0 top-0 sm:top-14 lg:top-5x bottom-0 w-full h-full font-sans overflow-hidden pointer-events-none">
       <div className="w-full h-full p-0 opacity-50">
         <ul
           ref={wrapperRef}
           className="flex w-full flex-row gap-1 sm:gap-2 h-full"
         >
-          {images.map((img, index) => {
+          {displayImages.map((img, index) => {
             const isVideo = /\.(mp4|webm|ogg)$/i.test(img);
             return (
             <li
@@ -129,7 +151,7 @@ function ImageCarousel() {
                     muted
                     playsInline
                     loop
-                    preload="auto"
+                    preload={activeItem === index ? "auto" : "none"}
                     aria-label={`video-${index}`}
                   />
                 ) : (
@@ -139,6 +161,7 @@ function ImageCarousel() {
                       activeItem === index ? "object-contain grayscale-0" : "object-cover grayscale"
                     )}
                     src={img}
+                    loading={activeItem === index ? undefined : "lazy"}
                     alt={`image-${index}`}
                   />
                 )}
