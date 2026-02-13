@@ -186,9 +186,15 @@ export default function Hero() {
 
             <div className="flex items-center gap-4">
               <div className="-space-x-3 flex items-center">
-                <ProgressiveImage src="/optimized/images/IMG_0515-1200.avif" placeholder="/optimized/images/IMG_0515-800.avif" alt="avatar 1" className="w-10 h-10 rounded-full border-2 border-white shadow object-cover" />
-                <ProgressiveImage src="/optimized/images/IMG_3710-1200.avif" placeholder="/optimized/images/IMG_3710-800.avif" alt="avatar 2" className="w-10 h-10 rounded-full border-2 border-white shadow object-cover" />
-                <ProgressiveImage src="/optimized/images/IMG_0691-1200.avif" placeholder="/optimized/images/IMG_0691-800.avif" alt="avatar 3" className="w-10 h-10 rounded-full border-2 border-white shadow object-cover" />
+                <div className="w-10 h-10 rounded-full border-2 border-white shadow overflow-hidden">
+                  <Image src="/optimized/images/IMG_0515-1200.avif" alt="avatar 1" width={40} height={40} className="object-cover" priority={false} />
+                </div>
+                <div className="w-10 h-10 rounded-full border-2 border-white shadow overflow-hidden">
+                  <Image src="/optimized/images/IMG_3710-1200.avif" alt="avatar 2" width={40} height={40} className="object-cover" priority={false} />
+                </div>
+                <div className="w-10 h-10 rounded-full border-2 border-white shadow overflow-hidden">
+                  <Image src="/optimized/images/IMG_0691-1200.avif" alt="avatar 3" width={40} height={40} className="object-cover" priority={false} />
+                </div>
               </div>
 
               <div className="text-sm text-slate-600">

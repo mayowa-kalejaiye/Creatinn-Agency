@@ -1,5 +1,6 @@
 import './globals.css'
 import React from 'react'
+import { Analytics } from '@vercel/analytics/next'
 import StickyCTA from '../components/StickyCTA'
 
 export const metadata = {
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Global utilities (non-blocking) */}
         <script async src="/scripts/optimize-media.js"></script>
         <StickyCTA />
+        <Analytics />
       </body>
     </html>
   )

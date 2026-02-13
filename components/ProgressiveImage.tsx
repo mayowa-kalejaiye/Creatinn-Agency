@@ -1,28 +1,28 @@
 "use client"
 import React from 'react'
+import Image from 'next/image'
 
-// Lightweight progressive image component: accepts a `placeholder` (low-res) and `src` (hi-res).
-// Uses CSS transition to fade from placeholder to full image when loaded.
-
-type Props = React.ImgHTMLAttributes<HTMLImageElement> & {
-  placeholder?: string // low-res data URL or image
+type Props = React.ComponentProps<typeof Image> & {
+  placeholder?: string
 }
 
 export default function ProgressiveImage({ placeholder, src, alt = '', className = '', ...rest }: Props) {
-  const [loaded, setLoaded] = React.useState(false)
+  // Use next/image for built-in optimization and optional blur placeholder
+  const imgProps: any = {
+    src: src as string,
+    alt: alt as string,
+    className: `${className} object-cover`,
+    ...rest,
+  }
+
+  if (placeholder) {
+    imgProps.placeholder = 'blur'
+    imgProps.blurDataURL = placeholder
+  }
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      {placeholder && (
-        <img src={placeholder} alt={alt} aria-hidden className="absolute inset-0 w-full h-full object-cover filter blur-sm scale-105" />
-      )}
-      <img
-        src={src as string}
-        alt={alt}
-        onLoad={() => setLoaded(true)}
-        className={`w-full h-full object-cover transition-opacity duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-        {...rest}
-      />
+      <Image {...imgProps} />
     </div>
   )
 }

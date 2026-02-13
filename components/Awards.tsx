@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Image from 'next/image'
 import { motion, PanInfo } from "framer-motion";
 
 interface CardData {
@@ -140,6 +141,7 @@ const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({
 };
 
 export default function Awards() {
+  const carouselRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(
     Math.floor(cardData.length / 2)
   );
@@ -161,6 +163,21 @@ export default function Awards() {
       }
     };
   }, [isPaused, activeIndex]);
+
+  // Pause autoplay when carousel is offscreen (saves CPU and keeps nav state correct)
+  useEffect(() => {
+    const el = carouselRef.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        // pause when less than 25% visible
+        setIsPaused(!entry.isIntersecting)
+      },
+      { threshold: [0, 0.25, 0.5, 1] }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
 
   const changeSlide = (newIndex: number) => {
     const newSafeIndex = (newIndex + cardData.length) % cardData.length;
@@ -209,7 +226,7 @@ export default function Awards() {
             Our Awards
           </Badge>
 
-          <div className="relative w-full h-[400px] md:h-[550px] flex items-center justify-center overflow-hidden pt-12">
+          <div ref={carouselRef} className="relative w-full h-[400px] md:h-[550px] flex items-center justify-center overflow-hidden pt-12">
             <motion.div
               className="w-full h-full flex items-center justify-center"
               drag="x"
@@ -293,15 +310,22 @@ function Card({ card, index, activeIndex, totalCards }: CardProps) {
       initial={false}
     >
       <div className="relative w-full h-full rounded-3xl shadow-2xl overflow-hidden bg-gray-200 dark:bg-neutral-800">
-        <img
+        <Image
           src={card.imageUrl}
           alt={card.title}
-          className="w-full h-full object-cover pointer-events-none"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.onerror = null;
-            target.src =
-              "https://placehold.co/400x600/1e1e1e/ffffff?text=Image+Missing";
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover pointer-events-none"
+          loading="lazy"
+          placeholder="blur"
+          blurDataURL={"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><rect width='10' height='10' fill='%231e1e1e'/></svg>"}
+          onError={(e: any) => {
+            // fallback to placeholder if optimization fails
+            const target = e?.target as HTMLImageElement | null
+            if (target) {
+              target.onerror = null
+              target.src = 'https://placehold.co/400x600/1e1e1e/ffffff?text=Image+Missing'
+            }
           }}
         />
         <div className="absolute top-4 left-4 bg-[rgb(27,29,30)] text-white px-3 py-1 rounded-full text-sm font-semibold shadow-md">
