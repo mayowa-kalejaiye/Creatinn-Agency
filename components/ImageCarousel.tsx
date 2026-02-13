@@ -7,23 +7,17 @@ const classNames = (
   return classes.filter(Boolean).join(" ");
 };
 
-const images: string[] = [
+const imagesRaw: string[] = [
   '/DSC_0393.jpg',
-  '/vid5.mp4',
   '/3U4A1894.jpg',
-  '/vid.mp4',
   '/3U4A8829.jpg',
   '/3U4A9420.jpg',
   '/IMG_0515.jpg',
-  '/pic.mp4',
   '/IMG_0691.jpg',
   '/IMG_0905.jpg',
   '/IMG_3710.jpg',
-  '/vid3.mp4',
   '/IMG_2341.jpg',
-  '/vid6.mp4',
   '/IMG_5014.jpg',
-  '/vid4.mp4',
   '/FLY 16.jpg',
   '/IMG_0910.jpg',
   '/IMG_3514.jpg',
@@ -54,8 +48,10 @@ function ImageCarousel() {
   }, []);
 
   const displayImages = useMemo(() => {
-    const imgs = images.filter((img) => !(isMobile && /\.(mp4|webm|ogg)$/i.test(img)));
-    return isMobile ? imgs.slice(0, 6) : imgs;
+    // filter out video files and dedupe
+    const imgs = imagesRaw.filter((img) => !/\.(mp4|webm|ogg)$/i.test(img))
+    const deduped = Array.from(new Set(imgs))
+    return isMobile ? deduped.slice(0, 6) : deduped
   }, [isMobile]);
 
   // autoplay
@@ -140,31 +136,15 @@ function ImageCarousel() {
               key={img}
             >
               <div className="relative h-full w-full overflow-hidden rounded-none md:rounded-2xl bg-[rgb(27,29,30)] shadow-2xl transition-transform duration-500 ease-in-out group-hover:scale-105 group-hover:z-10 transform-gpu">
-                {isVideo ? (
-                  <video
-                    ref={(el) => { videoRefs.current[index] = el as HTMLVideoElement }}
-                    className={classNames(
-                      "absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ease-in-out",
-                      activeItem === index ? "object-contain grayscale-0" : "object-cover grayscale"
-                    )}
-                    src={img}
-                    muted
-                    playsInline
-                    loop
-                    preload={activeItem === index ? "auto" : "none"}
-                    aria-label={`video-${index}`}
-                  />
-                ) : (
-                  <img
-                    className={classNames(
-                      "absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ease-in-out",
-                      activeItem === index ? "object-contain grayscale-0" : "object-cover grayscale"
-                    )}
-                    src={img}
-                    loading={activeItem === index ? undefined : "lazy"}
-                    alt={`image-${index}`}
-                  />
-                )}
+                <img
+                  className={classNames(
+                    "absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ease-in-out",
+                    activeItem === index ? "object-contain grayscale-0" : "object-cover grayscale"
+                  )}
+                  src={img}
+                  loading={activeItem === index ? "eager" : "lazy"}
+                  alt={`image-${index}`}
+                />
                 <div
                   className={classNames(
                     "absolute inset-0 transition-opacity duration-500",

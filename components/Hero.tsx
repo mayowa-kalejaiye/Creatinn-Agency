@@ -15,6 +15,7 @@ const ImageCarousel = dynamic(() => import('./ImageCarousel'), {
 
 export default function Hero() {
   const logoTrackRef = useRef<HTMLDivElement | null>(null);
+  const [showBackground, setShowBackground] = React.useState(false)
 
   useEffect(() => {
     const contactEl = document.getElementById('contact');
@@ -34,12 +35,24 @@ export default function Hero() {
     return () => observer.disconnect();
   }, []);
 
+  // Defer loading heavy background carousel until after first paint / idle
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const id = (window as any).requestIdleCallback?.(() => setShowBackground(true)) || window.setTimeout(() => setShowBackground(true), 60)
+    return () => {
+      try { (window as any).cancelIdleCallback?.(id) } catch (e) {}
+      window.clearTimeout(id)
+    }
+  }, [])
+
   return (
     <section id="home" className="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Background Image Carousel */}
-      <div className="absolute inset-0 z-0">
-        <ImageCarousel />
-      </div>
+      {/* Background Image Carousel — deferred so hero text renders immediately */}
+      {showBackground && (
+        <div className="absolute inset-0 z-0">
+          <ImageCarousel />
+        </div>
+      )}
 
       {/* Floating Social Media Icons - Left & Right */}
       <motion.div
