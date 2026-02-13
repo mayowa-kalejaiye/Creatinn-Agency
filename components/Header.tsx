@@ -198,7 +198,7 @@ export default function Header() {
         {/* Nav glass now wraps the entire header content */}
         <div 
           ref={headerRef} 
-          className={`nav-glass-container mt-4 sm:mt-6 px-4 sm:px-6 lg:px-0 flex items-center justify-between ${isPastHero ? 'past-hero' : ''}`}
+          className={`nav-glass-container mt-4 sm:mt-6 px-4 sm:px-6 lg:px-6 flex items-center justify-between ${isPastHero ? 'past-hero' : ''}`}
           style={{
             background: isPastHero 
               ? 'rgba(247, 247, 247, 0.95)' 
