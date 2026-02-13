@@ -73,7 +73,7 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="border-t border-slate-200 py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-          <p>©2025 Creatinn Agency. All Rights Reserved.</p>
+          <p>©{new Date().getFullYear()} Creatinn Agency. All Rights Reserved.</p>
           <div className="flex gap-6">
             <a href="#" className="hover:text-slate-900 transition-colors">Style Guide</a>
             <a href="#" className="hover:text-slate-900 transition-colors">Licenses</a>
