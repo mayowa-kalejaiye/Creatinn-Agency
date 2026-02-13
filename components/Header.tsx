@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 
 // Advanced momentum scroll with velocity decay
@@ -49,6 +50,7 @@ const navItems = [
 ]
 
 export default function Header() {
+  const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0, opacity: 0 })
@@ -58,7 +60,14 @@ export default function Header() {
   const headerRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    // Set initial indicator to first link if available
+    // If not on the homepage, clear active state and indicator
+    if (pathname && pathname !== '/' && pathname !== '/home') {
+      setActiveIndex(-1)
+      setIndicatorStyle((s) => ({ ...s, opacity: 0 }))
+      return
+    }
+
+    // Set initial indicator to current active link if available
     const el = navRefs.current[activeIndex]
     if (el) setIndicatorStyle({ width: el.offsetWidth, left: el.offsetLeft, opacity: 1 })
 
@@ -150,7 +159,7 @@ export default function Header() {
       window.removeEventListener('keydown', onKey)
       window.removeEventListener('resize', onResize)
     }
-  }, [activeIndex])
+  }, [activeIndex, pathname])
 
   // Try to scroll to a section ID from an href like '/#services' or '#services'.
   const scrollToHash = (href: string) => {
