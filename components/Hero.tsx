@@ -49,7 +49,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="home" className="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
+    <section id="home" className="hero-gradient min-h-screen flex items-center justify-center relative overflow-x-visible overflow-y-hidden">
       {/* Background Image Carousel — deferred so hero text renders immediately */}
       {showBackground && (
         <>
@@ -129,19 +129,19 @@ export default function Hero() {
           {/* <div className="absolute left-6 top-20 hidden lg:block pointer-events-auto">
             <Camera3D />
           </div> */}
-          <AnimatedHeading as="h1" className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-tight text-[rgb(27,29,30)] tracking-tight font-semibold text-center" maxTranslate={40} maxScale={0.04}>
-            <SparklesText as="span" sparkleCount={28} sparkleSize={12}>
-              <span style={{ display: 'inline-block', transformStyle: 'preserve-3d' }}>
-                <HeroTextReveal text="Building bold brands" className="whitespace-nowrap inline-block" delay={0.05} />
-              </span>
-            </SparklesText>
+          <AnimatedHeading as="h1" className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-tight text-[rgb(27,29,30)] tracking-tight font-semibold text-center whitespace-normal sm:whitespace-nowrap" maxTranslate={40} maxScale={0.04}>
+                <SparklesText as="span" sparkleCount={28} sparkleSize={12}>
+                  <span style={{ transformStyle: 'preserve-3d' }} className="block sm:inline-block">
+                    <HeroTextReveal text="Building bold brands" className="inline-block sm:whitespace-nowrap" delay={0.05} />
+                  </span>
+                </SparklesText>
           </AnimatedHeading>
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.18, duration: 0.7 }}
-            className="mt-0 md:mt-4 whitespace-nowrap"
+            className="mt-0 md:mt-4 whitespace-normal md:whitespace-nowrap"
           >
             <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-semibold text-[rgb(27,29,30)]" style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>
               <HeroTextReveal text="with " delay={0.25} />
@@ -167,17 +167,16 @@ export default function Hero() {
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-              className="relative inline-flex items-center bg-[#4928fd] hover:bg-[#3720d6] text-white pl-6 pr-24 py-5 rounded-full shadow-2xl w-11/12 max-w-md justify-start md:w-auto"
+              className="relative inline-flex items-center bg-[#4928fd] hover:bg-[#3720d6] text-white pl-6 pr-14 md:pr-24 py-5 rounded-full shadow-2xl w-11/12 max-w-md justify-start md:w-auto"
               href="/contact"
             >
               <span className="font-semibold text-xl ml-1">Get Started</span>
               <motion.span
                 animate={{}}
-                whileHover={{ x: 8 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md"
+                className="ml-auto flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center shadow-md"
               >
-                <svg viewBox="0 0 24 24" className="w-6 h-6 text-[#4928fd] transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 md:w-6 md:h-6 text-[#4928fd] transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

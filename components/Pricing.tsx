@@ -18,7 +18,7 @@ export default function Pricing() {
           <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium"> start-up</span>
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-[1400px] mx-auto">
           {/* Starter (left) */}
           <ThreeDCard maxRotation={8} shadowBlur={40}>
             <div className="rounded-3xl overflow-hidden bg-[rgb(246,230,131)] p-10 md:p-16 flex flex-col md:flex-row items-start gap-8 md:gap-10 shadow-md h-full">

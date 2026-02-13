@@ -138,7 +138,7 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.6 }}
-          className="mt-12 rounded-3xl p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-6 bg-[rgb(27,29,30)] text-white border border-[rgb(27,29,30)] shadow-md"
+          className="mt-12 rounded-3xl p-12 lg:p-16 flex flex-col lg:flex-row items-center justify-between gap-6 bg-[rgb(27,29,30)] text-white border border-[rgb(27,29,30)] shadow-md"
         >
           <div className="text-center md:text-left max-w-2xl mx-auto md:mx-0">
             <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-semibold">
@@ -148,20 +148,11 @@ export default function Services() {
             </h3>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto items-center">
-            <a href="/contact" className="w-full sm:w-auto inline-flex group items-center justify-between gap-3 px-6 py-4 sm:px-8 sm:py-4 rounded-full bg-white text-[rgb(27,29,30)] border border-[rgb(27,29,30)] transition-all duration-300 overflow-hidden">
+          <div className="flex flex-col lg:flex-row gap-3 w-full lg:w-auto items-center">
+            <a href="/contact" className="w-full lg:w-auto inline-flex group items-center justify-between gap-3 px-6 py-4 lg:px-8 lg:py-4 rounded-full bg-white text-[rgb(27,29,30)] border border-[rgb(27,29,30)] transition-all duration-300 overflow-hidden">
               <span className="transition-transform duration-300 group-hover:translate-x-20 text-lg font-semibold">Let's Collaborate</span>
               <span className="inline-flex items-center justify-center w-10 h-10 bg-[rgb(27,29,30)] text-white rounded-full transition-transform duration-300 group-hover:-translate-x-32 ml-4">
                 <svg viewBox="0 0 24 24" className="w-5 h-5 text-white transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-            </a>
-            <a href="/contact" className="w-full sm:w-auto inline-flex group items-center justify-between gap-3 px-6 py-4 sm:px-8 sm:py-4 rounded-full border border-white text-white transition-all duration-300 overflow-hidden hover:bg-white hover:text-[rgb(27,29,30)]">
-              <span className="transition-transform duration-300 group-hover:translate-x-20 text-lg font-semibold">View Portfolio</span>
-              <span className="inline-flex items-center justify-center w-10 h-10 bg-white text-[rgb(27,29,30)] rounded-full transition-transform duration-300 group-hover:-translate-x-32 ml-4">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 text-[rgb(27,29,30)] transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

@@ -217,9 +217,9 @@ export default function Header() {
           </div>
 
           {/* Center: nav links with second glassmorphism layer - show only on large screens */}
-          <div className="hidden lg:block flex-shrink-0 relative z-10">
+          <div className="hidden lg:flex-1 lg:block relative z-10 min-w-0">
             <nav
-              className={`nav-links-glass flex items-center gap-2 xl:gap-3 relative ${isPastHero ? 'past-hero' : ''}`}
+              className={`nav-links-glass flex items-center gap-2 xl:gap-3 relative min-w-0 overflow-x-auto ${isPastHero ? 'past-hero' : ''}`}
               onMouseLeave={() => {
                 // reset to active
                 const el = navRefs.current[activeIndex]
@@ -234,7 +234,7 @@ export default function Header() {
                 key={item.label}
                 ref={(el) => { navRefs.current[i] = el }}
                 href={item.href}
-                className={`text-xl xl:text-2xl px-4 xl:px-5 py-0 rounded-full relative z-10 whitespace-nowrap ${i === activeIndex ? 'text-[rgb(27,29,30)] font-semibold' : 'text-slate-700'}`}
+                className={`text-xl xl:text-2xl px-4 xl:px-5 py-0 rounded-full relative z-10 whitespace-nowrap flex-shrink-0 ${i === activeIndex ? 'text-[rgb(27,29,30)] font-semibold' : 'text-slate-700'}`}
                 style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}
                 onMouseEnter={(e) => {
                   const target = e.currentTarget as HTMLElement
@@ -260,7 +260,7 @@ export default function Header() {
           </div>
 
           {/* Right: CTA + Mobile Menu Button */}
-          <div className="flex items-center gap-4 flex-shrink-0">
+          <div className="flex items-center gap-4 flex-shrink-0 min-w-0">
             <button
               className={`lg:hidden inline-flex items-center p-2 rounded-full text-slate-700 hover:bg-slate-100 ring-0 hover:ring-1 hover:ring-slate-200 ${isMenuOpen ? 'opacity-0 pointer-events-none' : ''}`}
               aria-label="Open menu"
@@ -275,12 +275,12 @@ export default function Header() {
               </svg>
             </button>
             <a
-              className="hidden lg:inline-flex group items-center gap-2 xl:gap-3 px-3 xl:px-4 py-2.5 xl:py-3 rounded-full bg-[rgb(27,29,30)] text-white shadow-md justify-between overflow-hidden font-sans font-semibold text-sm xl:text-base whitespace-nowrap"
+              className="hidden lg:inline-flex group items-center gap-2 xl:gap-3 px-3 xl:px-4 py-2.5 xl:py-3 rounded-full bg-[rgb(27,29,30)] text-white shadow-md justify-between overflow-hidden font-sans font-semibold text-sm xl:text-base max-w-[16rem] truncate"
               href="/contact"
               aria-label="Let's Collaborate"
             >
-              <span className="transition-transform duration-300 group-hover:translate-x-6 pr-6">Let's Collaborate</span>
-              <span className="inline-flex items-center justify-center w-8 h-8 xl:w-10 xl:h-10 bg-white rounded-full transition-transform duration-300 transform-gpu group-hover:scale-105 flex-shrink-0 group-hover:-translate-x-20 xl:group-hover:-translate-x-24">
+              <span className="transition-transform duration-300 group-hover:translate-x-3 pr-4">Let's Collaborate</span>
+              <span className="inline-flex items-center justify-center w-8 h-8 xl:w-10 xl:h-10 bg-white rounded-full transition-transform duration-300 transform-gpu group-hover:scale-105 flex-shrink-0 group-hover:-translate-x-8 xl:group-hover:-translate-x-10">
                 <svg viewBox="0 0 24 24" className="w-4 h-4 xl:w-5 xl:h-5 text-[rgb(27,29,30)] transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -294,7 +294,7 @@ export default function Header() {
 
 
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 z-[9999] md:hidden transition-opacity duration-300 ease-in-out ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+      <div className={`fixed inset-0 z-[9999] lg:hidden transition-opacity duration-300 ease-in-out ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <div className="absolute inset-0 bg-[rgb(27,29,30)] bg-opacity-40 transition-opacity duration-300 ease-in-out z-[9999]" onClick={() => setIsMenuOpen(false)} />
 
         <div
