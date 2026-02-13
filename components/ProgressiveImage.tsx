@@ -8,11 +8,21 @@ type Props = React.ComponentProps<typeof Image> & {
 
 export default function ProgressiveImage({ placeholderSrc, src, alt = '', className = '', ...rest }: Props) {
   // Use next/image for built-in optimization and optional blur placeholder
+  const hasWidth = typeof (rest as any).width !== 'undefined' || typeof (rest as any).height !== 'undefined' || (rest as any).fill
+
+  // If caller didn't provide explicit width/height/fill, use `fill` layout so Next can render without numeric sizes.
   const imgProps: any = {
     src: src as string,
     alt: alt as string,
-    className: `${className} object-cover`,
     ...rest,
+  }
+
+  if (!hasWidth) {
+    imgProps.fill = true
+    // When using fill, image must be absolutely positioned to cover the parent
+    imgProps.className = `absolute inset-0 w-full h-full object-cover`
+  } else {
+    imgProps.className = `${className} object-cover`
   }
 
   if (placeholderSrc) {
@@ -20,6 +30,7 @@ export default function ProgressiveImage({ placeholderSrc, src, alt = '', classN
     imgProps.blurDataURL = placeholderSrc
   }
 
+  // Keep wrapper relative so `fill` images can absolutely position inside it. Caller should provide a height (via className) when using fill.
   return (
     <div className={`relative overflow-hidden ${className}`}>
       <Image {...imgProps} />
