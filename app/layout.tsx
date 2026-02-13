@@ -1,6 +1,5 @@
 import './globals.css'
 import React from 'react'
-import BackToTop from '../components/BackToTop'
 import StickyCTA from '../components/StickyCTA'
 
 export const metadata = {
@@ -24,7 +23,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         {/* Global utilities (non-blocking) */}
         <script async src="/scripts/optimize-media.js"></script>
-        <BackToTop />
         <StickyCTA />
       </body>
     </html>

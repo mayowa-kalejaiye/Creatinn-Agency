@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect, useMemo } from "react";
+import ProgressiveImage from './ProgressiveImage'
 
 const classNames = (
   ...classes: (string | boolean | undefined | null)[]
@@ -136,12 +137,13 @@ function ImageCarousel() {
               key={img}
             >
               <div className="relative h-full w-full overflow-hidden rounded-none md:rounded-2xl bg-[rgb(27,29,30)] shadow-2xl transition-transform duration-500 ease-in-out group-hover:scale-105 group-hover:z-10 transform-gpu">
-                <img
+                <ProgressiveImage
                   className={classNames(
                     "absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 transition-all duration-700 ease-in-out",
                     activeItem === index ? "object-contain grayscale-0" : "object-cover grayscale"
                   )}
                   src={img}
+                  placeholder={img.replace('.jpg','-800.avif')}
                   loading={activeItem === index ? "eager" : "lazy"}
                   alt={`image-${index}`}
                 />

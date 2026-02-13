@@ -47,9 +47,9 @@ export default function HeroParallax({ layers = [] as Layer[] }: { layers?: Laye
       const children = el.querySelectorAll('[data-parallax-depth]')
       children.forEach((child) => {
         const depth = parseFloat((child as HTMLElement).getAttribute('data-parallax-depth') || '0')
-        const tx = rx * depth * 30
-        const ty = ry * depth * 18
-        (child as HTMLElement).style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(${1 - depth * 0.02})`
+        const tx = rx * depth * 30;
+        const ty = ry * depth * 18;
+        (child as HTMLElement).style.transform = 'translate3d(' + tx + 'px, ' + ty + 'px, 0) scale(' + (1 - depth * 0.02) + ')';
       })
 
       requestAnimationFrame(raf)

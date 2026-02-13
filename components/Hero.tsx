@@ -2,11 +2,14 @@
 import { motion } from 'framer-motion'
 import React, { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import HeroParallax from './HeroParallax'
+import ProgressiveImage from './ProgressiveImage'
 import SparklesText from './SparklesText'
 import TextReveal from './TextReveal'
 import HeroTextReveal from './HeroTextReveal'
 import ScrollSpy from './ScrollSpy'
 import dynamic from 'next/dynamic'
+import AnimatedHeading from './AnimatedHeading'
 
 const ImageCarousel = dynamic(() => import('./ImageCarousel'), { 
   ssr: false,
@@ -49,9 +52,17 @@ export default function Hero() {
     <section id="home" className="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background Image Carousel — deferred so hero text renders immediately */}
       {showBackground && (
-        <div className="absolute inset-0 z-0">
-          <ImageCarousel />
-        </div>
+        <>
+          <div className="absolute inset-0 z-0">
+            <ImageCarousel />
+          </div>
+
+          {/* Parallax layers (subtle decorative layers behind hero content) */}
+          <HeroParallax layers={[
+            { id: 'l1', src: '/optimized/images/3U4A1815-1200.avif', depth: 0.12, className: 'opacity-40' },
+            { id: 'l2', src: '/optimized/images/3U4A1894-1200.avif', depth: 0.06, className: 'opacity-30 mix-blend-multiply' },
+          ]} />
+        </>
       )}
 
       {/* Floating Social Media Icons - Left & Right */}
@@ -118,19 +129,13 @@ export default function Hero() {
           {/* <div className="absolute left-6 top-20 hidden lg:block pointer-events-auto">
             <Camera3D />
           </div> */}
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-tight text-[rgb(27,29,30)] tracking-tight font-semibold text-center"
-            style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif', perspective: 1000 }}
-          >
+          <AnimatedHeading as="h1" className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl leading-tight text-[rgb(27,29,30)] tracking-tight font-semibold text-center" maxTranslate={40} maxScale={0.04}>
             <SparklesText as="span" sparkleCount={28} sparkleSize={12}>
               <span style={{ display: 'inline-block', transformStyle: 'preserve-3d' }}>
                 <HeroTextReveal text="Building bold brands" className="whitespace-nowrap inline-block" delay={0.05} />
               </span>
             </SparklesText>
-          </motion.h1>
+          </AnimatedHeading>
 
           <motion.div
             initial={{ opacity: 0 }}
@@ -181,9 +186,9 @@ export default function Hero() {
 
             <div className="flex items-center gap-4">
               <div className="-space-x-3 flex items-center">
-                <Image src="/IMG_0515.jpg" alt="avatar 1" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-white shadow" />
-                <Image src="/IMG_3710.jpg" alt="avatar 2" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-white shadow" />
-                <Image src="/IMG_0691.jpg" alt="avatar 3" width={40} height={40} className="w-10 h-10 rounded-full border-2 border-white shadow" />
+                <ProgressiveImage src="/optimized/images/IMG_0515-1200.avif" placeholder="/optimized/images/IMG_0515-800.avif" alt="avatar 1" className="w-10 h-10 rounded-full border-2 border-white shadow object-cover" />
+                <ProgressiveImage src="/optimized/images/IMG_3710-1200.avif" placeholder="/optimized/images/IMG_3710-800.avif" alt="avatar 2" className="w-10 h-10 rounded-full border-2 border-white shadow object-cover" />
+                <ProgressiveImage src="/optimized/images/IMG_0691-1200.avif" placeholder="/optimized/images/IMG_0691-800.avif" alt="avatar 3" className="w-10 h-10 rounded-full border-2 border-white shadow object-cover" />
               </div>
 
               <div className="text-sm text-slate-600">

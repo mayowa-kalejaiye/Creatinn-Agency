@@ -80,12 +80,23 @@ export default function Header() {
       }
 
       // Update active section based on scroll position
-      const sections = navItems.map(item => {
-        const id = item.href.replace('/#', '#')
-        return document.querySelector(id)
-      }).filter(Boolean) as HTMLElement[]
+      // Map navItems to DOM elements (preserve original nav index even if element is missing)
+      const elements = navItems.map((item) => {
+        const hash = item.href.includes('#') ? item.href.slice(item.href.indexOf('#')) : ''
+        return hash ? (document.querySelector(hash) as HTMLElement | null) : null
+      })
 
-      // If at top of page, set to first nav item
+      // If there are no in-page sections on this page, clear active state
+      const hasAnySection = elements.some(Boolean)
+      if (!hasAnySection) {
+        if (activeIndex !== -1) {
+          setActiveIndex(-1)
+          setIndicatorStyle((s) => ({ ...s, opacity: 0 }))
+        }
+        return
+      }
+
+      // If at top of page, set to first nav item (only when sections exist)
       if (window.scrollY < 100) {
         if (activeIndex !== 0) {
           setActiveIndex(0)
@@ -93,19 +104,20 @@ export default function Header() {
         return
       }
 
-      // Find which section is most visible in viewport
+      // Find which section is most visible in viewport, keeping original nav indices
       let maxVisibleArea = 0
       let mostVisibleIndex = 0
 
-      sections.forEach((section, i) => {
+      elements.forEach((section, i) => {
+        if (!section) return
         const rect = section.getBoundingClientRect()
         const viewportHeight = window.innerHeight
-        
+
         // Calculate visible area of this section
         const visibleTop = Math.max(0, rect.top)
         const visibleBottom = Math.min(viewportHeight, rect.bottom)
         const visibleArea = Math.max(0, visibleBottom - visibleTop)
-        
+
         if (visibleArea > maxVisibleArea) {
           maxVisibleArea = visibleArea
           mostVisibleIndex = i
@@ -190,7 +202,7 @@ export default function Header() {
         >
           
           {/* Left: logo */}
-          <div className="flex items-center gap-3 flex-shrink-0">
+          <div className={`flex items-center gap-3 flex-shrink-0 ${isMenuOpen ? 'opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto' : ''}`}>
             <Image src="/videography.png" alt="Creatinn Agency logo" width={48} height={48} className="hidden sm:block w-12 h-12 md:w-14 md:h-14 object-contain" style={{filter: 'brightness(0) saturate(100%)' }} />
             <div className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight font-sans text-[rgb(27,29,30)] whitespace-nowrap" style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>Creatinn Agency</div>
           </div>
@@ -241,7 +253,7 @@ export default function Header() {
           {/* Right: CTA + Mobile Menu Button */}
           <div className="flex items-center gap-4 flex-shrink-0">
             <button
-              className="lg:hidden inline-flex items-center p-2 rounded-full text-slate-700 hover:bg-slate-100 ring-0 hover:ring-1 hover:ring-slate-200"
+              className={`lg:hidden inline-flex items-center p-2 rounded-full text-slate-700 hover:bg-slate-100 ring-0 hover:ring-1 hover:ring-slate-200 ${isMenuOpen ? 'opacity-0 pointer-events-none' : ''}`}
               aria-label="Open menu"
               aria-expanded={isMenuOpen}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -254,12 +266,12 @@ export default function Header() {
               </svg>
             </button>
             <a
-              className="hidden lg:inline-flex group items-center gap-2 xl:gap-3 px-4 xl:px-6 py-2.5 xl:py-3 rounded-full bg-[rgb(27,29,30)] text-white shadow-md justify-between overflow-hidden font-sans font-semibold text-sm xl:text-base whitespace-nowrap"
+              className="hidden lg:inline-flex group items-center gap-2 xl:gap-3 px-3 xl:px-4 py-2.5 xl:py-3 rounded-full bg-[rgb(27,29,30)] text-white shadow-md justify-between overflow-hidden font-sans font-semibold text-sm xl:text-base whitespace-nowrap"
               href="/contact"
               aria-label="Let's Collaborate"
             >
-              <span className="transition-transform duration-300 group-hover:translate-x-20">Let's Collaborate</span>
-              <span className="inline-flex items-center justify-center w-8 h-8 xl:w-10 xl:h-10 bg-white rounded-full transition-transform duration-300 group-hover:-translate-x-44 flex-shrink-0">
+              <span className="transition-transform duration-300 group-hover:translate-x-6 pr-6">Let's Collaborate</span>
+              <span className="inline-flex items-center justify-center w-8 h-8 xl:w-10 xl:h-10 bg-white rounded-full transition-transform duration-300 transform-gpu group-hover:scale-105 flex-shrink-0 group-hover:-translate-x-20 xl:group-hover:-translate-x-24">
                 <svg viewBox="0 0 24 24" className="w-4 h-4 xl:w-5 xl:h-5 text-[rgb(27,29,30)] transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -273,11 +285,11 @@ export default function Header() {
 
 
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 z-50 md:hidden transition-opacity duration-300 ease-in-out ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-[rgb(27,29,30)] bg-opacity-40 transition-opacity duration-300 ease-in-out" onClick={() => setIsMenuOpen(false)} />
+      <div className={`fixed inset-0 z-[9999] md:hidden transition-opacity duration-300 ease-in-out ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+        <div className="absolute inset-0 bg-[rgb(27,29,30)] bg-opacity-40 transition-opacity duration-300 ease-in-out z-[9999]" onClick={() => setIsMenuOpen(false)} />
 
         <div
-          className={`absolute left-6 top-4 right-6 bottom-4 w-auto max-w-xs bg-white rounded-2xl shadow-2xl transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+          className={`absolute left-6 top-4 right-6 bottom-4 w-auto max-w-xs bg-white rounded-2xl shadow-2xl transform transition-transform duration-300 ease-in-out z-[10000] ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
           style={{ left: '1.5rem', right: '1.5rem', maxWidth: '360px', width: 'min(360px, calc(100% - 3rem))', boxSizing: 'border-box' }}
         >
           <div className="flex flex-col h-full">

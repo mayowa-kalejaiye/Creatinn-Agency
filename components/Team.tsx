@@ -1,7 +1,7 @@
 "use client"
 import React from 'react';
 import { motion } from 'framer-motion';
-import AnimatedHeader from './AnimatedHeader';
+import AnimatedHeading from './AnimatedHeading';
 
 const teamMembers = [
   {
@@ -19,9 +19,9 @@ export default function Team() {
       <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center mb-16">
           {/* Animated header: animates on scroll up/down */}
-          <AnimatedHeader className="text-4xl md:text-5xl lg:text-6xl font-medium text-[rgb(27,29,30)] mb-4">
+          <AnimatedHeading as="h2" className="text-4xl md:text-5xl lg:text-6xl font-medium text-[rgb(27,29,30)] mb-4" maxTranslate={28} maxScale={0.03}>
             Meet the creative mind<br/> behind our <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium">success</span>
-          </AnimatedHeader>
+          </AnimatedHeading>
         </div>
 
         <div className="mx-auto w-full">

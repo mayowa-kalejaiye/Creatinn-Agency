@@ -1,6 +1,7 @@
 "use client";
 import React, { SVGProps, FC } from 'react';
 import { BentoGrid, BentoCard } from './BentoGrid';
+import AnimatedHeading from './AnimatedHeading';
 
 const QuoteIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -119,10 +120,10 @@ export default function Testimonials() {
     <section className="relative z-30 bg-white py-20" id="testimonials">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[rgb(27,29,30)] mb-4">
+          <AnimatedHeading as="h2" className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[rgb(27,29,30)] mb-4" maxTranslate={22} maxScale={0.025}>
             What our satisfied customers<br/>are saying
             <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium"> about us</span>
-          </h2>
+          </AnimatedHeading>
         </div>
         
         <BentoGrid className="max-w-[1800px] mx-auto">

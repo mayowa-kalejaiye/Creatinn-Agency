@@ -1,5 +1,6 @@
 "use client"
 import React from 'react'
+import ProgressiveImage from './ProgressiveImage'
 import { motion } from 'framer-motion'
 
 type CaseStudy = {
@@ -52,7 +53,7 @@ export default function CaseStudiesCarousel({ items = example }: { items?: CaseS
           className="w-full h-80 md:h-96 bg-slate-100 flex items-stretch"
         >
           <div className="hidden md:block md:w-1/2 h-full overflow-hidden">
-            <img src={items[index].image} alt={items[index].title} className="w-full h-full object-cover" loading="lazy" />
+            <ProgressiveImage src={items[index].image} placeholder={items[index].thumb} alt={items[index].title} className="w-full h-full object-cover" />
           </div>
           <div className="p-6 md:p-12 md:w-1/2 flex flex-col justify-center bg-white">
             <h3 className="text-2xl md:text-3xl font-semibold">{items[index].title}</h3>
@@ -67,13 +68,13 @@ export default function CaseStudiesCarousel({ items = example }: { items?: CaseS
 
       <div className="mt-4 flex items-center gap-3 overflow-x-auto py-2">
         {items.map((it, i) => (
-          <button
+            <button
             key={it.id}
             onClick={() => onSelect(i)}
             className={`flex-shrink-0 w-28 h-16 rounded-md overflow-hidden border ${i === index ? 'ring-2 ring-offset-2 ring-[rgb(27,29,30)]' : 'border-slate-200'}`}
             aria-current={i === index}
           >
-            <img src={it.thumb || it.image} alt={it.title} className="w-full h-full object-cover" loading="lazy" />
+            <ProgressiveImage src={it.thumb || it.image} placeholder={it.thumb || it.image} alt={it.title} className="w-full h-full object-cover" />
           </button>
         ))}
       </div>

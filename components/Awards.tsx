@@ -112,6 +112,33 @@ const cardData: CardData[] = [
   },
 ];
 
+type AnimatedHeadingProps = {
+  as?: keyof JSX.IntrinsicElements;
+  className?: string;
+  maxTranslate?: number;
+  maxScale?: number;
+  children: React.ReactNode;
+};
+
+const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({
+  as: Tag = "h2",
+  className = "",
+  maxTranslate = 30,
+  maxScale = 0.03,
+  children,
+}) => {
+  // Simple animation effect using framer-motion
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: maxTranslate }}
+      animate={{ opacity: 1, y: 0, scale: 1 + maxScale }}
+      transition={{ duration: 0.7, type: "spring" }}
+    >
+      <Tag className={className}>{children}</Tag>
+    </motion.div>
+  );
+};
+
 export default function Awards() {
   const [activeIndex, setActiveIndex] = useState(
     Math.floor(cardData.length / 2)
@@ -162,10 +189,10 @@ export default function Awards() {
   return (
     <section className="relative z-30 bg-white py-20 w-full flex-col items-center justify-center font-sans overflow-hidden" id="awards">
       <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium text-[rgb(27,29,30)] mb-4">
+        <AnimatedHeading as="h2" className="text-4xl md:text-5xl lg:text-6xl font-medium text-[rgb(27,29,30)] mb-4" maxTranslate={30} maxScale={0.03}>
           Accolades and achievements <br/>celebrating our
           <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium"> design excellence</span>
-        </h2>
+        </AnimatedHeading>
         <p className="text-lg text-slate-600 max-w-2xl mx-auto">
           Honored by the design community for excellence and innovation
         </p>
@@ -178,7 +205,7 @@ export default function Awards() {
       >
         <div className="relative flex w-full flex-col rounded-3xl border border-white/10 dark:border-white/10 bg-white dark:bg-neutral-900 p-4 pt-6 md:p-6">
           <Badge className="absolute left-4 top-6 rounded-xl border border-gray-300 dark:border-white/10 text-base text-gray-700 dark:text-white/80 bg-gray-100/80 dark:bg-black/20 backdrop-blur-sm md:left-6">
-            <SparklesIcon className="fill-[#EEBDE0] stroke-1 text-neutral-800 h-5 w-5 mr-1" />
+            <SparklesIcon className="text-[rgb(27,29,30)] stroke-1 text-neutral-800 h-5 w-5 mr-1" />
             Our Awards
           </Badge>
 
@@ -205,7 +232,7 @@ export default function Awards() {
           <div className="flex items-center justify-center gap-6 mt-6">
             <button
               onClick={() => changeSlide(activeIndex - 1)}
-              className="p-2 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-300 dark:border-white/10 text-gray-700 dark:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="p-2 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-300 dark:border-white/10 text-gray-700 dark:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[rgb(27,29,30)]"
             >
               <ChevronLeftIcon className="w-6 h-6" />
             </button>
@@ -217,7 +244,7 @@ export default function Awards() {
                   onClick={() => changeSlide(index)}
                   className={`h-2 rounded-full transition-all duration-300 focus:outline-none ${
                     activeIndex === index
-                      ? "w-6 bg-pink-400"
+                      ? "w-6 bg-[rgb(27,29,30)]"
                       : "w-2 bg-gray-300 dark:bg-neutral-600 hover:bg-gray-400 dark:hover:bg-neutral-500"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
@@ -227,7 +254,7 @@ export default function Awards() {
 
             <button
               onClick={() => changeSlide(activeIndex + 1)}
-              className="p-2 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-300 dark:border-white/10 text-gray-700 dark:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="p-2 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border_gray-300 dark:border-white/10 text-gray-700 dark:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[rgb(27,29,30)]"
             >
               <ChevronRightIcon className="w-6 h-6" />
             </button>
