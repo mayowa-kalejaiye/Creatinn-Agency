@@ -190,10 +190,10 @@ export default function Hero() {
                   <Image src="/optimized/images/IMG_0515-1200.avif" alt="avatar 1" width={40} height={40} className="object-cover" priority={false} />
                 </div>
                 <div className="w-10 h-10 rounded-full border-2 border-white shadow overflow-hidden">
-                  <Image src="/optimized/images/IMG_3710-1200.avif" alt="avatar 2" width={40} height={40} className="object-cover" priority={false} />
+                  <Image src="/optimized/images/DSC_0393-800.avif" alt="avatar 2" width={40} height={40} className="object-cover" priority={false} />
                 </div>
                 <div className="w-10 h-10 rounded-full border-2 border-white shadow overflow-hidden">
-                  <Image src="/optimized/images/IMG_0691-1200.avif" alt="avatar 3" width={40} height={40} className="object-cover" priority={false} />
+                  <Image src="/optimized/images/IMG_3314(1)-1200.avif" alt="avatar 3" width={40} height={40} className="object-cover" priority={false} />
                 </div>
               </div>
 
