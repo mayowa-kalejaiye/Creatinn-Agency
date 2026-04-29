@@ -89,25 +89,25 @@ const Badge: React.FC<BadgeProps> = ({ children, className }) => (
 const cardData: CardData[] = [
   {
     id: 1,
-    imageUrl: "/awards/NEXT RATED MALE FILMMAKER.jpg",
+    imageUrl: "/awards/NEXT%20RATED%20MALE%20FILMMAKER.jpg",
     title: "Next Rated Male Filmmaker",
     year: "2025"
   },
   {
     id: 2,
-    imageUrl: "/awards/BEST NIGERIAN FILM.jpg",
+    imageUrl: "/awards/BEST%20NIGERIAN%20FILM.jpg",
     title: "Best Nigerian Film",
     year: "2025"
   },
   {
     id: 3,
-    imageUrl: "/awards/Email marketting certified.jpg",
+    imageUrl: "/awards/Email%20marketting%20certified.jpg",
     title: "Email Marketing Certified",
     year: "2024"
   },
   {
     id: 4,
-    imageUrl: "/awards/digital marketing certification.jpg",
+    imageUrl: "/awards/digital%20marketing%20certification.jpg",
     title: "Digital Marketing Certification",
     year: "2024"
   },
@@ -206,9 +206,9 @@ export default function Awards() {
   return (
     <section className="relative z-30 bg-white py-20 w-full flex-col items-center justify-center font-sans overflow-hidden" id="awards">
       <div className="text-center mb-16">
-        <AnimatedHeading as="h2" className="text-4xl md:text-5xl lg:text-6xl font-medium text-[rgb(27,29,30)] mb-4" maxTranslate={30} maxScale={0.03}>
+          <AnimatedHeading as="h2" className="text-4xl md:text-5xl lg:text-6xl font-medium text-[rgb(27,29,30)] mb-4" maxTranslate={30} maxScale={0.03}>
           Accolades and achievements <br/>celebrating our
-          <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium"> design excellence</span>
+          <span className="italic font-medium font-serif"> design excellence</span>
         </AnimatedHeading>
         <p className="text-lg text-slate-600 max-w-2xl mx-auto">
           Honored by the design community for excellence and innovation
@@ -249,6 +249,7 @@ export default function Awards() {
           <div className="flex items-center justify-center gap-6 mt-6">
             <button
               onClick={() => changeSlide(activeIndex - 1)}
+              aria-label="Previous award"
               className="p-2 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-300 dark:border-white/10 text-gray-700 dark:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[rgb(27,29,30)]"
             >
               <ChevronLeftIcon className="w-6 h-6" />
@@ -271,7 +272,8 @@ export default function Awards() {
 
             <button
               onClick={() => changeSlide(activeIndex + 1)}
-              className="p-2 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border_gray-300 dark:border-white/10 text-gray-700 dark:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[rgb(27,29,30)]"
+              aria-label="Next award"
+              className="p-2 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-300 dark:border-white/10 text-gray-700 dark:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[rgb(27,29,30)]"
             >
               <ChevronRightIcon className="w-6 h-6" />
             </button>

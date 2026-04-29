@@ -1,5 +1,6 @@
 "use client"
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import AnimatedHeading from './AnimatedHeading';
 
@@ -35,40 +36,76 @@ export default function WorkCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="max-w-5xl mx-auto mb-16"
+          className="max-w-6xl mx-auto mb-16"
         >
-          <div className="relative group rounded-2xl overflow-hidden">
-            {/* Animated gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-100 via-yellow-50 to-orange-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            {/* Hero gradient base */}
-            <div 
-              className="relative rounded-2xl p-12 lg:p-16 text-center border border-slate-200 group-hover:border-slate-300 transition-colors duration-500"
-              style={{
-                background: `
-                  radial-gradient(circle at 12% 20%, rgba(99,102,241,0.08), transparent 18%),
-                  radial-gradient(circle at 88% 80%, rgba(250,204,21,0.08), transparent 14%),
-                  linear-gradient(90deg, rgb(222, 243, 252) 0%, rgb(254, 241, 216) 100%)
-                `
-              }}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            {/* Left: Visual showcase */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="relative rounded-2xl overflow-hidden h-96 lg:h-full min-h-96 group shadow-xl"
             >
-              <p className="text-xs font-semibold text-slate-600 uppercase tracking-widest mb-6">Featured Case Study</p>
-              <h3 className="text-5xl lg:text-6xl font-bold text-[rgb(27,29,30)] mb-6">Vandah</h3>
-              <p className="text-lg lg:text-xl text-slate-700 mb-2 font-medium">Creative Portfolio & Showcase</p>
-              <p className="text-base text-slate-600 mb-10 max-w-2xl mx-auto font-light">A modern, visually-driven portfolio platform designed to showcase creative work with elegance and impact.</p>
-              
+              <Image
+                src="/Vandah2.png"
+                alt="Vandah project showcase"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+            </motion.div>
+
+            {/* Right: Content */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="flex flex-col justify-center space-y-6"
+            >
+              <div>
+                <p className="text-sm font-semibold text-indigo-600 uppercase tracking-widest mb-3">Featured Case Study</p>
+                <h3 className="text-5xl lg:text-6xl font-bold text-[rgb(27,29,30)] mb-4">Vandah</h3>
+                <p className="text-xl text-slate-700 font-medium mb-3">Creative Portfolio & Showcase</p>
+                <p className="text-lg text-slate-600 leading-relaxed">
+                  A modern, visually-driven portfolio platform designed to showcase creative work with elegance and impact. We created an immersive digital experience that puts the work first.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3 pt-4">
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-slate-700">Stunning visual design</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-slate-700">Seamless user experience</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <svg className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-slate-700">Results-driven approach</span>
+                </div>
+              </div>
+
               <a 
                 href="https://vandah.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-slate-900 text-white rounded-full font-semibold hover:bg-slate-800 transition-colors duration-300"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-[rgb(27,29,30)] text-white rounded-full font-semibold hover:bg-slate-800 transition-all duration-300 w-fit group"
               >
-                <span>Visit Vandah</span>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span>Visit Project</span>
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </a>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
 

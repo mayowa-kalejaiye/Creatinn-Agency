@@ -7,7 +7,7 @@ const teamMembers = [
   {
     name: 'Peter-Nelson Isaiah',
     role: 'Head of Creative',
-    image: '/team/peter-nelson.jpg',
+    image: '/IMG_3314%20(1).JPG',
     instagram: 'https://instagram.com/creatinn',
     youtube: 'https://youtube.com/@creatinn',
   },
@@ -31,7 +31,7 @@ export default function Team() {
             maxTranslate={28} 
             maxScale={0.03}
           >
-            Meet the creative mind<br/> behind our <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium">success</span>
+            Meet the creative mind<br/> behind our <span className="italic font-medium font-serif">success</span>
           </AnimatedHeading>
         </motion.div>
 

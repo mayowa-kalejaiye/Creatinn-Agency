@@ -1,7 +1,15 @@
 "use client";
-import React, { SVGProps, FC } from 'react';
+import React, { SVGProps, FC, useEffect, useState } from 'react';
 import { BentoGrid, BentoCard } from './BentoGrid';
 import AnimatedHeading from './AnimatedHeading';
+import Image from 'next/image'
+
+// Use public/ paths for images
+const teamGroup = '/IMG_3314(1).JPG'
+const person1 = '/IMG_3322.JPG'
+const person2 = '/IMG_4799.jpg'
+const person3 = '/IMG_4913.jpg'
+const person4 = '/IMG_4972.jpg'
 
 const QuoteIcon: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -35,16 +43,7 @@ const stories: Story[] = [
     className: "lg:col-span-2 lg:row-span-1",
     background: (
       <div className="absolute inset-0">
-        <img 
-          src="/3U4A1815.jpg" 
-          alt="Customer story"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 to-slate-800/50" />
-        <div className="absolute bottom-10 left-10 text-white">
-          <div className="font-semibold text-lg">Sarah Mitchell</div>
-          <div className="text-sm opacity-90">Founder of Chipsland</div>
-        </div>
+        <SlideshowBackground images={[teamGroup, person1, person2]} />
       </div>
     ),
   },
@@ -61,8 +60,8 @@ const stories: Story[] = [
             <div className="text-8xl font-bold text-slate-900 mb-3">91%</div>
           </div>
         </div>
-        <div className="absolute bottom-10 left-10 right-10 text-center">
-          <p className="text-3xl md:text-4xl font-medium leading-tight" style={{ color: 'rgb(27, 29, 30)', fontFamily: 'Inter Tight, system-ui, sans-serif' }}>
+          <div className="absolute bottom-10 left-10 right-10 text-center">
+          <p className="text-3xl md:text-4xl font-medium leading-tight text-[rgb(27,29,30)] font-sans">
             clients recommend our design services.
           </p>
         </div>
@@ -77,18 +76,7 @@ const stories: Story[] = [
     textColor: "text-white",
     background: (
       <div className="absolute inset-0">
-        <div className="absolute inset-0" style={{ background: 'rgb(27, 29, 30)' }} />
-        <div className="absolute bottom-32 left-6 w-96 h-96">
-          <img 
-            src="/DSC_0393.jpg" 
-            alt="John Anderson"
-            className="w-full h-full object-cover rounded-lg"
-          />
-        </div>
-        <div className="absolute bottom-6 left-6 text-left">
-          <div className="font-semibold text-white">John Anderson</div>
-          <div className="text-sm text-white/80">CEO at TechStart</div>
-        </div>
+        <SlideshowBackground images={[person2, person3]} darkOverlay />
       </div>
     ),
   },
@@ -100,20 +88,33 @@ const stories: Story[] = [
     textColor: "text-black",
     background: (
       <div className="absolute inset-0">
-        <img 
-          src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80" 
-          alt="Customer story"
-          className="w-full h-full object-cover opacity-20"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-200/90 to-slate-100/90" />
-        <div className="absolute bottom-6 left-6">
-          <div className="font-semibold text-slate-900">Sarah Mitchell</div>
-          <div className="text-sm text-slate-600">Marketing Head at TalentConnect</div>
-        </div>
+        <SlideshowBackground images={[person4, teamGroup]} />
       </div>
     ),
   },
 ];
+
+
+function SlideshowBackground({ images, darkOverlay = true }: { images: any[]; darkOverlay?: boolean }) {
+  const [idx, setIdx] = useState(0)
+
+  useEffect(() => {
+    if (!images || images.length <= 1) return
+    const id = window.setInterval(() => setIdx((i) => (i + 1) % images.length), 3200)
+    return () => window.clearInterval(id)
+  }, [images])
+
+  return (
+    <>
+      {images.map((im, i) => (
+        <div key={i} className={`absolute inset-0 transition-opacity duration-700 ${i === idx ? 'opacity-100' : 'opacity-0'}`}>
+          <Image src={im} alt={`testimonial-${i}`} fill className="object-cover" />
+        </div>
+      ))}
+      {darkOverlay && <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 to-slate-800/30" />}
+    </>
+  )
+}
 
 export default function Testimonials() {
   return (
@@ -122,7 +123,7 @@ export default function Testimonials() {
         <div className="text-center mb-12">
           <AnimatedHeading as="h2" className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[rgb(27,29,30)] mb-4" maxTranslate={22} maxScale={0.025}>
             What our satisfied customers<br/>are saying
-            <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium"> about us</span>
+            <span className="italic font-medium font-serif"> about us</span>
           </AnimatedHeading>
         </div>
         
