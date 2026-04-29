@@ -33,7 +33,7 @@ const projects: Project[] = [
   },
   {
     name: 'Genome',
-    images: ['/IMG_2400.jpg', '/IMG_3314(1).jpg', '/IMG_0965.jpg'],
+    images: ['/IMG_2400.jpg', '/IMG_3314(1).JPG', '/IMG_0965.jpg'],
     tags: ['Brand identity design', 'UX Research'],
     spanClass: 'md:col-span-2 xl:col-span-2',
   },
