@@ -41,20 +41,15 @@ export default function WorkCTA() {
             {/* Animated gradient background */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-100 via-yellow-50 to-orange-100 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             
-            {/* Hero gradient base with vandah2 image */}
+            {/* Hero gradient base */}
             <div 
               className="relative rounded-2xl p-12 lg:p-16 text-center border border-slate-200 group-hover:border-slate-300 transition-colors duration-500"
               style={{
-                backgroundImage: `
+                background: `
                   radial-gradient(circle at 12% 20%, rgba(99,102,241,0.08), transparent 18%),
                   radial-gradient(circle at 88% 80%, rgba(250,204,21,0.08), transparent 14%),
-                  linear-gradient(90deg, rgb(222, 243, 252) 0%, rgb(254, 241, 216) 100%),
-                  url('/optimized/images/vandah2.png')
-                `,
-                backgroundSize: 'cover, cover, cover, contain',
-                backgroundPosition: 'center, center, center, right center',
-                backgroundRepeat: 'no-repeat, no-repeat, no-repeat, no-repeat',
-                backgroundBlendMode: 'normal, normal, normal, overlay'
+                  linear-gradient(90deg, rgb(222, 243, 252) 0%, rgb(254, 241, 216) 100%)
+                `
               }}
             >
               <p className="text-xs font-semibold text-slate-600 uppercase tracking-widest mb-6">Featured Case Study</p>

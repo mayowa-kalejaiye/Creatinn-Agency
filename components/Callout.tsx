@@ -18,8 +18,8 @@ export default function Callout() {
           {/* Gradient background layer */}
           <div className="absolute inset-0 hero-gradient" />
 
-          {/* White gradient overlay - stronger white at top */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/95 via-white/60 via-40% to-white/10 pointer-events-none" />
+          {/* White gradient overlay - lighter to show gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/30 via-40% to-transparent pointer-events-none" />
 
           {/* content */}
           <div className="relative p-16 md:p-24">
