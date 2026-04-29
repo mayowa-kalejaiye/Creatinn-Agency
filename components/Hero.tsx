@@ -10,6 +10,7 @@ import HeroTextReveal from './HeroTextReveal'
 import ScrollSpy from './ScrollSpy'
 import dynamic from 'next/dynamic'
 import AnimatedHeading from './AnimatedHeading'
+import CTAButton from './CTAButton'
 
 const ImageCarousel = dynamic(() => import('./ImageCarousel'), { 
   ssr: false,
@@ -161,27 +162,27 @@ export default function Hero() {
           </motion.p>
 
           <div className="mt-8 flex flex-col items-center justify-center gap-6 md:flex-row">
-            <motion.a
-              initial={{ y: 18, opacity: 0, scale: 0.98 }}
-              animate={{ y: 0, opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: 'spring', stiffness: 220, damping: 22 }}
-              className="relative inline-flex items-center bg-[#4928fd] hover:bg-[#3720d6] text-white pl-6 pr-14 md:pr-24 py-5 rounded-full shadow-2xl w-11/12 max-w-md justify-start md:w-auto"
-              href="/contact"
-            >
-              <span className="font-semibold text-xl ml-1">Get Started</span>
-              <motion.span
-                animate={{}}
-                transition={{ type: 'spring', stiffness: 400, damping: 28 }}
-                className="ml-auto flex-shrink-0 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center shadow-md"
+              <motion.div
+                initial={{ y: 18, opacity: 0, scale: 0.98 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: 'spring', stiffness: 220, damping: 22 }}
               >
-                <svg viewBox="0 0 24 24" className="w-5 h-5 md:w-6 md:h-6 text-[#4928fd] transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </motion.span>
-            </motion.a>
+                <CTAButton href="/contact" variant="dark" className="relative bg-[#4928fd] hover:bg-[#3720d6] text-white pl-6 pr-6 md:pr-8 py-5 rounded-full shadow-2xl w-11/12 max-w-md justify-between md:w-auto">
+                  <span className="font-semibold text-xl ml-1">Get Started</span>
+                  <motion.span
+                    animate={{}}
+                    transition={{ type: 'spring', stiffness: 400, damping: 28 }}
+                    className="cta-arrow bg-white text-[#4928fd] flex-shrink-0"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-5 h-5 md:w-6 md:h-6 text-[#4928fd] transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </motion.span>
+                </CTAButton>
+              </motion.div>
 
             <div className="flex items-center gap-4">
               <div className="-space-x-3 flex items-center">

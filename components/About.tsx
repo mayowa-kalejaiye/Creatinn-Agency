@@ -99,7 +99,7 @@ export default function About() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className="pill pill--purple" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <circle cx="6" cy="6" r="3" stroke="currentColor" strokeWidth="1.6"/>
               <circle cx="6" cy="18" r="3" stroke="currentColor" strokeWidth="1.6"/>
               <path d="M20 4L8.12 15.88" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
@@ -109,7 +109,7 @@ export default function About() {
           </div>
 
           <div className="pill pill--blue" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M9 18h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
               <path d="M10 22h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
               <path d="M15 14c1.5-1 3-3 3-5.5A6 6 0 0 0 6 8.5c0 2.5 1.5 4.5 3 5.5V16a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
@@ -118,7 +118,7 @@ export default function About() {
           </div>
 
           <div className="pill pill--amber" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <circle cx="12" cy="12" r="2" stroke="currentColor" strokeWidth="1.6"/>
               <circle cx="19" cy="5" r="2" stroke="currentColor" strokeWidth="1.6"/>
               <circle cx="5" cy="5" r="2" stroke="currentColor" strokeWidth="1.6"/>

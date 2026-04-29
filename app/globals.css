@@ -80,8 +80,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
-  padding: 0.25rem 0.5rem;
+  gap: 1rem;
+  padding: 0.15rem 0.5rem;
   background: transparent !important;
   border-radius: 9999px;
   border: 1px solid transparent !important;
@@ -90,15 +90,15 @@ body {
   -webkit-backdrop-filter: none !important;
   transition: background-color 0.5s ease, border-color 0.5s ease, backdrop-filter 0.5s ease, box-shadow 0.5s ease;
   width: 100%;
-  min-height: 60px;
+  min-height: 48px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .nav-glass-container {
-    padding: 0.75rem 1.5rem;
-    gap: 1rem;
-    min-height: 50px;
+    padding: 0.6rem 1rem;
+    gap: 0.75rem;
+    min-height: 46px;
   }
 }
 
@@ -122,13 +122,13 @@ body {
 /* Active link pill indicator - positioned relative to parent nav */
 .nav-indicator {
   background: #ffffff !important;
-  border-radius: 9999px;
+  border-radius: 0.5rem;
   box-shadow: 0 3px 8px rgba(15,23,42,0.15);
   position: absolute;
-  height: 20px;
+  height: 18px;
   top: 50%;
   transform: translateY(-50%);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.24s cubic-bezier(0.2, 0, 0.2, 1);
   pointer-events: none;
   z-index: 0;
 }
@@ -141,7 +141,7 @@ body {
 /* Second layer glassmorphism for nav links */
 .nav-links-glass {
   display: inline-flex;
-  padding: 0.8rem;
+  padding: 0.5rem 0.1rem 0.5rem 0.75rem;
   background: rgba(236, 236, 229, 0.8) !important;
   border-radius: 9999px;
   border: 1px solid rgba(255,255,255,0.3);
@@ -149,6 +149,7 @@ body {
   backdrop-filter: blur(12px) saturate(120%) !important;
   -webkit-backdrop-filter: blur(12px) saturate(120%) !important;
   transition: background-color 0.5s ease;
+  flex-shrink: 0;
 }
 
 /* When past hero, change second layer color */
@@ -405,6 +406,19 @@ body {
   margin-right: auto;
   font-size: clamp(2.2rem, 4.6vw, 3.25rem);
 }
+@media (max-width: 768px) {
+  /* Reduce visual 'chunkiness' on small screens: slightly smaller type, more line-height and side padding */
+  .about-headline {
+    font-size: clamp(1.15rem, 3.6vw, 1.8rem);
+    line-height: 1.22;
+    letter-spacing: -0.01em;
+    padding: 0 1rem;
+    font-weight: 400;
+  }
+  .about-headline .primary { font-weight: 500; }
+  .about-headline .regular { font-weight: 500; }
+  .about-headline .italic { font-style: italic; font-weight: 400; }
+}
 /* allow specific words to use the primary sans font for emphasis */
 .about-headline .primary {
   font-family: 'Poppins', 'Montserrat', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
@@ -484,6 +498,46 @@ body {
 
 @media (min-width: 1024px) {
   .about-headline { font-size: clamp(2.2rem, 3.6vw, 3.75rem); }
+}
+
+/* Reusable CTA arrow circle to prevent deformation on very small screens */
+.cta-arrow {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  flex: 0 0 36px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Standardized CTA button utility for consistent sizing, focus and reduced-motion */
+.cta-button {
+  transition: transform 240ms cubic-bezier(.2,.9,.2,1), box-shadow 180ms ease, background-color 240ms ease, color 240ms ease;
+}
+.cta-button:focus-visible {
+  outline: 3px solid rgba(99,102,241,0.18);
+  outline-offset: 3px;
+}
+
+/* Header CTA button hover state - white bg with black text */
+.cta-button[href="/contact"]:hover {
+  background-color: white !important;
+  color: black !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-button { transition: none !important; }
+}
+
+@media (min-width: 1280px) {
+  .cta-arrow { width: 40px; height: 40px; min-width: 40px; min-height: 40px; flex: 0 0 40px; }
+}
+
+@media (max-width: 360px) {
+  /* Slightly reduce size on very narrow screens */
+  .cta-arrow { width: 32px; height: 32px; min-width: 32px; min-height: 32px; flex: 0 0 32px; }
 }
 
 /* Respect prefers-reduced-motion */

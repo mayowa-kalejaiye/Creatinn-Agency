@@ -25,7 +25,7 @@ export default function LogoMarquee() {
             className="flex-shrink-0 w-24 h-24 flex items-center justify-center text-4xl text-slate-300 hover:text-slate-600 transition-colors"
             role="listitem"
           >
-            <span aria-hidden>{brand.icon}</span>
+            <span aria-hidden="true">{brand.icon}</span>
             <span className="sr-only">{brand.name}</span>
           </div>
         ))}

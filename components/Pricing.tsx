@@ -2,6 +2,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import ThreeDCard from './ThreeDCard'
+import CTAButton from './CTAButton'
 
 export default function Pricing() {
   return (
@@ -28,12 +29,12 @@ export default function Pricing() {
 
                 <div className="mt-8 text-5xl md:text-6xl font-extrabold text-slate-900">$2500<span className="text-lg md:text-xl font-medium text-slate-700">/month</span></div>
 
-                <a href="/contact" className="inline-flex items-center gap-4 mt-8 px-6 py-4 rounded-full bg-white text-[rgb(27,29,30)] shadow group text-base">
+                <CTAButton href="/contact" variant="light" className="mt-8">
                   <span>Let's Collaborate</span>
-                  <span className="inline-flex items-center justify-center w-9 h-9 bg-[rgb(27,29,30)] text-white rounded-full">
+                  <span className="cta-arrow bg-[rgb(27,29,30)] text-white">
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </span>
-                </a>
+                </CTAButton>
               </div>
 
               <div className="w-full md:w-1/2 md:border-l md:pl-8 md:border-slate-200">
@@ -59,12 +60,12 @@ export default function Pricing() {
 
                 <div className="mt-8 text-5xl md:text-6xl font-extrabold text-white">$3500<span className="text-lg md:text-xl font-medium text-white/80">/month</span></div>
 
-                <a href="/contact" className="inline-flex items-center gap-4 mt-8 px-6 py-4 rounded-full bg-white text-[rgb(27,29,30)] shadow group text-base">
+                <CTAButton href="/contact" variant="light" className="mt-8">
                   <span>Let's Collaborate</span>
-                  <span className="inline-flex items-center justify-center w-9 h-9 bg-[rgb(27,29,30)] text-white rounded-full">
+                  <span className="cta-arrow bg-[rgb(27,29,30)] text-white">
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                   </span>
-                </a>
+                </CTAButton>
               </div>
 
               <div className="w-full md:w-1/2 md:border-l md:pl-8 md:border-white/20">

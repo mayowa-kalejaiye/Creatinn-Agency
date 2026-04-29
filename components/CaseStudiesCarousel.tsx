@@ -2,6 +2,7 @@
 import React from 'react'
 import ProgressiveImage from './ProgressiveImage'
 import { motion } from 'framer-motion'
+import CTAButton from './CTAButton'
 
 type CaseStudy = {
   id: string
@@ -60,7 +61,9 @@ export default function CaseStudiesCarousel({ items = example }: { items?: CaseS
             {items[index].subtitle && <div className="text-sm text-slate-500 mt-2">{items[index].subtitle}</div>}
             {items[index].excerpt && <p className="mt-4 text-base text-slate-700 max-w-xl">{items[index].excerpt}</p>}
             <div className="mt-6">
-              <a href={items[index].link || '/portfolio'} className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[rgb(27,29,30)] text-white">View Case Study</a>
+              <CTAButton href={items[index].link || '/portfolio'} variant="dark" className="px-4 py-2">
+                View Case Study
+              </CTAButton>
             </div>
           </div>
         </motion.div>

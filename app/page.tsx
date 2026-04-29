@@ -14,7 +14,6 @@ const Callout = dynamic(() => import('../components/Callout'), { ssr: true })
 const Footer = dynamic(() => import('../components/Footer'), { ssr: true })
 const ThreeDCarouselClient = dynamic(() => import('../components/ThreeDCarouselClient'), { ssr: true })
 const LogoMarquee = dynamic(() => import('../components/LogoMarquee'), { ssr: true })
-const Team = dynamic(() => import('../components/Team'), { ssr: true })
 const Testimonials = dynamic(() => import('../components/Testimonials'), { ssr: true })
 const Awards = dynamic(() => import('../components/Awards'), { ssr: true })
 const ServicesMarquee = dynamic(() => import('../components/ServicesMarquee'), { ssr: true })
@@ -46,7 +45,6 @@ export default function Page() {
           <ServicesMarquee />
           <WorkCTA />
           <Portfolio />
-          <Team />
           <Testimonials />
           <Awards />
           <Pricing />

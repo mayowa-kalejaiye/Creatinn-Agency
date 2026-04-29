@@ -69,7 +69,7 @@ export default function HeroParallax({ layers = [] as Layer[] }: { layers?: Laye
     <div ref={containerRef} className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
       {layers.map((l) => (
         <div key={l.id} data-parallax-depth={l.depth ?? 0.2} className={`absolute inset-0 ${l.className || ''}`} style={{ willChange: 'transform', transform: 'translate3d(0,0,0)' }}>
-          <img src={l.src} alt="" aria-hidden className="w-full h-full object-cover opacity-90" />
+          <img src={l.src} alt="" aria-hidden="true" className="w-full h-full object-cover opacity-90" />
         </div>
       ))}
     </div>

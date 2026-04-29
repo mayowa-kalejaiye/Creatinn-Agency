@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
+import CTAButton from './CTAButton'
 
 // Advanced momentum scroll with velocity decay
 const smoothScrollTo = (targetY: number) => {
@@ -211,15 +212,15 @@ export default function Header() {
         >
           
           {/* Left: logo */}
-          <div className={`flex items-center gap-3 flex-shrink-0 ${isMenuOpen ? 'opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto' : ''}`}>
+          <div className={`flex items-center gap-3 flex-shrink-0 lg:ml-2 ${isMenuOpen ? 'opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto' : ''}`}>
             <Image src="/videography.png" alt="Creatinn Agency logo" width={48} height={48} className="hidden sm:block w-12 h-12 md:w-14 md:h-14 object-contain" style={{filter: 'brightness(0) saturate(100%)' }} />
             <div className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight font-sans text-[rgb(27,29,30)] whitespace-nowrap" style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>Creatinn Agency</div>
           </div>
 
           {/* Center: nav links with second glassmorphism layer - show only on large screens */}
-          <div className="hidden lg:flex-1 lg:block relative z-10 min-w-0">
+          <div className="hidden lg:block relative z-10 w-max mr-auto">
             <nav
-              className={`nav-links-glass flex items-center gap-2 xl:gap-3 relative min-w-0 overflow-x-auto ${isPastHero ? 'past-hero' : ''}`}
+              className={`nav-links-glass flex items-center gap-3 xl:gap-4 relative min-w-0 overflow-x-auto ${isPastHero ? 'past-hero' : ''}`}
               onMouseLeave={() => {
                 // reset to active
                 const el = navRefs.current[activeIndex]
@@ -234,7 +235,7 @@ export default function Header() {
                 key={item.label}
                 ref={(el) => { navRefs.current[i] = el }}
                 href={item.href}
-                className={`text-xl xl:text-2xl px-4 xl:px-5 py-0 rounded-full relative z-10 whitespace-nowrap flex-shrink-0 ${i === activeIndex ? 'text-[rgb(27,29,30)] font-semibold' : 'text-slate-700'}`}
+                className={`text-lg xl:text-xl px-3 xl:px-4 py-1 rounded-lg relative z-10 whitespace-nowrap flex-shrink-0 ${i === activeIndex ? 'text-[rgb(27,29,30)] font-semibold' : 'text-slate-700'}`}
                 style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}
                 onMouseEnter={(e) => {
                   const target = e.currentTarget as HTMLElement
@@ -257,39 +258,36 @@ export default function Header() {
               </a>
             ))}
             </nav>
-          </div>
+        </div>
 
-          {/* Right: CTA + Mobile Menu Button */}
-          <div className="flex items-center gap-4 flex-shrink-0 min-w-0">
-            <button
-              className={`lg:hidden inline-flex items-center p-2 rounded-full text-slate-700 hover:bg-slate-100 ring-0 hover:ring-1 hover:ring-slate-200 ${isMenuOpen ? 'opacity-0 pointer-events-none' : ''}`}
-              aria-label="Open menu"
-              aria-expanded={isMenuOpen}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <rect x="3" y="5" width="14" height="2" rx="1" fill="currentColor" />
-                <rect x="3" y="11" width="14" height="2" rx="1" fill="currentColor" />
-                <rect x="3" y="17" width="10" height="2" rx="1" fill="currentColor" />
-                <circle cx="19" cy="12" r="2" fill="currentColor" />
+        {/* Right: Menu button and CTA button on main container level */}
+        <div className="flex items-center gap-4 flex-shrink-0">
+          <button
+            className={`lg:hidden inline-flex items-center p-2 rounded-full text-slate-700 hover:bg-slate-100 ring-0 hover:ring-1 hover:ring-slate-200 ${isMenuOpen ? 'opacity-0 pointer-events-none' : ''}`}
+            aria-label="Open menu"
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <rect x="3" y="5" width="14" height="2" rx="1" fill="currentColor" />
+              <rect x="3" y="11" width="14" height="2" rx="1" fill="currentColor" />
+              <rect x="3" y="17" width="10" height="2" rx="1" fill="currentColor" />
+              <circle cx="19" cy="12" r="2" fill="currentColor" />
+            </svg>
+          </button>
+
+          <CTAButton href="/contact" variant="dark" className="hidden lg:inline-flex group items-center gap-2 xl:gap-3 px-3 xl:px-4 py-2.5 xl:py-3 justify-between overflow-hidden font-sans font-semibold text-sm xl:text-base max-w-[16rem] truncate !hover:bg-white">
+            <span className="transition-colors duration-300 pr-4 group-hover:text-black">Let's Collaborate</span>
+            <span className="cta-arrow bg-white text-[rgb(27,29,30)] transition-all duration-300 transform-gpu flex-shrink-0 group-hover:bg-black group-hover:text-white">
+              <svg viewBox="0 0 24 24" className="w-4 h-4 xl:w-5 xl:h-5 transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-            </button>
-            <a
-              className="hidden lg:inline-flex group items-center gap-2 xl:gap-3 px-3 xl:px-4 py-2.5 xl:py-3 rounded-full bg-[rgb(27,29,30)] text-white shadow-md justify-between overflow-hidden font-sans font-semibold text-sm xl:text-base max-w-[16rem] truncate"
-              href="/contact"
-              aria-label="Let's Collaborate"
-            >
-              <span className="transition-transform duration-300 group-hover:translate-x-3 pr-4">Let's Collaborate</span>
-              <span className="inline-flex items-center justify-center w-8 h-8 xl:w-10 xl:h-10 bg-white rounded-full transition-transform duration-300 transform-gpu group-hover:scale-105 flex-shrink-0 group-hover:-translate-x-8 xl:group-hover:-translate-x-10">
-                <svg viewBox="0 0 24 24" className="w-4 h-4 xl:w-5 xl:h-5 text-[rgb(27,29,30)] transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-            </a>
-          </div>
+            </span>
+          </CTAButton>
         </div>
-        </div>
+      </div>
+      </div>
       </header>
 
 
@@ -340,9 +338,9 @@ export default function Header() {
 
               <div className="mt-8 border-t border-slate-100 pt-6">
                 <p className="text-sm text-slate-500 mb-4">Let's collaborate — we build brands, content, and media that convert.</p>
-                <a href="/contact" onClick={() => setIsMenuOpen(false)} className="w-full inline-flex items-center justify-center gap-3 px-6 py-3 rounded-full bg-[rgb(27,29,30)] text-white shadow-sm hover:bg-slate-800 transition-colors font-semibold">
+                <CTAButton href="/contact" variant="dark" className="w-full" onClick={() => setIsMenuOpen(false)}>
                   Let's Collaborate
-                </a>
+                </CTAButton>
               </div>
             </div>
 

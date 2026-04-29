@@ -132,12 +132,12 @@ export default function RetroTV({ videoSrc = '/videos/sample.mp4', className = '
             aria-hidden={!isOn}
           />
           {/* Chromatic aberration layers */}
-          <div className="chroma-red" aria-hidden />
-          <div className="chroma-blue" aria-hidden />
+          <div className="chroma-red" aria-hidden="true" />
+          <div className="chroma-blue" aria-hidden="true" />
 
-          <div className={`static-overlay ${isOn ? 'hidden' : 'visible'}`} aria-hidden />
-          <div className={`crt-overlay ${isFlicker ? 'flicker' : ''}`} aria-hidden />
-          <div className={`loading-spinner ${isLoading && isOn ? 'visible' : ''}`} aria-hidden />
+          <div className={`static-overlay ${isOn ? 'hidden' : 'visible'}`} aria-hidden="true" />
+          <div className={`crt-overlay ${isFlicker ? 'flicker' : ''}`} aria-hidden="true" />
+          <div className={`loading-spinner ${isLoading && isOn ? 'visible' : ''}`} aria-hidden="true" />
           <div className="tv-ui">
             <button className="power" onClick={(e) => { e.stopPropagation(); togglePower() }} aria-pressed={isOn} aria-label="Power" />
             <button className="playpause" onClick={(e) => { e.stopPropagation(); togglePlay() }} aria-label={isPlaying ? 'Pause' : 'Play'}>
@@ -152,18 +152,18 @@ export default function RetroTV({ videoSrc = '/videos/sample.mp4', className = '
           </div>
         </div>
         <div className="tv-controls">
-          <div className="knob volume-knob" style={{ transform: `rotate(${(volume - 0.5) * 40}deg)` }} aria-hidden />
+          <div className="knob volume-knob" style={{ transform: `rotate(${(volume - 0.5) * 40}deg)` }} aria-hidden="true" />
           <div className="knob channel-knob" style={{ transform: `rotate(${(channel - 6) * 30}deg)` }} onClick={() => changeChannel(1)} aria-label="Next channel" />
-          <div className="knob small" aria-hidden />
+          <div className="knob small" aria-hidden="true" />
         </div>
-        <div className="power-led" style={{ backgroundColor: isOn ? '#ff0000' : '#333' }} aria-hidden />
+        <div className="power-led" style={{ backgroundColor: isOn ? '#ff0000' : '#333' }} aria-hidden="true" />
       </div>
       <div className="antenna left" />
       <div className="antenna right" />
       <div className="back-panel">
-        <div className="circuit-board" aria-hidden />
-        <div className="wires" aria-hidden />
-        <div className="components" aria-hidden />
+        <div className="circuit-board" aria-hidden="true" />
+        <div className="wires" aria-hidden="true" />
+        <div className="components" aria-hidden="true" />
       </div>
     </div>
   )

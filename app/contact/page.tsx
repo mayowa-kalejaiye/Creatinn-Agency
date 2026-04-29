@@ -115,10 +115,10 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-[rgb(27,29,30)] text-white hover:bg-slate-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-4 px-6 py-4 rounded-full bg-[rgb(27,29,30)] text-white shadow group text-base hover:bg-slate-800 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
-                  <span className="inline-flex items-center justify-center w-8 h-8 bg-white text-[rgb(27,29,30)] rounded-full">
+                  <span className="cta-arrow bg-white text-[rgb(27,29,30)]">
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
