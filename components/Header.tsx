@@ -1,166 +1,109 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
-import CTAButton from './CTAButton'
-
-// Advanced momentum scroll with velocity decay
-const smoothScrollTo = (targetY: number) => {
-  const startY = window.pageYOffset
-  const distance = targetY - startY
-  let currentY = startY
-  let velocity = 0
-  const acceleration = distance / 800 // Controls initial speed
-  const friction = 0.92 // Higher = smoother/longer momentum (0.8-0.95)
-  const threshold = 0.5 // Stop when movement is negligible
-  
-  const animate = () => {
-    const remaining = targetY - currentY
-    
-    // Apply acceleration toward target
-    velocity += remaining / 800
-    
-    // Apply friction for smooth deceleration
-    velocity *= friction
-    
-    // Update position
-    currentY += velocity
-    
-    // Continue if still moving significantly
-    if (Math.abs(velocity) > threshold || Math.abs(remaining) > 1) {
-      window.scrollTo(0, currentY)
-      requestAnimationFrame(animate)
-    } else {
-      // Snap to exact target
-      window.scrollTo(0, targetY)
-    }
-  }
-  
-  requestAnimationFrame(animate)
-}
+import { motion, AnimatePresence } from 'framer-motion'
 
 const navItems = [
-  { label: 'Home', href: '/#home' },
-  { label: 'About us', href: '/#about' },
-  { label: 'Services', href: '/#services' },
+  { 
+    label: 'Services', 
+    href: '/#services',
+    dropdown: [
+      {
+        icon: (
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+        ),
+        title: 'Cinematography & Production',
+        desc: 'Commercials, documentaries, and narrative films.',
+        href: '/#services'
+      },
+      {
+        icon: (
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        ),
+        title: 'Photography & Retouching',
+        desc: 'High-end product, lifestyle, and editorial shots.',
+        href: '/#services'
+      },
+      {
+        icon: (
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        ),
+        title: 'Social Content Creation',
+        desc: 'Viral-engineered videos for TikTok & Reels.',
+        href: '/#services'
+      },
+      {
+        icon: (
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+          </svg>
+        ),
+        title: 'Post-Production & VFX',
+        desc: 'Expert editing, color grading, and visual effects.',
+        href: '/#services'
+      },
+      {
+        icon: (
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+        ),
+        title: 'Creative Direction',
+        desc: 'Storyboarding, set design, and campaign strategy.',
+        href: '/#services'
+      },
+      {
+        icon: (
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        ),
+        title: 'Content Subscription',
+        desc: 'Ongoing retainer for consistent, high-quality media.',
+        href: '/#services'
+      }
+    ]
+  },
   { label: 'Work', href: '/#work' },
   { label: 'Team', href: '/#team' },
-  { label: 'Awards', href: '/#awards' },
   { label: 'Pricing', href: '/#pricing' },
 ]
 
 export default function Header() {
-  const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0, opacity: 0 })
-  const [isPastHero, setIsPastHero] = useState(false)
-  const [scrollOpacity, setScrollOpacity] = useState(0)
-  const navRefs = useRef<Array<HTMLAnchorElement | null>>([])
-  const headerRef = useRef<HTMLDivElement | null>(null)
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  
+  // Mobile accordion state
+  const [openMobileAccordion, setOpenMobileAccordion] = useState<string | null>(null)
+
+  // Headroom scroll state
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
 
   useEffect(() => {
-    // If not on the homepage, clear active state and indicator
-    if (pathname && pathname !== '/' && pathname !== '/home') {
-      setActiveIndex(-1)
-      setIndicatorStyle((s) => ({ ...s, opacity: 0 }))
-      return
-    }
-
-    // Set initial indicator to current active link if available
-    const el = navRefs.current[activeIndex]
-    if (el) setIndicatorStyle({ width: el.offsetWidth, left: el.offsetLeft, opacity: 1 })
-
-    const onScroll = () => {
-      if (!headerRef.current) return
-      if (window.scrollY > 8) headerRef.current.classList.add('scrolled')
-      else headerRef.current.classList.remove('scrolled')
-
-      // Calculate scroll opacity for gradual appearance (0-100px scroll range)
-      const scrollProgress = Math.min(window.scrollY / 100, 1)
-      setScrollOpacity(scrollProgress)
-
-      // Check if past hero section
-      const heroSection = document.querySelector('#home')
-      if (heroSection) {
-        const heroBottom = heroSection.getBoundingClientRect().bottom
-        const headerHeight = headerRef.current?.offsetHeight || 0
-        setIsPastHero(heroBottom < headerHeight)
-      }
-
-      // Update active section based on scroll position
-      // Map navItems to DOM elements (preserve original nav index even if element is missing)
-      const elements = navItems.map((item) => {
-        const hash = item.href.includes('#') ? item.href.slice(item.href.indexOf('#')) : ''
-        return hash ? (document.querySelector(hash) as HTMLElement | null) : null
-      })
-
-      // If there are no in-page sections on this page, clear active state
-      const hasAnySection = elements.some(Boolean)
-      if (!hasAnySection) {
-        if (activeIndex !== -1) {
-          setActiveIndex(-1)
-          setIndicatorStyle((s) => ({ ...s, opacity: 0 }))
+    const handleScroll = () => {
+      if (typeof window !== 'undefined') {
+        const currentScrollY = window.scrollY
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          setIsVisible(false) // Scroll down
+        } else {
+          setIsVisible(true) // Scroll up
         }
-        return
-      }
-
-      // If at top of page, set to first nav item (only when sections exist)
-      if (window.scrollY < 100) {
-        if (activeIndex !== 0) {
-          setActiveIndex(0)
-        }
-        return
-      }
-
-      // Find which section is most visible in viewport, keeping original nav indices
-      let maxVisibleArea = 0
-      let mostVisibleIndex = 0
-
-      elements.forEach((section, i) => {
-        if (!section) return
-        const rect = section.getBoundingClientRect()
-        const viewportHeight = window.innerHeight
-
-        // Calculate visible area of this section
-        const visibleTop = Math.max(0, rect.top)
-        const visibleBottom = Math.min(viewportHeight, rect.bottom)
-        const visibleArea = Math.max(0, visibleBottom - visibleTop)
-
-        if (visibleArea > maxVisibleArea) {
-          maxVisibleArea = visibleArea
-          mostVisibleIndex = i
-        }
-      })
-
-      if (activeIndex !== mostVisibleIndex) {
-        setActiveIndex(mostVisibleIndex)
+        setLastScrollY(currentScrollY)
       }
     }
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsMenuOpen(false)
-    }
-
-    const onResize = () => {
-      const el = navRefs.current[activeIndex]
-      if (el) setIndicatorStyle({ width: el.offsetWidth, left: el.offsetLeft, opacity: 1 })
-    }
-
-    window.addEventListener('scroll', onScroll)
-    window.addEventListener('keydown', onKey)
-    window.addEventListener('resize', onResize)
-    
-    // Initial check
-    onScroll()
-
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('keydown', onKey)
-      window.removeEventListener('resize', onResize)
-    }
-  }, [activeIndex, pathname])
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
 
   // Try to scroll to a section ID from an href like '/#services' or '#services'.
   const scrollToHash = (href: string) => {
@@ -171,189 +114,277 @@ export default function Header() {
     if (!id) return false
     const el = document.getElementById(id)
     if (!el) return false
-    const offset = 80
+    const offset = 100
     const elementPosition = el.getBoundingClientRect().top
     const offsetPosition = elementPosition + window.pageYOffset - offset
 
-    // Use native smooth scrolling for reliability.
-    // Fall back to instant scroll if not supported.
     try {
       window.scrollTo({ top: Math.round(offsetPosition), behavior: 'smooth' })
     } catch (err) {
       window.scrollTo(0, Math.round(offsetPosition))
     }
-
     return true
   }
 
   useEffect(() => {
-    // lock body scroll when mobile menu is open
     if (typeof document === 'undefined') return
     document.body.style.overflow = isMenuOpen ? 'hidden' : ''
   }, [isMenuOpen])
 
   return (
-    <>
-      <header className="header-glass">
-        <div className="container mx-auto px-6 lg:px-12">
-        {/* Nav glass now wraps the entire header content */}
-        <div 
-          ref={headerRef} 
-          className={`nav-glass-container mt-4 sm:mt-6 px-4 sm:px-6 lg:px-6 flex items-center justify-between ${isPastHero ? 'past-hero' : ''}`}
-          style={{
-            background: isPastHero 
-              ? 'rgba(247, 247, 247, 0.95)' 
-              : `rgba(255, 255, 255, ${scrollOpacity * 0.1})`,
-            borderColor: `rgba(255, 255, 255, ${scrollOpacity * 0.2})`,
-            boxShadow: scrollOpacity > 0 ? `0 8px 32px 0 rgba(31, 38, 135, ${scrollOpacity * 0.15})` : 'none',
-            backdropFilter: scrollOpacity > 0 ? `blur(${scrollOpacity * 12}px) saturate(${100 + scrollOpacity * 80}%)` : 'none',
-            WebkitBackdropFilter: scrollOpacity > 0 ? `blur(${scrollOpacity * 12}px) saturate(${100 + scrollOpacity * 80}%)` : 'none',
-          }}
-        >
-          
-          {/* Left: logo */}
-          <div className={`flex items-center gap-3 flex-shrink-0 lg:ml-2 ${isMenuOpen ? 'opacity-0 pointer-events-none md:opacity-100 md:pointer-events-auto' : ''}`}>
-            <Image src="/videography.png" alt="Creatinn Agency logo" width={48} height={48} className="hidden sm:block w-12 h-12 md:w-14 md:h-14 object-contain" style={{filter: 'brightness(0) saturate(100%)' }} />
-            <div className="text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight font-sans text-[rgb(27,29,30)] whitespace-nowrap" style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>Creatinn Agency</div>
+    <div className={`fixed top-0 left-0 w-full z-[100] px-4 sm:px-6 lg:px-8 pt-4 pointer-events-none transition-transform duration-300 ease-in-out ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
+      <header className="mx-auto max-w-7xl bg-white rounded-2xl shadow-[0_12px_40px_-10px_rgba(0,0,0,0.1)] pointer-events-auto relative">
+        <div className="flex items-center justify-between h-14 sm:h-[60px] px-4 sm:px-6 lg:px-8">
+          {/* Logo */}
+          <a href="/" className="group flex items-center gap-2.5 flex-shrink-0 cursor-pointer transition-opacity">
+            <div className="relative flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 bg-[#111] text-white rounded-[10px] sm:rounded-xl overflow-hidden shadow-sm">
+              <svg 
+                className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-90 transition-transform duration-700 ease-[cubic-bezier(0.87,0,0.13,1)]" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83M16.62 12l-5.74 9.94" />
+              </svg>
+              <div className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
+            </div>
+            <span className="text-[20px] sm:text-[22px] font-bold tracking-tight text-[#111]">
+              Creatinn<span className="text-gray-400">.</span>
+            </span>
+          </a>
+
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-2 xl:gap-4 h-full">
+            {navItems.map((item) => (
+              <div 
+                key={item.label}
+                className="h-full flex items-center"
+                onMouseEnter={() => item.dropdown && setActiveDropdown(item.label)}
+                onMouseLeave={() => item.dropdown && setActiveDropdown(null)}
+              >
+                <a
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    const handled = scrollToHash(item.href)
+                    if (!handled) window.location.href = item.href
+                  }}
+                  className="text-gray-800 text-[15px] font-medium px-4 py-2 rounded-lg hover:bg-black/5 transition-colors flex items-center gap-1.5 cursor-pointer"
+                >
+                  {item.label}
+                  {item.dropdown && (
+                    <svg 
+                      className={`w-3.5 h-3.5 transition-transform duration-200 text-gray-500 ${activeDropdown === item.label ? 'rotate-180' : ''}`} 
+                      fill="none" 
+                      viewBox="0 0 24 24" 
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  )}
+                </a>
+                
+                {/* Mega Menu Dropdown */}
+                {item.dropdown && (
+                  <AnimatePresence>
+                    {activeDropdown === item.label && (
+                      <motion.div 
+                        initial={{ opacity: 0, y: 10, scale: 0.98, x: "-50%" }}
+                        animate={{ opacity: 1, y: 0, scale: 1, x: "-50%" }}
+                        exit={{ opacity: 0, y: 10, scale: 0.98, x: "-50%" }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute top-full pt-4 left-1/2 w-[850px] cursor-default"
+                      >
+                        <div className="bg-white rounded-[2rem] shadow-[0_30px_80px_-15px_rgba(0,0,0,0.15)] p-8 border border-gray-100">
+                          <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 px-2">
+                            {item.label}
+                          </h3>
+                          
+                          <div className="grid grid-cols-2 gap-x-8 gap-y-4">
+                            {item.dropdown.map((subItem, idx) => (
+                              <a 
+                                key={idx} 
+                                href={subItem.href}
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  setActiveDropdown(null)
+                                  scrollToHash(subItem.href)
+                                }}
+                                className="group flex gap-4 items-start p-3 rounded-2xl hover:bg-[#f8f9fa] transition-colors cursor-pointer"
+                              >
+                                <div className="w-11 h-11 rounded-xl bg-[#f2f2f2] flex items-center justify-center text-gray-600 flex-shrink-0 group-hover:bg-primary group-hover:text-black transition-colors">
+                                  {subItem.icon}
+                                </div>
+                                <div>
+                                  <h4 className="text-[15px] font-semibold text-accent mb-1 group-hover:text-black transition-colors">{subItem.title}</h4>
+                                  <p className="text-[13px] text-gray-500 leading-relaxed group-hover:text-gray-600 transition-colors">{subItem.desc}</p>
+                                </div>
+                              </a>
+                            ))}
+                          </div>
+                          
+                          {/* Dark CTA Banner */}
+                          <div className="mt-8 bg-[#111111] rounded-2xl p-6 flex items-center justify-between shadow-lg">
+                            <div className="flex flex-col">
+                              <h4 className="text-white text-[17px] font-bold mb-1">Want to boost your conversions?</h4>
+                              <p className="text-gray-400 text-sm font-medium">Get a free CRO audit for your website.</p>
+                            </div>
+                            <a 
+                              href="/contact" 
+                              className="bg-primary text-[#111111] px-6 py-3 rounded-full text-sm font-bold hover:bg-white transition-colors flex items-center gap-2 group shadow-[0_4px_20px_-5px_rgba(189,255,0,0.3)]"
+                            >
+                              Get Free CRO Audit
+                              <div className="relative w-4 h-4 overflow-hidden ml-1">
+                                <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] group-hover:translate-x-full group-hover:-translate-y-full">
+                                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 18L18 6"/><path d="M8 6C13 7.5 16.5 11 18 6"/><path d="M18 16C16.5 11 13 7.5 18 6"/></svg>
+                                </div>
+                                <div className="absolute inset-0 flex items-center justify-center -translate-x-full translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] group-hover:translate-x-0 group-hover:translate-y-0">
+                                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 18L18 6"/><path d="M8 6C13 7.5 16.5 11 18 6"/><path d="M18 16C16.5 11 13 7.5 18 6"/></svg>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          {/* Desktop CTA */}
+          <div className="hidden lg:flex items-center">
+            <a 
+              href="/contact"
+              className="flex items-center gap-2 bg-[#1a1a1a] text-white px-6 py-2.5 rounded-full text-[15px] font-medium hover:bg-black transition-colors shadow-md group"
+            >
+              Get In Touch
+              <div className="relative w-4 h-4 overflow-hidden ml-1">
+                <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] group-hover:translate-x-full group-hover:-translate-y-full">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 18L18 6"/><path d="M8 6C13 7.5 16.5 11 18 6"/><path d="M18 16C16.5 11 13 7.5 18 6"/></svg>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center -translate-x-full translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] group-hover:translate-x-0 group-hover:translate-y-0">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 18L18 6"/><path d="M8 6C13 7.5 16.5 11 18 6"/><path d="M18 16C16.5 11 13 7.5 18 6"/></svg>
+                </div>
+              </div>
+            </a>
           </div>
 
-          {/* Center: nav links with second glassmorphism layer - show only on large screens */}
-          <div className="hidden lg:block relative z-10 w-max mr-auto">
-            <nav
-              className={`nav-links-glass flex items-center gap-3 xl:gap-4 relative min-w-0 overflow-x-auto ${isPastHero ? 'past-hero' : ''}`}
-              onMouseLeave={() => {
-                // reset to active
-                const el = navRefs.current[activeIndex]
-                if (el) {
-                  setIndicatorStyle({ width: el.offsetWidth, left: el.offsetLeft, opacity: 1 })
-                }
-              }}
-            >
-              <div className="nav-indicator" style={{ width: indicatorStyle.width, transform: `translateX(${indicatorStyle.left}px)`, opacity: indicatorStyle.opacity }} />
-              {navItems.map((item, i) => (
-              <a
-                key={item.label}
-                ref={(el) => { navRefs.current[i] = el }}
-                href={item.href}
-                className={`text-lg xl:text-xl px-3 xl:px-4 py-1 rounded-lg relative z-10 whitespace-nowrap flex-shrink-0 ${i === activeIndex ? 'text-[rgb(27,29,30)] font-semibold' : 'text-slate-700'}`}
-                style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}
-                onMouseEnter={(e) => {
-                  const target = e.currentTarget as HTMLElement
-                  setIndicatorStyle({ width: target.offsetWidth, left: target.offsetLeft, opacity: 1 })
-                }}
-                onClick={(e) => {
-                  e.preventDefault()
-                  setActiveIndex(i)
-                  const target = e.currentTarget as HTMLElement
-                  setIndicatorStyle({ width: target.offsetWidth, left: target.offsetLeft, opacity: 1 })
-
-                  // Prefer scrolling to an in-page section. If not present, navigate to the href.
-                  const handled = scrollToHash(item.href)
-                  if (!handled) {
-                    window.location.href = item.href
-                  }
-                }}
-              >
-                {item.label}
-              </a>
-            ))}
-            </nav>
-        </div>
-
-        {/* Right: Menu button and CTA button on main container level */}
-        <div className="flex items-center gap-4 flex-shrink-0">
+          {/* Mobile Menu Button */}
           <button
-            className={`lg:hidden inline-flex items-center p-2 rounded-full text-slate-700 hover:bg-slate-100 ring-0 hover:ring-1 hover:ring-slate-200 ${isMenuOpen ? 'opacity-0 pointer-events-none' : ''}`}
-            aria-label="Open menu"
-            aria-expanded={isMenuOpen}
+            className="lg:hidden flex flex-col justify-center items-center w-11 h-11 border-none bg-transparent cursor-pointer relative"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <rect x="3" y="5" width="14" height="2" rx="1" fill="currentColor" />
-              <rect x="3" y="11" width="14" height="2" rx="1" fill="currentColor" />
-              <rect x="3" y="17" width="10" height="2" rx="1" fill="currentColor" />
-              <circle cx="19" cy="12" r="2" fill="currentColor" />
-            </svg>
+            <span className={`w-5 h-0.5 bg-accent rounded-full transition-all duration-300 absolute ${isMenuOpen ? 'rotate-45' : '-translate-y-1.5'}`} />
+            <span className={`w-5 h-0.5 bg-accent rounded-full transition-all duration-300 absolute ${isMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}`} />
+            <span className={`w-3 h-0.5 bg-accent rounded-full transition-all duration-300 absolute ${isMenuOpen ? '-rotate-45 w-5' : 'translate-y-1.5 -translate-x-1'}`} />
           </button>
-
-          <CTAButton href="/contact" variant="dark" className="hidden lg:inline-flex group items-center gap-2 xl:gap-3 px-3 xl:px-4 py-2.5 xl:py-3 justify-between overflow-hidden font-sans font-semibold text-sm xl:text-base max-w-[16rem] truncate !hover:bg-white">
-            <span className="transition-colors duration-300 pr-4 group-hover:text-black">Let's Collaborate</span>
-            <span className="cta-arrow bg-white text-[rgb(27,29,30)] transition-all duration-300 transform-gpu flex-shrink-0 group-hover:bg-black group-hover:text-white">
-              <svg viewBox="0 0 24 24" className="w-4 h-4 xl:w-5 xl:h-5 transform -rotate-45" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M12 5l7 7-7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </span>
-          </CTAButton>
         </div>
-      </div>
-      </div>
       </header>
 
-
-      {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 z-[9999] lg:hidden transition-opacity duration-300 ease-in-out ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-        <div className="absolute inset-0 bg-[rgb(27,29,30)] bg-opacity-40 transition-opacity duration-300 ease-in-out z-[9999]" onClick={() => setIsMenuOpen(false)} />
-
-        <div
-          className={`absolute left-6 top-4 right-6 bottom-4 w-auto max-w-xs bg-white rounded-2xl shadow-2xl transform transition-transform duration-300 ease-in-out z-[10000] ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
-          style={{ left: '1.5rem', right: '1.5rem', maxWidth: '360px', width: 'min(360px, calc(100% - 3rem))', boxSizing: 'border-box' }}
-        >
-          <div className="flex flex-col h-full">
-            {/* Mobile Panel Header */}
-            <div className="flex items-center justify-between p-4 border-b border-slate-100">
-              <div className="flex items-center gap-3">
-                <Image src="/videography.png" alt="Creatinn" width={40} height={40} className="w-10 h-10 object-contain" />
-                <div className="text-lg font-bold">Creatinn Agency</div>
-              </div>
-              <button aria-label="Close menu" onClick={() => setIsMenuOpen(false)} className="p-2 rounded-lg hover:bg-slate-100">
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+      {/* Mobile Menu Dropdown */}
+      <div 
+        className={`lg:hidden absolute top-[80px] left-4 right-4 bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.87,0,0.13,1)] pointer-events-auto ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8 pointer-events-none'}`}
+      >
+        <div className="px-5 pt-3 pb-6 flex flex-col max-h-[70vh] overflow-y-auto">
+          {navItems.map((item) => (
+            <div key={item.label} className="border-b border-gray-100 last:border-0">
+              
+              {/* Item Header */}
+              <button
+                onClick={(e) => {
+                  if (item.dropdown) {
+                    setOpenMobileAccordion(openMobileAccordion === item.label ? null : item.label)
+                  } else {
+                    setIsMenuOpen(false)
+                    const handled = scrollToHash(item.href)
+                    if (!handled) window.location.href = item.href
+                  }
+                }}
+                className="flex items-center justify-between w-full py-4 text-[16px] font-semibold text-accent hover:text-black transition-colors"
+              >
+                {item.label}
+                {item.dropdown && (
+                  <svg 
+                    className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${openMobileAccordion === item.label ? 'rotate-180 text-black' : ''}`} 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+                  </svg>
+                )}
               </button>
-            </div>
-
-            <div className="flex-1 overflow-y-auto p-6">
-              <nav className="flex flex-col space-y-4">
-                {navItems.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="text-2xl font-semibold text-slate-900 hover:text-slate-600 py-2"
-                    onClick={(e) => {
+              
+              {/* Mobile Accordion Content */}
+              {item.dropdown && (
+                <div 
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${openMobileAccordion === item.label ? 'max-h-[800px] opacity-100 mb-4' : 'max-h-0 opacity-0'}`}
+                >
+                  <div className="pl-4 flex flex-col gap-5 pt-2">
+                    {item.dropdown.map((subItem, idx) => (
+                      <a 
+                        key={idx}
+                        href={subItem.href}
+                        onClick={(e) => {
                           e.preventDefault()
                           setIsMenuOpen(false)
-                          // Try in-page scroll first; if not present, navigate.
-                          const handled = scrollToHash(item.href)
-                          if (!handled) {
-                            // Use full navigation when the section isn't on the current page
-                            window.location.href = item.href
-                          }
+                          scrollToHash(subItem.href)
                         }}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
-
-              <div className="mt-8 border-t border-slate-100 pt-6">
-                <p className="text-sm text-slate-500 mb-4">Let's collaborate — we build brands, content, and media that convert.</p>
-                <CTAButton href="/contact" variant="dark" className="w-full" onClick={() => setIsMenuOpen(false)}>
-                  Let's Collaborate
-                </CTAButton>
-              </div>
+                        className="flex items-start gap-3"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-[#f2f2f2] flex items-center justify-center text-gray-500 flex-shrink-0">
+                          {subItem.icon}
+                        </div>
+                        <div>
+                          <h4 className="text-[14px] font-semibold text-accent mb-0.5">{subItem.title}</h4>
+                          <p className="text-[12px] text-gray-500 leading-tight">{subItem.desc}</p>
+                        </div>
+                      </a>
+                    ))}
+                    
+                    {/* Mobile Banner CTA */}
+                    <div className="mt-2 bg-[#111111] rounded-xl p-4">
+                      <h4 className="text-white text-[14px] font-bold mb-1">Boost your conversions</h4>
+                      <p className="text-gray-400 text-xs font-medium mb-4">Get a free CRO audit.</p>
+                      <a 
+                        href="/contact" 
+                        className="inline-flex bg-primary text-[#111111] px-4 py-2 rounded-full text-xs font-bold hover:bg-white transition-colors items-center gap-1.5"
+                      >
+                        Free Audit
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 18L18 6"/><path d="M8 6C13 7.5 16.5 11 18 6"/><path d="M18 16C16.5 11 13 7.5 18 6"/></svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-
-            <div className="p-4 border-t border-slate-100 flex items-center justify-between text-sm text-slate-600">
-              <div className="flex items-center gap-3">
-                <a href="https://instagram.com/creatinn" className="hover:text-slate-900">Instagram</a>
-                <a href="https://youtube.com/@creatinn" className="hover:text-slate-900">YouTube</a>
+          ))}
+          
+          <div className="mt-6 pt-4 border-t border-gray-100">
+            <a 
+              href="/contact"
+              className="flex items-center justify-center gap-2 w-full bg-primary text-accent px-7 py-3.5 rounded-full text-sm font-bold hover:opacity-90 transition-opacity group"
+            >
+              Get In Touch
+              <div className="relative w-4 h-4 overflow-hidden ml-1">
+                <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] group-hover:translate-x-full group-hover:-translate-y-full">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 18L18 6"/><path d="M8 6C13 7.5 16.5 11 18 6"/><path d="M18 16C16.5 11 13 7.5 18 6"/></svg>
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center -translate-x-full translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] group-hover:translate-x-0 group-hover:translate-y-0">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 18L18 6"/><path d="M8 6C13 7.5 16.5 11 18 6"/><path d="M18 16C16.5 11 13 7.5 18 6"/></svg>
+                </div>
               </div>
-              <div>©{new Date().getFullYear()}</div>
-            </div>
+            </a>
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }

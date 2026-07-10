@@ -18,41 +18,34 @@ const Testimonials = dynamic(() => import('../components/Testimonials'), { ssr: 
 const Awards = dynamic(() => import('../components/Awards'), { ssr: true })
 const ServicesMarquee = dynamic(() => import('../components/ServicesMarquee'), { ssr: true })
 const WorkCTA = dynamic(() => import('../components/WorkCTA'), { ssr: true })
+const DeliveryProcess = dynamic(() => import('../components/DeliveryProcess'), { ssr: true })
 
 export default function Page() {
   return (
-    <main className="pt-0 md:pt-20 mb-0">
+    <main className="bg-white text-accent">
       <Header />
-
       <Hero />
       <div className="bg-white relative z-30">
         <LogoMarquee />
-        <div className="relative z-30 w-full bg-transparent">
-          <div className="container mx-auto px-6 lg:px-12 py-8">
-            <div className="flex items-center gap-4 justify-center">
-              <div className="flex-1 h-px bg-slate-200" />
-              <div className="px-4 text-sm text-slate-500 text-center">Loved by 500+ big and small brands around the world</div>
-              <div className="flex-1 h-px bg-slate-200" />
-            </div>
-          </div>
-        </div>
         <div className="relative overflow-hidden">
-          <div className="absolute inset-0 z-[15] pointer-events-none opacity-20 transform translate-y-48 sm:translate-y-64">
+          {/* Subtle 3D Carousel Background Element (Lightened) */}
+          <div className="absolute inset-0 z-[15] pointer-events-none opacity-5 transform translate-y-48 sm:translate-y-64 mix-blend-multiply filter grayscale">
             <ThreeDCarouselClient />
           </div>
+          
           <About />
           <Services />
           <ServicesMarquee />
           <WorkCTA />
           <Portfolio />
           <Testimonials />
-          <Awards />
           <Pricing />
           <FAQ />
           <Callout />
           <Footer />
         </div>
       </div>
+      <Analytics />
     </main>
   )
 }

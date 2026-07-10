@@ -1,140 +1,105 @@
-"use client"
+'use client'
 import React from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
-import AnimatedHeading from './AnimatedHeading';
-
-const caseStudies = [];
 
 export default function WorkCTA() {
   return (
-    <section className="relative z-30 bg-white py-24 lg:py-32" id="work-cta">
-      <div className="container mx-auto px-6 lg:px-12">
-        {/* Heading */}
+    <section className="py-24 px-4 bg-[#f2f2f2] relative overflow-hidden" id="work-cta">
+      <div className="max-w-7xl mx-auto">
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-20"
-        >
-          <AnimatedHeading
-            as="h2"
-            className="mb-8 text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-bold leading-tight text-[rgb(27,29,30)]"
-            maxTranslate={28}
-            maxScale={0.03}
-          >
-            <span className="block sm:inline" style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>How we transformed </span>
-            <span className="block sm:inline" style={{ fontFamily: 'Inter Tight, Inter, system-ui, sans-serif' }}>a small business's </span>
-            <span className="block sm:inline lg:block italic" style={{ fontFamily: 'Playfair Display, serif' }}>online presence</span>
-          </AnimatedHeading>
-        </motion.div>
-
-        {/* Featured Case Study */}
-        <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="max-w-6xl mx-auto mb-16"
+          transition={{ duration: 0.7 }}
+          className="rounded-[2.5rem] bg-[#111] p-12 md:p-24 text-center shadow-2xl overflow-hidden relative"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            {/* Left: Visual showcase */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="relative rounded-2xl overflow-hidden h-96 lg:h-full min-h-96 group shadow-xl"
-            >
-              <Image
-                src="/Vandah2.png"
-                alt="Vandah project showcase"
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            </motion.div>
-
-            {/* Right: Content */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="flex flex-col justify-center space-y-6"
-            >
-              <div>
-                <p className="text-sm font-semibold text-indigo-600 uppercase tracking-widest mb-3">Featured Case Study</p>
-                <h3 className="text-5xl lg:text-6xl font-bold text-[rgb(27,29,30)] mb-4">Vandah</h3>
-                <p className="text-xl text-slate-700 font-medium mb-3">Creative Portfolio & Showcase</p>
-                <p className="text-lg text-slate-600 leading-relaxed">
-                  A modern, visually-driven portfolio platform designed to showcase creative work with elegance and impact. We created an immersive digital experience that puts the work first.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-3 pt-4">
-                <div className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-slate-700">Stunning visual design</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-slate-700">Seamless user experience</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <svg className="w-5 h-5 text-indigo-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-slate-700">Results-driven approach</span>
-                </div>
-              </div>
-
-              <a 
-                href="https://vandah.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-[rgb(27,29,30)] text-white rounded-full font-semibold hover:bg-slate-800 transition-all duration-300 w-fit group"
+          {/* Subtle Background Pattern */}
+          <div className="absolute inset-0 opacity-5 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
+          
+          {/* Camera and Lights background image */}
+          <div className="absolute inset-0 z-0 opacity-30 mix-blend-luminosity">
+            <img src="/camera_lights.png" alt="Camera and lighting setup" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-[#111]/70 mix-blend-multiply"></div>
+          </div>
+          
+          <div className="relative z-10 flex flex-col items-center justify-center min-h-[50vh]">
+            
+            <div className="flex flex-col items-center gap-6 mb-12">
+              {/* CAMERA */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8, x: -50, rotate: -6 }}
+                whileInView={{ opacity: 1, scale: 1, x: 0, rotate: -3 }}
+                viewport={{ once: false, amount: 0.4 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.1 }}
+                className="bg-white px-8 py-3 md:px-12 md:py-4 border-2 md:border-4 border-black shadow-[8px_8px_0px_#b2df5e] md:shadow-[12px_12px_0px_#b2df5e] -ml-10 md:-ml-32 z-10"
               >
-                <span>Visit Project</span>
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
+                <h2 className="text-5xl md:text-7xl lg:text-[7rem] font-black tracking-tighter text-black uppercase font-sans">
+                  Camera
+                </h2>
+              </motion.div>
+              
+              {/* LIGHTS */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8, x: 50, rotate: 6 }}
+                whileInView={{ opacity: 1, scale: 1, x: 0, rotate: 4 }}
+                viewport={{ once: false, amount: 0.4 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.3 }}
+                className="bg-primary px-8 py-3 md:px-12 md:py-4 border-2 md:border-4 border-black shadow-[8px_8px_0px_white] md:shadow-[12px_12px_0px_white] ml-10 md:ml-32 z-20"
+              >
+                <h2 className="text-5xl md:text-7xl lg:text-[7rem] font-black tracking-tighter text-black uppercase font-serif italic">
+                  Lights
+                </h2>
+              </motion.div>
+
+              {/* ACTION */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8, y: 50, rotate: -4 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0, rotate: -2 }}
+                viewport={{ once: false, amount: 0.4 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.5 }}
+                className="bg-white px-10 py-4 md:px-16 md:py-6 border-2 md:border-4 border-black shadow-[8px_8px_0px_#b2df5e] md:shadow-[16px_16px_0px_#b2df5e] mt-4 z-30"
+              >
+                <h2 className="text-6xl md:text-8xl lg:text-[9rem] font-black tracking-tighter text-black uppercase font-sans">
+                  Action
+                </h2>
+              </motion.div>
+            </div>
+            
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+              className="text-xl md:text-3xl text-white/90 font-medium mb-12 max-w-3xl leading-relaxed"
+            >
+              We bring your brand's story to the big screen. Premium cinematography meets viral content.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1, duration: 0.5 }}
+            >
+              <a 
+                href="/contact" 
+                className="inline-flex items-center gap-2 bg-primary text-black px-10 py-5 rounded-full font-bold text-lg hover:bg-white transition-colors shadow-lg group"
+              >
+                Start Rolling
+                <div className="relative w-5 h-5 overflow-hidden ml-1">
+                  <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] group-hover:translate-x-full group-hover:-translate-y-full">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 18L18 6"/><path d="M8 6C13 7.5 16.5 11 18 6"/><path d="M18 16C16.5 11 13 7.5 18 6"/></svg>
+                  </div>
+                  <div className="absolute inset-0 flex items-center justify-center -translate-x-full translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] group-hover:translate-x-0 group-hover:translate-y-0">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M6 18L18 6"/><path d="M8 6C13 7.5 16.5 11 18 6"/><path d="M18 16C16.5 11 13 7.5 18 6"/></svg>
+                  </div>
+                </div>
               </a>
             </motion.div>
+            
           </div>
-        </motion.div>
-
-        {/* Other Case Studies Grid */}
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          </div>
-        </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="text-center mt-20"
-        >
-          <p className="text-slate-600 mb-6 text-lg">Ready to see what we can do for you?</p>
-          <a 
-            href="#contact"
-            className="inline-flex items-center gap-2 px-6 py-3 text-slate-900 font-semibold border-b-2 border-slate-900 hover:text-slate-600 hover:border-slate-600 transition-colors duration-300"
-          >
-            <span>Get in Touch</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </a>
         </motion.div>
       </div>
     </section>
-  );
+  )
 }

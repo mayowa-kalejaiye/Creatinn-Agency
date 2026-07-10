@@ -1,7 +1,6 @@
-"use client"
-
-import React, { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+'use client'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const FAQ_ITEMS = [
   {
@@ -19,89 +18,85 @@ const FAQ_ITEMS = [
   {
     q: 'Do you offer ongoing support after project completion?',
     a: 'Yes — we provide maintenance and growth retainers, ad-hoc support, and handoff documentation so your team can run with what we build.'
-  },
-  {
-    q: 'How often will I receive updates on my project?',
-    a: 'We typically deliver weekly or biweekly updates depending on the plan, plus scheduled calls and access to project status documents so you always know progress and next steps.'
   }
 ]
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
-  const [visibleItems, setVisibleItems] = useState<boolean[]>(new Array(FAQ_ITEMS.length).fill(false))
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = parseInt(entry.target.getAttribute('data-index') || '0')
-            setTimeout(() => {
-              setVisibleItems(prev => {
-                const newVisible = [...prev]
-                newVisible[index] = true
-                return newVisible
-              })
-            }, index * 150) // Stagger each item by 150ms
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-
-    itemRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref)
-    })
-
-    return () => observer.disconnect()
-  }, [])
 
   return (
-    <section id="faq" className="py-24 bg-white">
-      <div className="container mx-auto px-6 lg:px-12 text-center">
-        <motion.h2 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[rgb(27,29,30)] mb-8"
-        >
-          Got questions?<br/> <span style={{ fontFamily: 'Playfair Display, serif' }} className="italic font-medium">answers</span>
-        </motion.h2>
+    <section id="faq" className="py-24 bg-[#f2f2f2]">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header */}
+        <div className="text-center mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="text-gray-500 font-medium tracking-wide uppercase text-sm mb-4 block">
+              FAQ
+            </span>
+          </motion.div>
+          
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-accent"
+          >
+            Frequently Asked Questions
+          </motion.h2>
+        </div>
 
-        <div className="max-w-4xl mx-auto space-y-6 text-left">
-          {FAQ_ITEMS.map((item, i) => (
-            <div 
-              key={item.q} 
-              ref={(el) => { itemRefs.current[i] = el }}
-              data-index={i}
-              className={`rounded-2xl border border-slate-100 overflow-hidden transition-all duration-700 ${
-                visibleItems[i] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-            >
-              <button
-                className="w-full text-left px-10 py-8 flex items-center justify-between gap-6 bg-white transition-all hover:bg-slate-50 hover:pl-12 duration-300"
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                aria-expanded={openIndex === i}
+        {/* FAQ List */}
+        <div className="space-y-4">
+          {FAQ_ITEMS.map((item, i) => {
+            const isOpen = openIndex === i;
+            return (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100"
               >
-                <span className="text-xl md:text-2xl lg:text-3xl font-semibold">{item.q}</span>
-                <span className={`text-slate-500 text-2xl md:text-3xl transition-transform duration-300 ${openIndex === i ? 'rotate-45' : ''}`}>{openIndex === i ? '−' : '+'}</span>
-              </button>
+                <button
+                  className="w-full text-left px-8 py-6 flex items-center justify-between gap-6 transition-colors hover:bg-gray-50 focus:outline-none"
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  aria-expanded={isOpen}
+                >
+                  <span className="text-lg md:text-xl font-bold text-accent">{item.q}</span>
+                  <span className={`flex-shrink-0 w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300 ${isOpen ? 'bg-accent border-accent text-white rotate-45' : 'bg-transparent border-gray-300 text-accent'}`}>
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                  </span>
+                </button>
 
-              <div 
-                className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                  openIndex === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-                }`}
-              >
-                <div className="px-10 pb-10 text-slate-600 bg-white">
-                  <p className="text-lg md:text-xl lg:text-2xl leading-relaxed">
-                    {item.a}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div 
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      <div className="px-8 pb-8 text-gray-600">
+                        <p className="text-base md:text-lg leading-relaxed font-medium">
+                          {item.a}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>

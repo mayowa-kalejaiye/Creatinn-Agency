@@ -1,16 +1,16 @@
-"use client"
+'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
+import Image from 'next/image'
 
 export default function About() {
   const sectionRef = useRef<HTMLElement | null>(null)
-  const headlineRef = useRef<HTMLDivElement | null>(null)
-  const isInView = useInView(headlineRef, { once: true, amount: 0.3 })
-  const [started, setStarted] = useState(false)
-  const targets = [40, 15, 9]
-  const [values, setValues] = useState<number[]>(targets.map(() => 0))
+  const headerRef = useRef<HTMLDivElement | null>(null)
+  const isInView = useInView(headerRef, { once: false, amount: 0.2 })
   
-  const fullText = "Crafting exceptional, well experienced & technology\ndriven strategies to drive impactful results with"
+  const [started, setStarted] = useState(false)
+  const targets = [150, 98]
+  const [values, setValues] = useState<number[]>(targets.map(() => 0))
 
   useEffect(() => {
     const el = sectionRef.current
@@ -20,11 +20,13 @@ export default function About() {
       entries.forEach(entry => {
         if (entry.isIntersecting && !started) {
           setStarted(true)
-          // start counting
           targets.forEach((target, idx) => animateCount(idx, target))
+        } else if (!entry.isIntersecting) {
+          setStarted(false)
+          setValues(targets.map(() => 0))
         }
       })
-    }, { threshold: 0.25 })
+    }, { threshold: 0.2 })
 
     obs.observe(el)
     return () => obs.disconnect()
@@ -32,12 +34,11 @@ export default function About() {
   }, [started])
 
   function animateCount(index: number, target: number) {
-    const duration = 1600
+    const duration = 2000
     const start = performance.now()
     const step = (now: number) => {
       const elapsed = now - start
       const progress = Math.min(elapsed / duration, 1)
-      // easeOutCubic
       const eased = 1 - Math.pow(1 - progress, 3)
       const current = Math.round(eased * target)
       setValues(prev => {
@@ -51,107 +52,145 @@ export default function About() {
   }
 
   return (
-    <section id="about" ref={sectionRef} className="about-section bg-white py-24">
-      <div className="container mx-auto px-0 relative z-10">
-        <div ref={headlineRef}>
-          <motion.h3 
-              className="about-headline"
-              initial="hidden"
-              animate={isInView ? 'visible' : 'hidden'}
-              variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: 1, transition: { staggerChildren: 0.06 } }
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              {fullText.split('\n').map((line, i) => (
-                <div key={i}>
-                  {line.split(/( well experienced | & technology driven strategies| & technology | driven strategies)/).map((part, j) => {
-                    // split each part into words and animate per-word for performance
-                    const words = part.split(/(\s+)/)
-                    return (
-                      <React.Fragment key={j}>
-                        {words.map((w, wi) => (
-                          <motion.span
-                            key={`${j}-${wi}`}
-                            variants={{ hidden: { y: 12, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { duration: 0.45, ease: [0.2,0.8,0.2,1] } } }}
-                            className={part.trim() === 'well experienced' ? 'italic' : 'regular primary'}
-                            style={{ display: 'inline-block', whiteSpace: 'pre' }}
-                          >
-                            {w}
-                          </motion.span>
-                        ))}
-                      </React.Fragment>
-                    )
-                  })}
-                </div>
-              ))}
-            </motion.h3>
+    <section id="about" ref={sectionRef} className="py-24 bg-white text-accent">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header Section */}
+        <div ref={headerRef} className="mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="text-gray-500 font-medium tracking-wide uppercase text-sm mb-4 block">
+              About Creatinn
+            </span>
+          </motion.div>
+          
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight max-w-4xl"
+          >
+            We're a studio for ambitious teams. We build bold brands, content, and media that earn real engagement.
+          </motion.h2>
         </div>
 
-        <motion.div 
-          className="about-bullets" 
-          role="list" 
-          aria-label="approach"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <div className="pill pill--purple" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="6" cy="6" r="3" stroke="currentColor" strokeWidth="1.6"/>
-              <circle cx="6" cy="18" r="3" stroke="currentColor" strokeWidth="1.6"/>
-              <path d="M20 4L8.12 15.88" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-              <path d="M14.47 14.48L20 20" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-            </svg>
-            Creativity
+        {/* Creative Bento Gallery */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-20">
+          
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-full h-[300px] md:h-[500px] rounded-[2rem] overflow-hidden md:col-span-2 group shadow-xl"
+          >
+            <Image 
+              src="/optimized/images/3U4A1894-1200.avif" 
+              alt="BTS Shoot"
+              fill
+              className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-full h-[300px] md:h-[500px] rounded-[2rem] overflow-hidden md:col-span-1 group shadow-xl"
+          >
+            <Image 
+              src="/optimized/images/IMG_0657-1200.avif" 
+              alt="Studio Setup"
+              fill
+              className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-full h-[300px] md:h-[400px] rounded-[2rem] overflow-hidden md:col-span-1 group shadow-xl"
+          >
+            <Image 
+              src="/optimized/images/IMG_0515-1200.avif" 
+              alt="Drone Shot"
+              fill
+              className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+            />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="relative w-full h-[300px] md:h-[400px] rounded-[2rem] overflow-hidden md:col-span-2 group shadow-xl"
+          >
+            <Image 
+              src="/optimized/images/IMG_0905-1200.avif" 
+              alt="Creative Team"
+              fill
+              className="object-cover transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+            />
+          </motion.div>
+
+        </div>
+
+        {/* Two Column Layout for Description and Stats */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+          
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium">
+              Most agencies bolted digital onto an old workflow. We rebuilt the workflow around it. That's why our team ships premium media and content two to three times faster, without cutting corners on creative quality.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col"
+            >
+              <span className="text-gray-400 font-medium mb-6">/01</span>
+              <div className="mt-auto">
+                <h3 className="text-6xl md:text-7xl font-bold tracking-tighter mb-2">
+                  {values[0]}+
+                </h3>
+                <p className="text-gray-500 font-medium">Projects shipped</p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col"
+            >
+              <span className="text-gray-400 font-medium mb-6">/02</span>
+              <div className="mt-auto">
+                <h3 className="text-6xl md:text-7xl font-bold tracking-tighter mb-2">
+                  {values[1]}%
+                </h3>
+                <p className="text-gray-500 font-medium">Client satisfaction</p>
+              </div>
+            </motion.div>
           </div>
 
-          <div className="pill pill--blue" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M9 18h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-              <path d="M10 22h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-              <path d="M15 14c1.5-1 3-3 3-5.5A6 6 0 0 0 6 8.5c0 2.5 1.5 4.5 3 5.5V16a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Innovation
-          </div>
-
-          <div className="pill pill--amber" role="listitem">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <circle cx="12" cy="12" r="2" stroke="currentColor" strokeWidth="1.6"/>
-              <circle cx="19" cy="5" r="2" stroke="currentColor" strokeWidth="1.6"/>
-              <circle cx="5" cy="5" r="2" stroke="currentColor" strokeWidth="1.6"/>
-              <circle cx="19" cy="19" r="2" stroke="currentColor" strokeWidth="1.6"/>
-              <circle cx="5" cy="19" r="2" stroke="currentColor" strokeWidth="1.6"/>
-              <path d="M12 10V6M6 6l5 5M18 6l-5 5M6 18l5-5M18 18l-5-5" stroke="currentColor" strokeWidth="1.6"/>
-            </svg>
-            Strategy
-          </div>
-        </motion.div>
-
-        <motion.div 
-          className="stats-grid relative z-20"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-        >
-          <div className="stat">
-            <div className="stat-number"><span className="plus">+</span>{values[0]}</div>
-            <div className="stat-label">Total Projects Completed</div>
-          </div>
-
-          <div className="stat">
-            <div className="stat-number"><span className="plus">+</span>{values[1]}</div>
-            <div className="stat-label">Years of Experience</div>
-          </div>
-
-          <div className="stat">
-            <div className="stat-number"><span className="plus">+</span>{values[2]}</div>
-            <div className="stat-label">Design Awards</div>
-          </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

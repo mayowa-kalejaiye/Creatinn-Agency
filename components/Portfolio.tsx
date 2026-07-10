@@ -1,181 +1,97 @@
-"use client"
-
-import React, { useEffect, useState } from 'react'
-
-import AnimatedHeading from './AnimatedHeading'
-
-type Project = {
-  name: string 
-  tags: string[]
-  images?: string[]
-  isDouble?: boolean
-  spanClass?: string
-}
-
-const projects: Project[] = [
-  {
-    name: '',
-    images: ['/3U4A1894.jpg', '/3U4A1815.jpg', '/3U4A8829.jpg'],
-    tags: ['Web3 Strategy', 'Portfolio Design'],
-    spanClass: 'md:col-span-2 xl:col-span-2',
-  },
-  {
-    name: 'FlowBank',
-    images: ['/3U4A1905.jpg', '/3U4A9420.jpg', '/IMG_0691.jpg'],
-    tags: ['UX Research', 'Interface Design'],
-    spanClass: 'md:col-span-1 xl:col-span-1',
-  },
-  {
-    name: 'Academy.co',
-    images: ['/IMG_3188.JPG', '/IMG_3202.JPG', '/IMG_2341.jpg'],
-    tags: ['Product Design', 'Interaction Design'],
-    spanClass: 'md:col-span-1 xl:col-span-1',
-  },
-  {
-    name: 'Genome',
-    images: ['/IMG_2400.jpg', '/IMG_3314(1).JPG', '/IMG_0965.jpg'],
-    tags: ['Brand identity design', 'UX Research'],
-    spanClass: 'md:col-span-2 xl:col-span-2',
-  },
-  {
-    name: 'Creatinn Academy',
-    images: ['/academy-1.jpg', '/academy-2.jpg'],
-    tags: ['Education', 'Creative Learning'],
-    isDouble: true,
-    spanClass: 'md:col-span-2 xl:col-span-3',
-  },
-]
-
-function SlideshowCard({ project }: { project: Project }) {
-  const images = project.images ?? []
-  const [activeIndex, setActiveIndex] = useState(0)
-
-  useEffect(() => {
-    if (images.length <= 1) return
-
-    const interval = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % images.length)
-    }, 3200)
-
-    return () => window.clearInterval(interval)
-  }, [images.length])
-
-  return (
-    <article className={`group relative overflow-hidden rounded-3xl bg-slate-100 shadow-sm ${project.spanClass ?? ''}`}>
-      <div className="relative aspect-[4/5] overflow-hidden">
-        {images.map((src, index) => (
-          <div
-            key={src}
-            className={`absolute inset-0 transition-opacity duration-700 ease-out ${index === activeIndex ? 'opacity-100' : 'opacity-0'}`}
-          >
-            <BackgroundImage src={src} alt={`${project.name} image ${index + 1}`} />
-          </div>
-        ))}
-
-        {/* If this is not the Creatinn Academy project, don't render descriptive overlays — show only images */}
-        {project.name === 'Creatinn Academy' ? (
-          <>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-
-            <div className="absolute left-5 right-5 bottom-5 z-10 flex items-end justify-between gap-4">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80 mb-2">Featured Project</p>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">{project.name}</h3>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full bg-white/16 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {images.length > 1 && (
-                <div className="rounded-full bg-white/18 px-3 py-1 text-xs font-semibold text-white/85 backdrop-blur-sm">
-                  {String(activeIndex + 1).padStart(2, '0')}/{String(images.length).padStart(2, '0')}
-                </div>
-              )}
-            </div>
-          </>
-        ) : null}
-      </div>
-    </article>
-  )
-}
-
-function DoubleShowcaseCard({ project }: { project: Project }) {
-  const images = project.images ?? []
-
-  return (
-    <article className={`group relative overflow-hidden rounded-3xl bg-slate-100 shadow-sm ${project.spanClass ?? ''}`}>
-      <div className="grid aspect-[16/9] grid-cols-2 overflow-hidden">
-        {images.map((src, index) => (
-          <div key={src} className="relative overflow-hidden">
-            <BackgroundImage src={src} alt={`${project.name} image ${index + 1}`} />
-          </div>
-        ))}
-      </div>
-
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
-
-      <div className="absolute left-5 right-5 bottom-5 z-10">
-        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/80 mb-2">Featured Project</p>
-        <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">{project.name}</h3>
-        <div className="flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-full bg-white/16 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-    </article>
-  )
-}
+'use client'
+import React, { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import Image from 'next/image'
 
 export default function Portfolio() {
+  const containerRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  })
+
+  // Parallax effect for the background image
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"])
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95])
+
   return (
-    <section className="relative z-30 bg-white py-20" id="work">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="mb-12 text-center">
-          <AnimatedHeading as="h2" className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[rgb(27,29,30)]" maxTranslate={22} maxScale={0.025}>
-            Selected work
-          </AnimatedHeading>
+    <section ref={containerRef} className="bg-[#0a0a0a] py-32 relative overflow-hidden" id="work">
+      
+      {/* Background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Header */}
+        <div className="mb-16 flex flex-col items-center text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs mb-6 block drop-shadow-md">
+              Cinematic Showreel
+            </span>
+          </motion.div>
+          
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="text-5xl md:text-7xl lg:text-[7rem] font-bold tracking-tighter leading-none text-white max-w-4xl"
+          >
+            Watch our <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-white font-serif italic font-normal pr-4">Reel</span>
+          </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {projects.map((project) =>
-            project.isDouble ? (
-              <DoubleShowcaseCard key={project.name} project={project} />
-            ) : (
-              <SlideshowCard key={project.name} project={project} />
-            ),
-          )}
-        </div>
+        {/* Massive Video Player Container */}
+        <motion.a 
+          href="https://www.instagram.com/p/DUq7NNkDUH-/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ scale }}
+          className="relative block w-full aspect-video md:aspect-[21/9] rounded-[2rem] sm:rounded-[3rem] overflow-hidden group cursor-pointer shadow-2xl border border-white/10"
+        >
+          {/* Parallax Image */}
+          <motion.div style={{ y }} className="absolute inset-0 w-full h-[120%] -top-[10%]">
+            <Image
+              src="/optimized/images/IMG_3188-1200.avif"
+              alt="Cinematic Showreel"
+              fill
+              className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-700"
+            />
+          </motion.div>
+
+          {/* Vignette Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/80 pointer-events-none"></div>
+          
+          {/* Play Button - Magnetic Hover Effect */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-24 h-24 md:w-32 md:h-32 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 group-hover:bg-primary pointer-events-auto shadow-[0_0_40px_rgba(0,0,0,0.5)]">
+              <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10 md:w-12 md:h-12 text-white group-hover:text-[#0a0a0a] transition-colors ml-2 drop-shadow-lg">
+                <path d="M6 4L20 12L6 20V4Z" fill="currentColor" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Title Overlay */}
+          <div className="absolute bottom-8 md:bottom-12 left-8 md:left-12 pointer-events-none">
+            <div className="overflow-hidden">
+              <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tight transform translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                The Creatinn Collection
+              </h3>
+            </div>
+            <div className="overflow-hidden mt-2">
+              <p className="text-lg md:text-xl text-white/80 font-medium transform translate-y-full group-hover:translate-y-0 transition-transform duration-700 delay-75 ease-[cubic-bezier(0.22,1,0.36,1)]">
+                Highlighting our best moments of 2026.
+              </p>
+            </div>
+          </div>
+        </motion.a>
+
       </div>
     </section>
-  )
-}
-
-function BackgroundImage({ src, alt }: { src: string; alt?: string }) {
-  const [failed, setFailed] = useState(false)
-
-  if (!src || failed) {
-    return <div className="absolute inset-0 bg-gradient-to-br from-slate-200 to-slate-300" />
-  }
-
-  return (
-    <img
-      src={src}
-      alt={alt}
-      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-      onError={() => setFailed(true)}
-    />
   )
 }

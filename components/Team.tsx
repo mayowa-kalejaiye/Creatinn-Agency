@@ -8,7 +8,7 @@ const teamMembers = [
     name: 'Peter-Nelson Isaiah',
     role: 'Head of Creative',
     image: '/IMG_3314%20(1).JPG',
-    instagram: 'https://instagram.com/creatinn',
+    instagram: 'https://www.instagram.com/creatinn_agency/',
     youtube: 'https://youtube.com/@creatinn',
   },
 ];

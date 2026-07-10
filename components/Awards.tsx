@@ -1,5 +1,4 @@
-"use client";
-
+'use client';
 import React, { useState, useEffect, useRef } from "react";
 import Image from 'next/image'
 import { motion, PanInfo } from "framer-motion";
@@ -10,81 +9,6 @@ interface CardData {
   title: string;
   year: string;
 }
-
-interface IconProps {
-  className?: string;
-}
-
-interface BadgeProps {
-  children: React.ReactNode;
-  className?: string;
-}
-
-interface CardProps {
-  card: CardData;
-  index: number;
-  activeIndex: number;
-  totalCards: number;
-}
-
-const SparklesIcon: React.FC<IconProps> = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M9.93 2.25 12 7.5l2.07-5.25a.5.5 0 0 1 .9 0L17.25 8.5l4.16.34a.5.5 0 0 1 .29.88l-3.2 3.1.95 4.5a.5.5 0 0 1-.73.53L12 14.5l-3.72 2.33a.5.5 0 0 1-.73-.53l.95-4.5-3.2-3.1a.5.5 0 0 1 .29-.88l4.16-.34Z" />
-  </svg>
-);
-
-const ChevronLeftIcon: React.FC<IconProps> = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="m15 18-6-6 6-6" />
-  </svg>
-);
-
-const ChevronRightIcon: React.FC<IconProps> = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="m9 18 6-6-6-6" />
-  </svg>
-);
-
-const Badge: React.FC<BadgeProps> = ({ children, className }) => (
-  <div
-    className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium ${className}`}
-  >
-    {children}
-  </div>
-);
 
 const cardData: CardData[] = [
   {
@@ -113,38 +37,9 @@ const cardData: CardData[] = [
   },
 ];
 
-type AnimatedHeadingProps = {
-  as?: keyof React.JSX.IntrinsicElements;
-  className?: string;
-  maxTranslate?: number;
-  maxScale?: number;
-  children: React.ReactNode;
-};
-
-const AnimatedHeading: React.FC<AnimatedHeadingProps> = ({
-  as: Tag = "h2",
-  className = "",
-  maxTranslate = 30,
-  maxScale = 0.03,
-  children,
-}) => {
-  // Simple animation effect using framer-motion
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: maxTranslate }}
-      animate={{ opacity: 1, y: 0, scale: 1 + maxScale }}
-      transition={{ duration: 0.7, type: "spring" }}
-    >
-      {React.createElement(Tag, { className }, children)}
-    </motion.div>
-  );
-};
-
 export default function Awards() {
   const carouselRef = useRef<HTMLDivElement | null>(null);
-  const [activeIndex, setActiveIndex] = useState(
-    Math.floor(cardData.length / 2)
-  );
+  const [activeIndex, setActiveIndex] = useState(Math.floor(cardData.length / 2));
   const [isPaused, setIsPaused] = useState(false);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const autoplayDelay = 3000;
@@ -164,21 +59,6 @@ export default function Awards() {
     };
   }, [isPaused, activeIndex]);
 
-  // Pause autoplay when carousel is offscreen (saves CPU and keeps nav state correct)
-  useEffect(() => {
-    const el = carouselRef.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        // pause when less than 25% visible
-        setIsPaused(!entry.isIntersecting)
-      },
-      { threshold: [0, 0.25, 0.5, 1] }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
   const changeSlide = (newIndex: number) => {
     const newSafeIndex = (newIndex + cardData.length) % cardData.length;
     setActiveIndex(newSafeIndex);
@@ -190,10 +70,7 @@ export default function Awards() {
     }
   };
 
-  const onDragEnd = (
-    event: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo
-  ) => {
+  const onDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const dragThreshold = 75;
     const dragOffset = info.offset.x;
     if (dragOffset > dragThreshold) {
@@ -204,29 +81,40 @@ export default function Awards() {
   };
 
   return (
-    <section className="relative z-30 bg-white py-20 w-full flex-col items-center justify-center font-sans overflow-hidden" id="awards">
-      <div className="text-center mb-16">
-          <AnimatedHeading as="h2" className="text-4xl md:text-5xl lg:text-6xl font-medium text-[rgb(27,29,30)] mb-4" maxTranslate={30} maxScale={0.03}>
-          Accolades and achievements <br/>celebrating our
-          <span className="italic font-medium font-serif"> design excellence</span>
-        </AnimatedHeading>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-          Honored by the design community for excellence and innovation
-        </p>
-      </div>
-      
-      <div
-        className="w-full max-w-7xl mx-auto p-4"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        <div className="relative flex w-full flex-col rounded-3xl border border-white/10 dark:border-white/10 bg-white dark:bg-neutral-900 p-4 pt-6 md:p-6">
-          <Badge className="absolute left-4 top-6 rounded-xl border border-gray-300 dark:border-white/10 text-base text-gray-700 dark:text-white/80 bg-gray-100/80 dark:bg-black/20 backdrop-blur-sm md:left-6">
-            <SparklesIcon className="text-[rgb(27,29,30)] stroke-1 text-neutral-800 h-5 w-5 mr-1" />
-            Our Awards
-          </Badge>
+    <section className="bg-[#f2f2f2] py-24" id="awards">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="text-gray-500 font-medium tracking-wide uppercase text-sm mb-4 block">
+              Recognition
+            </span>
+          </motion.div>
+          
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-accent"
+          >
+            Accolades celebrating our design excellence.
+          </motion.h2>
+        </div>
 
-          <div ref={carouselRef} className="relative w-full h-[400px] md:h-[550px] flex items-center justify-center overflow-hidden pt-12">
+        {/* Carousel */}
+        <div 
+          className="relative bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm overflow-hidden"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <div ref={carouselRef} className="relative w-full h-[400px] md:h-[550px] flex items-center justify-center pt-8">
             <motion.div
               className="w-full h-full flex items-center justify-center"
               drag="x"
@@ -234,109 +122,77 @@ export default function Awards() {
               dragElastic={0.2}
               onDragEnd={onDragEnd}
             >
-              {cardData.map((card, index) => (
-                <Card
-                  key={card.id}
-                  card={card}
-                  index={index}
-                  activeIndex={activeIndex}
-                  totalCards={cardData.length}
-                />
-              ))}
+              {cardData.map((card, index) => {
+                let offset = index - activeIndex;
+                if (offset > cardData.length / 2) offset -= cardData.length;
+                else if (offset < -cardData.length / 2) offset += cardData.length;
+
+                const isVisible = Math.abs(offset) <= 1;
+
+                return (
+                  <motion.div
+                    key={card.id}
+                    className="absolute w-3/5 md:w-1/2 h-[90%]"
+                    style={{ transformStyle: "preserve-3d" }}
+                    animate={{
+                      x: `${offset * 50}%`,
+                      scale: offset === 0 ? 1 : 0.85,
+                      zIndex: cardData.length - Math.abs(offset),
+                      opacity: isVisible ? 1 : 0,
+                    }}
+                    transition={{ type: "spring", stiffness: 260, damping: 30 }}
+                  >
+                    <div className="relative w-full h-full rounded-3xl shadow-xl overflow-hidden bg-gray-100 border border-gray-200">
+                      <Image
+                        src={card.imageUrl}
+                        alt={card.title}
+                        fill
+                        className="object-cover pointer-events-none"
+                      />
+                      <div className="absolute top-4 left-4 bg-primary text-accent px-4 py-1.5 rounded-full text-sm font-semibold shadow-sm">
+                        {card.year}
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                        <h4 className="text-white text-xl font-bold tracking-tight">{card.title}</h4>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </div>
 
-          <div className="flex items-center justify-center gap-6 mt-6">
+          <div className="flex items-center justify-center gap-4 mt-8 relative z-20">
             <button
               onClick={() => changeSlide(activeIndex - 1)}
-              aria-label="Previous award"
-              className="p-2 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-300 dark:border-white/10 text-gray-700 dark:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[rgb(27,29,30)]"
+              className="p-3 rounded-full bg-gray-100 hover:bg-gray-200 text-accent transition-colors"
             >
-              <ChevronLeftIcon className="w-6 h-6" />
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
             </button>
-
-            <div className="flex items-center justify-center gap-2">
+            <div className="flex items-center gap-2">
               {cardData.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => changeSlide(index)}
-                  className={`h-2 rounded-full transition-all duration-300 focus:outline-none ${
-                    activeIndex === index
-                      ? "w-6 bg-[rgb(27,29,30)]"
-                      : "w-2 bg-gray-300 dark:bg-neutral-600 hover:bg-gray-400 dark:hover:bg-neutral-500"
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    activeIndex === index ? "w-8 bg-primary" : "w-2 bg-gray-300 hover:bg-gray-400"
                   }`}
-                  aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
             </div>
-
             <button
               onClick={() => changeSlide(activeIndex + 1)}
-              aria-label="Next award"
-              className="p-2 rounded-full bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-300 dark:border-white/10 text-gray-700 dark:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-[rgb(27,29,30)]"
+              className="p-3 rounded-full bg-gray-100 hover:bg-gray-200 text-accent transition-colors"
             >
-              <ChevronRightIcon className="w-6 h-6" />
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </button>
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function Card({ card, index, activeIndex, totalCards }: CardProps) {
-  let offset = index - activeIndex;
-  if (offset > totalCards / 2) {
-    offset -= totalCards;
-  } else if (offset < -totalCards / 2) {
-    offset += totalCards;
-  }
-
-  const isVisible = Math.abs(offset) <= 1;
-
-  const animate = {
-    x: `${offset * 50}%`,
-    scale: offset === 0 ? 1 : 0.8,
-    zIndex: totalCards - Math.abs(offset),
-    opacity: isVisible ? 1 : 0,
-    transition: { type: "spring" as const, stiffness: 260, damping: 30 },
-  };
-
-  return (
-    <motion.div
-      className="absolute w-3/5 md:w-1/2 h-[95%]"
-      style={{
-        transformStyle: "preserve-3d",
-      }}
-      animate={animate}
-      initial={false}
-    >
-      <div className="relative w-full h-full rounded-3xl shadow-2xl overflow-hidden bg-gray-200 dark:bg-neutral-800">
-        <Image
-          src={card.imageUrl}
-          alt={card.title}
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover pointer-events-none"
-          loading="lazy"
-          placeholder="blur"
-          blurDataURL={"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><rect width='10' height='10' fill='%231e1e1e'/></svg>"}
-          onError={(e: any) => {
-            // fallback to placeholder if optimization fails
-            const target = e?.target as HTMLImageElement | null
-            if (target) {
-              target.onerror = null
-              target.src = 'https://placehold.co/400x600/1e1e1e/ffffff?text=Image+Missing'
-            }
-          }}
-        />
-        <div className="absolute top-4 left-4 bg-[rgb(27,29,30)] text-white px-3 py-1 rounded-full text-sm font-semibold shadow-md">
-          {card.year}
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
-          <h4 className="text-white text-lg font-semibold">{card.title}</h4>
-        </div>
-      </div>
-    </motion.div>
   );
 }

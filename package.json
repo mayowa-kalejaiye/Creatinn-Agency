@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-three/drei": "^9.88.0",
     "@react-three/fiber": "^8.15.0",
+    "@sendbyte/node": "^0.2.1",
     "@studio-freight/lenis": "^1.0.42",
     "@vercel/analytics": "^1.6.1",
     "framer-motion": "^11.11.17",
@@ -20,7 +21,6 @@
     "three": "^0.159.0"
   },
   "devDependencies": {
-    
     "@types/node": "25.0.9",
     "@types/react": "19.2.8",
     "autoprefixer": "^10.4.14",
