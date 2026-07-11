@@ -5,7 +5,7 @@ import ContactButton from './ContactButton'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0a0a0a] text-white pt-24 pb-[12vw] overflow-hidden [clip-path:inset(0)] rounded-t-[3rem] relative mt-[-2rem] z-40 font-sans">
+    <footer className="bg-[#0a0a0a] text-white pt-24 overflow-hidden [clip-path:inset(0)] rounded-t-[3rem] relative mt-[-2rem] z-40 font-sans">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
         
         {/* Top Section: CTA */}
@@ -121,7 +121,7 @@ export default function Footer() {
         </div>
 
         {/* Footer Bottom Meta */}
-        <div className="flex flex-col md:flex-row items-center justify-between pt-6 pb-8 border-t border-white/10 text-white/50 text-sm font-medium">
+        <div className="flex flex-col md:flex-row items-center justify-between pt-6 pb-12 border-t border-white/10 text-white/50 text-sm font-medium">
           <p>© {new Date().getFullYear()} Creatinn Agency. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
@@ -130,14 +130,14 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Massive Typography */}
-      <div className="absolute bottom-0 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden">
+      {/* Massive Typography - Document Flow */}
+      <div className="w-full flex justify-center pointer-events-none select-none overflow-hidden h-[15vw] relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: "60%" }}
-          whileInView={{ opacity: 1, y: "28%" }}
+          initial={{ opacity: 0, y: "100%" }}
+          whileInView={{ opacity: 1, y: "0%" }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="text-[19vw] leading-[0.75] font-bold tracking-tighter text-white opacity-[0.95]"
+          className="text-[20vw] leading-[0.75] font-bold tracking-tighter text-white opacity-[0.95]"
         >
           CREATINN
         </motion.div>

@@ -109,7 +109,11 @@ export default function Hero() {
                 <span className="flex items-center justify-center gap-x-2 md:gap-x-4 whitespace-nowrap">
                   <span>Brands</span>
                   <motion.button
-                    onClick={() => setIsVideoOpen(true)}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsVideoOpen(true);
+                    }}
                     animate={{ 
                       boxShadow: ['0px 0px 0px 0px rgba(255,255,255,0.3)', '0px 0px 20px 10px rgba(255,255,255,0)', '0px 0px 0px 0px rgba(255,255,255,0)']
                     }}
