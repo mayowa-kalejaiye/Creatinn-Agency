@@ -8,8 +8,8 @@ const testimonials = [
     quote: "The team captured every beautiful moment of my wedding day perfectly. The cinematic wedding film they produced was beyond anything I could have imagined. Truly breathtaking work.",
     author: "Hephzibah",
     role: "Wedding Client",
-    image: "/IMG_5014.JPG",
-    bgImage: "/IMG_5014.JPG"
+    image: "/IMG_5014.jpg",
+    bgImage: "/IMG_5014.jpg"
   },
   {
     quote: "Creatinn brought my personal brand to life. The portrait session and branding video they produced captured my true essence. I feel so much more confident presenting myself online.",
