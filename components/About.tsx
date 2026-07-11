@@ -78,14 +78,14 @@ export default function About() {
         </div>
 
         {/* Creative Bento Gallery */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-20">
           
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "0px 0px -50px 0px" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full h-[300px] md:h-[500px] rounded-[2rem] overflow-hidden md:col-span-2 group shadow-xl"
+            className="relative w-full h-[200px] sm:h-[250px] md:h-[500px] rounded-3xl md:rounded-[2rem] overflow-hidden col-span-2 md:col-span-2 group shadow-xl"
           >
             <Image 
               src="/optimized/images/3U4A1894-1200.avif" 
@@ -100,7 +100,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full h-[300px] md:h-[500px] rounded-[2rem] overflow-hidden md:col-span-1 group shadow-xl"
+            className="relative w-full h-[180px] sm:h-[220px] md:h-[500px] rounded-3xl md:rounded-[2rem] overflow-hidden col-span-1 md:col-span-1 group shadow-xl"
           >
             <Image 
               src="/optimized/images/IMG_0657-1200.avif" 
@@ -115,7 +115,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full h-[300px] md:h-[400px] rounded-[2rem] overflow-hidden md:col-span-1 group shadow-xl"
+            className="relative w-full h-[180px] sm:h-[220px] md:h-[400px] rounded-3xl md:rounded-[2rem] overflow-hidden col-span-1 md:col-span-1 group shadow-xl"
           >
             <Image 
               src="/optimized/images/IMG_0515-1200.avif" 
@@ -130,7 +130,7 @@ export default function About() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full h-[300px] md:h-[400px] rounded-[2rem] overflow-hidden md:col-span-2 group shadow-xl"
+            className="relative w-full h-[200px] sm:h-[250px] md:h-[400px] rounded-3xl md:rounded-[2rem] overflow-hidden col-span-2 md:col-span-2 group shadow-xl"
           >
             <Image 
               src="/optimized/images/IMG_0905-1200.avif" 

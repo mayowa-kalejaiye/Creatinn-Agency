@@ -290,7 +290,7 @@ export default function Header() {
 
       {/* Mobile Menu Dropdown */}
       <div 
-        className={`lg:hidden absolute top-[80px] left-4 right-4 bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.87,0,0.13,1)] pointer-events-auto ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8 pointer-events-none'}`}
+        className={`lg:hidden absolute top-[80px] left-4 right-4 bg-white rounded-2xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] overflow-hidden transition-all duration-400 ease-[cubic-bezier(0.87,0,0.13,1)] ${isMenuOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-8 pointer-events-none'}`}
       >
         <div className="px-5 pt-3 pb-6 flex flex-col max-h-[70vh] overflow-y-auto">
           {navItems.map((item) => (

@@ -134,7 +134,7 @@ export default function Footer() {
       <div className="w-full flex justify-center pointer-events-none select-none overflow-hidden h-[15vw] relative z-10">
         <motion.div
           initial={{ opacity: 0, y: "100%" }}
-          whileInView={{ opacity: 1, y: "0%" }}
+          whileInView={{ opacity: 1, y: "30%" }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="text-[20vw] leading-[0.75] font-bold tracking-tighter text-white opacity-[0.95]"
