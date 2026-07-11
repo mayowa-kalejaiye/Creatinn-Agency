@@ -10,6 +10,7 @@ import { Analytics } from "@vercel/analytics/next"
 const Portfolio = dynamic(() => import('../components/Portfolio'), { ssr: true })
 const Pricing = dynamic(() => import('../components/Pricing'), { ssr: true })
 const FAQ = dynamic(() => import('../components/FAQ'), { ssr: true })
+const AcademyCTA = dynamic(() => import('../components/AcademyCTA'), { ssr: true })
 const Callout = dynamic(() => import('../components/Callout'), { ssr: true })
 const Footer = dynamic(() => import('../components/Footer'), { ssr: true })
 const ThreeDCarouselClient = dynamic(() => import('../components/ThreeDCarouselClient'), { ssr: true })
@@ -41,9 +42,10 @@ export default function Page() {
           <Testimonials />
           <Pricing />
           <FAQ />
+          <AcademyCTA />
           <Callout />
-          <Footer />
         </div>
+        <Footer />
       </div>
       <Analytics />
     </main>

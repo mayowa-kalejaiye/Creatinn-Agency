@@ -74,7 +74,7 @@ const navItems = [
     ]
   },
   { label: 'Work', href: '/#work' },
-  { label: 'Team', href: '/#team' },
+  { label: 'About', href: '/#about' },
   { label: 'Pricing', href: '/#pricing' },
 ]
 

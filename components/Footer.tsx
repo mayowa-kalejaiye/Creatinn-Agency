@@ -1,10 +1,11 @@
 'use client'
 import React from 'react'
 import { motion } from 'framer-motion'
+import ContactButton from './ContactButton'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0a0a0a] text-white pt-24 pb-0 overflow-hidden rounded-t-[3rem] relative mt-[-2rem] z-40 font-sans">
+    <footer className="bg-[#0a0a0a] text-white pt-24 pb-[12vw] overflow-hidden [clip-path:inset(0)] rounded-t-[3rem] relative mt-[-2rem] z-40 font-sans">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
         
         {/* Top Section: CTA */}
@@ -21,47 +22,7 @@ export default function Footer() {
             <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-[8rem] font-bold tracking-tight leading-[1.1]">
               Reality
             </h2>
-              <a 
-                href="/contact" 
-                className="group relative flex items-center justify-center w-36 h-20 md:w-56 md:h-28 bg-primary rounded-[1.5rem] transition-all duration-500 shadow-xl overflow-hidden"
-                aria-label="Contact Us"
-              >
-                {/* Animated Arrow Container */}
-                <div className="relative w-12 h-12 md:w-16 md:h-16 overflow-hidden">
-                  {/* First Arrow - Flies out top right */}
-                  <div className="absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] group-hover:translate-x-full group-hover:-translate-y-full">
-                    <svg 
-                      className="w-12 h-12 md:w-16 md:h-16 text-[#0a0a0a]" 
-                      fill="none" 
-                      viewBox="0 0 24 24" 
-                      stroke="currentColor" 
-                      strokeWidth="2.5"
-                      strokeLinecap="round" 
-                      strokeLinejoin="round"
-                    >
-                      <path d="M6 18L18 6" />
-                      <path d="M8 6C13 7.5 16.5 11 18 6" />
-                      <path d="M18 16C16.5 11 13 7.5 18 6" />
-                    </svg>
-                  </div>
-                  {/* Second Arrow - Flies in from bottom left */}
-                  <div className="absolute inset-0 flex items-center justify-center -translate-x-full translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] group-hover:translate-x-0 group-hover:translate-y-0">
-                    <svg 
-                      className="w-12 h-12 md:w-16 md:h-16 text-[#0a0a0a]" 
-                      fill="none" 
-                      viewBox="0 0 24 24" 
-                      stroke="currentColor" 
-                      strokeWidth="2.5"
-                      strokeLinecap="round" 
-                      strokeLinejoin="round"
-                    >
-                      <path d="M6 18L18 6" />
-                      <path d="M8 6C13 7.5 16.5 11 18 6" />
-                      <path d="M18 16C16.5 11 13 7.5 18 6" />
-                    </svg>
-                  </div>
-                </div>
-              </a>
+              <ContactButton />
           </div>
         </div>
         
@@ -72,10 +33,11 @@ export default function Footer() {
           <div>
             <h4 className="text-white/40 text-sm font-semibold mb-6">Services</h4>
             <ul className="space-y-4">
-              <li><a href="#" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">UI/UX Design</a></li>
-              <li><a href="#" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Web Development</a></li>
-              <li><a href="#" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Video Production</a></li>
-              <li><a href="#" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Brand Strategy</a></li>
+              <li><a href="#services" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Cinematography</a></li>
+              <li><a href="#services" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Photography</a></li>
+              <li><a href="#services" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Social Content</a></li>
+              <li><a href="#services" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Post-Production</a></li>
+              <li><a href="#services" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Creative Direction</a></li>
             </ul>
           </div>
 
@@ -83,10 +45,8 @@ export default function Footer() {
           <div>
             <h4 className="text-white/40 text-sm font-semibold mb-6">Work</h4>
             <ul className="space-y-4">
-              <li><a href="#" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">FlowBank App</a></li>
-              <li><a href="#" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Academy.co</a></li>
-              <li><a href="#" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Genome SaaS</a></li>
-              <li><a href="#" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Creatinn Academy</a></li>
+              <li><a href="https://vandah.com" target="_blank" rel="noopener noreferrer" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Vandah.com</a></li>
+              <li><a href="https://creatinnacademy.com" target="_blank" rel="noopener noreferrer" className="text-[#f2f2f2] text-sm md:text-base font-medium hover:text-primary transition-colors">Creatinn Academy</a></li>
             </ul>
           </div>
 
@@ -108,8 +68,8 @@ export default function Footer() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
               {[
                 { name: "Instagram", href: "https://www.instagram.com/creatinn_agency/", icon: <path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.67 4.77-4.92 4.92-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-3.25-.15-4.77-1.69-4.92-4.92-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.15-3.23 1.67-4.77 4.92-4.92 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 2.69.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07s3.67-.01 4.95-.07c4.36-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.36-2.62-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84A6.16 6.16 0 1018.16 12 6.16 6.16 0 0012 5.84zm0 10.16A4 4 0 1116 12a4 4 0 01-4 4zm6.41-11.85a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z" /> },
-                { name: "LinkedIn", href: "#", icon: <path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zm-11.5 6H5.3v9h2.2V9zm-1.1-3.4a1.3 1.3 0 100 2.6 1.3 1.3 0 000-2.6zm11.4 12.4v-4.8c0-2.6-1.4-3.8-3.2-3.8-1.5 0-2.2.8-2.6 1.4v-1.2H9.8v9h2.2v-4.5c0-1.2.2-2.3 1.7-2.3 1.4 0 1.4 1.3 1.4 2.4v4.4h2.3z" /> },
-                { name: "X", href: "#", icon: <path d="M18.9 2H22l-6.75 7.72L23.18 22h-6.22l-4.88-6.38L6.51 22H3.41l7.21-8.24L3.13 2h6.39l4.41 5.86L18.9 2zm-1.08 18h1.72L7.33 3.86H5.48L17.82 20z" /> }
+                { name: "TikTok", href: "#", icon: <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 2.22-1.15 4.39-2.92 5.74-1.76 1.34-4.04 1.83-6.2 1.5-2.14-.32-4.1-1.46-5.41-3.15-1.3-1.68-1.84-3.86-1.5-5.96.34-2.14 1.51-4.08 3.23-5.36 1.72-1.29 3.91-1.78 6.01-1.45.1.02.19.03.29.05v4.11c-1.18-.3-2.45-.19-3.53.37-1.09.55-1.88 1.56-2.17 2.73-.28 1.19-.07 2.47.59 3.49.66 1.04 1.79 1.72 3 1.9 1.21.18 2.48-.11 3.47-.79 1-.68 1.65-1.81 1.78-3.03.04-.38.04-.77.04-1.15V.02h-3.7z"/> },
+                { name: "YouTube", href: "#", icon: <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/> }
               ].map((social) => (
                 <a 
                   key={social.name}
@@ -161,7 +121,7 @@ export default function Footer() {
         </div>
 
         {/* Footer Bottom Meta */}
-        <div className="flex flex-col md:flex-row items-center justify-between py-6 border-t border-white/10 text-white/50 text-sm font-medium pb-[12vw]">
+        <div className="flex flex-col md:flex-row items-center justify-between pt-6 pb-8 border-t border-white/10 text-white/50 text-sm font-medium">
           <p>© {new Date().getFullYear()} Creatinn Agency. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
@@ -171,10 +131,10 @@ export default function Footer() {
       </div>
 
       {/* Massive Typography */}
-      <div className="absolute bottom-0 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden translate-y-[28%]">
+      <div className="absolute bottom-0 left-0 w-full flex justify-center pointer-events-none select-none overflow-hidden">
         <motion.div
-          initial={{ opacity: 0, y: "50%" }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: "60%" }}
+          whileInView={{ opacity: 1, y: "28%" }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="text-[19vw] leading-[0.75] font-bold tracking-tighter text-white opacity-[0.95]"
@@ -184,7 +144,12 @@ export default function Footer() {
       </div>
       
       {/* Background Gradient Effect */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[80vw] h-[40vh] bg-primary/20 blur-[120px] rounded-full pointer-events-none z-0"></div>
+      <div 
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[100vw] h-[50vh] pointer-events-none z-0"
+        style={{
+          background: 'radial-gradient(ellipse at bottom, rgba(200, 236, 136, 0.15) 0%, transparent 70%)'
+        }}
+      ></div>
     </footer>
   )
 }

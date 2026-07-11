@@ -55,7 +55,7 @@ export default function Services() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5 }}
           >
             <span className="text-gray-500 font-medium tracking-wide uppercase text-sm mb-4 block">
@@ -66,7 +66,7 @@ export default function Services() {
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight max-w-3xl"
           >
@@ -82,7 +82,7 @@ export default function Services() {
               custom={idx}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.2 }}
               variants={cardVariants}
               className="relative group rounded-3xl overflow-hidden flex flex-col justify-between min-h-[360px] cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 border border-white/5"
             >
@@ -132,7 +132,7 @@ export default function Services() {
             custom={5}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             variants={cardVariants}
             className="group relative p-10 rounded-3xl bg-primary flex flex-col justify-between min-h-[360px] cursor-pointer hover:bg-accent transition-colors duration-500 overflow-hidden"
           >

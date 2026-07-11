@@ -5,8 +5,6 @@ import Image from 'next/image'
 
 export default function About() {
   const sectionRef = useRef<HTMLElement | null>(null)
-  const headerRef = useRef<HTMLDivElement | null>(null)
-  const isInView = useInView(headerRef, { once: false, amount: 0.2 })
   
   const [started, setStarted] = useState(false)
   const targets = [150, 98]
@@ -53,13 +51,14 @@ export default function About() {
 
   return (
     <section id="about" ref={sectionRef} className="py-24 bg-white text-accent">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
         
         {/* Header Section */}
-        <div ref={headerRef} className="mb-16">
+        <div className="mb-20 pt-10 md:pt-16">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "0px 0px -50px 0px" }}
             transition={{ duration: 0.5 }}
           >
             <span className="text-gray-500 font-medium tracking-wide uppercase text-sm mb-4 block">
@@ -69,9 +68,10 @@ export default function About() {
           
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "0px 0px -50px 0px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight max-w-4xl"
+            className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-normal py-4 max-w-4xl relative z-20"
           >
             We're a studio for ambitious teams. We build bold brands, content, and media that earn real engagement.
           </motion.h2>
@@ -83,7 +83,7 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, margin: "0px 0px -50px 0px" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="relative w-full h-[300px] md:h-[500px] rounded-[2rem] overflow-hidden md:col-span-2 group shadow-xl"
           >
@@ -98,7 +98,7 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="relative w-full h-[300px] md:h-[500px] rounded-[2rem] overflow-hidden md:col-span-1 group shadow-xl"
           >
@@ -113,7 +113,7 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="relative w-full h-[300px] md:h-[400px] rounded-[2rem] overflow-hidden md:col-span-1 group shadow-xl"
           >
@@ -128,7 +128,7 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="relative w-full h-[300px] md:h-[400px] rounded-[2rem] overflow-hidden md:col-span-2 group shadow-xl"
           >
@@ -148,7 +148,7 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.1 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="text-xl md:text-2xl text-gray-600 leading-relaxed font-medium">
@@ -160,7 +160,7 @@ export default function About() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col"
             >
@@ -176,7 +176,7 @@ export default function About() {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               className="flex flex-col"
             >
