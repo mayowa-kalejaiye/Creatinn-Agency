@@ -51,7 +51,8 @@ const brands = [
 
 export default function LogoMarquee() {
   return (
-    <div className="relative z-10 w-full bg-white py-6 md:py-8 overflow-hidden border-b border-gray-100 flex items-center h-[80px] md:h-[100px]">
+    <div className="w-full px-2 sm:px-4 bg-white relative z-10">
+      <div className="relative w-full max-w-[1440px] mx-auto bg-white py-6 md:py-8 overflow-hidden flex items-center h-[80px] md:h-[100px] rounded-b-[2rem] sm:rounded-b-[2.5rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-t-0 border-gray-100/50">
       {/* Left Static Gradient Block */}
       <div className="absolute top-0 left-0 bottom-0 w-[180px] md:w-[260px] z-10 bg-gradient-to-r from-white from-80% to-transparent flex items-center pl-4 sm:pl-6 md:pl-10">
         <p className="text-[12px] md:text-[13px] font-medium text-gray-400 whitespace-nowrap">
@@ -77,6 +78,7 @@ export default function LogoMarquee() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

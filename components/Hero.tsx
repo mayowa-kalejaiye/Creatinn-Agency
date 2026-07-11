@@ -9,9 +9,9 @@ export default function Hero() {
 
   return (
     <>
-      <section id="home" className="sticky top-0 w-full px-2 sm:px-4 pt-2 sm:pt-3 pb-8 bg-white z-0">
+      <section id="home" className="sticky top-0 w-full px-2 sm:px-4 pt-2 sm:pt-3 pb-0 bg-white z-0">
         {/* Main Hero Container */}
-        <div className="relative w-full h-[80vh] min-h-[550px] max-h-[800px] mx-auto max-w-[1440px] rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-2xl">
+        <div className="relative w-full h-[80vh] min-h-[550px] max-h-[800px] mx-auto max-w-[1440px] rounded-t-[2rem] sm:rounded-t-[2.5rem] rounded-b-none overflow-hidden shadow-2xl">
           
           {/* Background Video / Image Placeholder */}
           <div className="absolute inset-0 bg-black z-0 overflow-hidden">
@@ -102,11 +102,11 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 1.0, ease: [0.22, 1, 0.36, 1] }}
               className="w-full max-w-6xl mx-auto mb-6 px-2"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5.5rem] leading-[1.1] font-bold text-white tracking-tight flex flex-wrap items-center justify-center gap-x-3 md:gap-x-4 gap-y-2">
-                <span className="block w-full text-center">
+              <h1 className="text-[6.5vw] min-[400px]:text-[7vw] sm:text-5xl md:text-6xl lg:text-[4.5rem] xl:text-[5.5rem] leading-[1.1] font-bold text-white tracking-tight flex flex-col items-center justify-center gap-y-2">
+                <span className="block w-full text-center whitespace-nowrap">
                   Visual Content <span className="font-serif italic font-normal text-white">Studio</span> for
                 </span>
-                <span className="flex flex-wrap items-center justify-center gap-x-3 md:gap-x-4 gap-y-2">
+                <span className="flex items-center justify-center gap-x-2 md:gap-x-4 whitespace-nowrap">
                   <span>Brands</span>
                   <motion.button
                     onClick={() => setIsVideoOpen(true)}
@@ -114,11 +114,11 @@ export default function Hero() {
                       boxShadow: ['0px 0px 0px 0px rgba(255,255,255,0.3)', '0px 0px 20px 10px rgba(255,255,255,0)', '0px 0px 0px 0px rgba(255,255,255,0)']
                     }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                    className="group relative flex items-center justify-center w-16 h-10 sm:w-20 sm:h-12 md:w-24 md:h-14 lg:w-28 lg:h-16 rounded-xl md:rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 transition-all hover:scale-105 overflow-hidden btn-lens-flare"
+                    className="group relative flex items-center justify-center w-14 h-8 min-[400px]:w-16 min-[400px]:h-10 sm:w-20 sm:h-12 md:w-24 md:h-14 lg:w-28 lg:h-16 rounded-lg md:rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 hover:bg-white/20 transition-all hover:scale-105 overflow-hidden btn-lens-flare"
                     aria-label="Play Video"
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
-                    <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6 md:w-8 md:h-8 text-primary ml-1 drop-shadow-md relative z-10 transition-transform group-hover:scale-110 group-hover:text-white">
+                    <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5 min-[400px]:w-6 min-[400px]:h-6 md:w-8 md:h-8 text-primary ml-1 drop-shadow-md relative z-10 transition-transform group-hover:scale-110 group-hover:text-white">
                       <path d="M6 4L20 12L6 20V4Z" fill="currentColor" />
                     </svg>
                   </motion.button>
