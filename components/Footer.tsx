@@ -2,6 +2,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import ContactButton from './ContactButton'
+import NigeriaMapIcon from './NigeriaMapIcon'
 
 export default function Footer() {
   return (
@@ -95,12 +96,7 @@ export default function Footer() {
               <p className="text-white/50 text-sm md:text-base font-medium max-w-[200px]">Mangoro Ikeja, Lagos</p>
             </div>
             <div className="text-white/20 group-hover:text-primary/40 transition-colors">
-              {/* Abstract Eye Icon representing UK/London Eye */}
-              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07" />
-                <circle cx="12" cy="12" r="2" fill="currentColor"/>
-              </svg>
+              <NigeriaMapIcon className="w-16 h-16 drop-shadow-md" />
             </div>
           </div>
 
