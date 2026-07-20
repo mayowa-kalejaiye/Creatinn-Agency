@@ -127,13 +127,13 @@ export default function Footer() {
       </div>
 
       {/* Massive Typography - Document Flow */}
-      <div className="w-full flex justify-center pointer-events-none select-none overflow-hidden h-[15vw] relative z-10">
+      <div className="w-full flex justify-center pointer-events-none select-none overflow-hidden h-[18vw] relative z-10">
         <motion.div
           initial={{ opacity: 0, y: "100%" }}
-          whileInView={{ opacity: 1, y: "30%" }}
+          whileInView={{ opacity: 1, y: "25%" }}
           viewport={{ once: true }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="text-[20vw] leading-[0.75] font-bold tracking-tighter text-white opacity-[0.95]"
+          className="text-[20vw] leading-[0.8] font-bold tracking-tighter text-white opacity-[0.95]"
         >
           CREATINN
         </motion.div>

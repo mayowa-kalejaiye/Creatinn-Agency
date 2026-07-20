@@ -22,8 +22,8 @@ module.exports = {
         }
       },
       fontFamily: {
-        sans: ['"Inter"', '"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['"Bricolage Grotesque"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Bricolage Grotesque"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         serif: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
       },
       animation: {
